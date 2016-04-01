@@ -36,8 +36,6 @@
         <div style="margin-top: 5px">
                      <input type="text" name="password" value="<?php echo $data[0]->password ?>" placeholder="Roll No">
                 </div>
-
-
         <div id="input-submit-main" >
 
                    <span > <input type="submit" value="Cancel" > </span>
