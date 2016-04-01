@@ -73,10 +73,11 @@
                 <li><a><i class="fa fa-users"></i> Users Management <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
 
-                    <li><a href="AuthorsList">Authors</a>
+                    <li><a href="students">Students</a>
                     </li>
-                     <li><a href="students">Students</a>
-                     </li>
+                    <li><a href="authors">Authors</a>
+                    </li>
+
 
                   </ul>
                 </li>

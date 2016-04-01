@@ -8,17 +8,22 @@ Route::get ('admin_page', 'usersController@index');
 
 //author
 //Route::get ('author_page', 'authorController@author_page');
-Route::get ('author_signup', 'usersController@author_signup_page');
-Route::post ('create_author', 'usersController@create_author');
-Route::get ('author_login', 'usersController@author_login_page');
-Route::post ('author_login_authentication', 'usersController@author_login_authentication');
-Route::get ('show_author_list', 'usersController@show_author_list');
-Route::post ('remove_author/id', 'usersController@remove_author');
-Route::get('get_author_record/{id}','usersController@get_author_record');
-Route::post('update_author_record/{id}','usersController@update_author_record');
-Route::get('remove_author_record/{id}','usersController@remove_author_record');
-Route::get ('page', 'books_materialController@page');
+Route::get ('AuthorsList', 'usersController@showAuthorsList');
 
+//Route::get ('author_signup', 'usersController@author_signup_page');
+//Route::post ('create_author', 'usersController@create_author');
+//Route::get ('author_login', 'usersController@author_login_page');
+//Route::post ('author_login_authentication', 'usersController@author_login_authentication');
+////Route::get ('show_author_list', 'usersController@show_author_list');
+//Route::post ('remove_author/id', 'usersController@remove_author');
+Route::get('EditAuthorRecord/{id}','usersController@getAuthorRecord');
+Route::get('getAuthorRecord/{id}','usersController@getAuthorRecord');
+Route::post('update_author_record/{id}','usersController@update_author_record');
+Route::get('deleteAuthorRecord/{id}','usersController@deleteAuthorRecord');
+//Route::get ('page', 'books_materialController@page');
+Route::get('AddAuthor','usersController@addAuthor');
+Route::post('authorSignUp','usersController@authorSignUp');
+//Route::get('EditAuthor','usersController@authorSignUp');
 
 
 //student
@@ -33,6 +38,7 @@ Route::get('update_student_record/{id}','usersController@update_student_record')
 
 //categories
 
+Route::get('categories','books_materialController@get_category_list');
 Route::get('categories_page','books_materialController@index');
 
 Route::post('Add_category','books_materialController@Add_category');
@@ -68,5 +74,9 @@ Route::post('save_page/{id}','books_materialController@save_page');
 
 
 Route::get('layout','usersController@demoLayout');
+
+Route::get('addStudent','usersController@addStudent');
+Route::get('editstudent','usersController@editStudent');
+Route::get('addCategory','usersController@addCategory');
 
 ?>

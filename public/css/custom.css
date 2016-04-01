@@ -1050,11 +1050,33 @@ h2 {
 
 .x_panel {
     position: relative;
-    width: 100%;
+    width: 45%;
+    margin-left: 25%;
+    margin-top: 5%;
     margin-bottom: 10px;
     padding: 10px 17px;
     display: inline-block;
-    background: #fff;
+    background: white;
+    border: 1px solid #E6E9ED;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+    opacity: 1;
+    -moz-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    -webkit-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    transition: all .2s ease;
+}
+.x_panel2 {
+    position: relative;
+    width: 86%;
+    margin-left: 5%;
+
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    display: inline-block;
+    background: white;
     border: 1px solid #E6E9ED;
     -webkit-column-break-inside: avoid;
     -moz-column-break-inside: avoid;
@@ -6364,4 +6386,13 @@ ul.notifications {
 }
 .copyright-info {
     padding: 8px 0;
+}
+.button2 {
+    width: 13%;
+    height: 45px;
+    margin-left: 73%;
+   background-color: #204d74;
+    color: white;
+    border-radius: 10px;
+    font-size: 1.5em;
 }

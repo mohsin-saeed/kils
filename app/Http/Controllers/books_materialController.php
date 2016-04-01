@@ -12,10 +12,10 @@ class books_materialController extends Controller
 {
 
 
-    public function index()
+    public function categories()
     {
 
-        return view('categories/categories_page');
+        return view('categories/categories');
     }
 
 
@@ -27,7 +27,14 @@ class books_materialController extends Controller
         return "category created";
     }
 //edting of category
+
     public function get_category_list()
+    {
+        $category = DB::table('categories')->get();
+        return view('categories/categories', array("data" => $category));
+    }
+
+    public function get_category_list1()
     {
         $category = DB::table('categories')->get();
         return view('categories/show_category_record_for_updation', array("data" => $category));

@@ -1,15 +1,17 @@
 @extends('layouts.admin')
 
 @section('content')
+        <!--Middle Content-->
 
-           <a href="addStudent"><button type="button" class="button2">Add Student</button></a>
+         <a href="addCategory"><button type="button" class="button2">Add Category</button> </a>
+
 
 
   <div class="row">
               <div class="col-md-12">
                 <div class="x_panel2">
                   <div class="x_title">
-                    <h2>Students</h2>
+                    <h2>Categories</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -33,10 +35,10 @@
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 20%">Student Name</th>
-                          <th style="width: 20%">Roll No</th>
-                          <th style="width: 20%">Password</th>
-                          <th style="width: 20% ;">Action</th>
+                          <th style="width: 20%">Category ID</th>
+                          <th style="width: 20%">Category Name</th>
+                          <th style="width: 20%">Action</th>
+
                         </tr>
                       </thead>
                       <tbody>
@@ -45,10 +47,10 @@
                           {
                            ?>
                                <tr>
-                                <td> <?php echo($conter++."  "); ?></td>
-                                <td> <?php echo($data->name." ");?></td>
-                                <td> <?php echo($data->user_id." ");?></td>
-                                <td> <?php echo($data->roll_no." ");?></td>
+                                <td><?php echo($conter++."  "); ?></td>
+                                <td> <?php echo($data->id." ");?></td>
+                                <td> <?php echo($data->category_name." ");?></td>
+
                                 <td>
                                     <a href="get_student_record/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                     <a href="delete_student/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
