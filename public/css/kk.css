@@ -1,0 +1,112 @@
+body
+{
+    margin:0px;
+    background-color: gainsboro;
+}
+
+input
+{
+    border-radius: 50px;
+    padding: 1px;
+}
+
+
+#header
+{
+    background-color: midnightblue;
+    height: 15px;
+    width: 100%;
+    padding: 10px;
+
+
+}
+#header1
+{
+
+    padding-left: 11%;
+    float: left;
+}
+#header2
+{
+
+    float: left;
+    margin-left: 1%;
+}
+
+#header3
+{
+
+    float: left;
+    margin-left: 4%;
+    padding-left: 10%;
+    color: white;
+}
+
+#header4
+{
+
+    float: left;
+    margin-left: 2%;
+    color: white;
+}
+
+#header5
+{
+    background-color: aqua;
+
+}
+#body1
+{
+    margin-top: 1%;
+
+}
+#leftside
+{
+    background-color: aliceblue;
+    float: left;
+    margin-left: 11%;
+    padding-left: 1%;
+    padding-right: 10%;
+    padding-bottom: 40%;
+
+}
+#middle
+{
+    background-color: aliceblue;
+    margin-left: 1%;
+    padding-left: 1%;
+    padding-right: 3%;
+    padding-bottom: 40%;
+    float: left;
+
+}
+#right2
+{
+    background-color: aliceblue;
+    float: left;
+    margin-left: 1%;
+    padding-left: 1%;
+    padding-right: 15%;
+    padding-bottom: 40%;
+}
+
+#addbar
+{
+    background-color: aliceblue;
+    float: left;
+    margin-left: 2%;
+    padding-left: 1%;
+    padding-right: 4%;
+    padding-bottom: 40%;
+}
+
+#messagebar
+{
+    background-color: aliceblue;
+    float: left;
+    margin-left: 4%;
+    padding-left: 1%;
+    padding-right: 10%;
+    padding-bottom: 40%;
+}
+

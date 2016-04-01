@@ -1,0 +1,69 @@
+#body
+{
+    background-color: #cccccc;
+    color: #080808;
+
+    position:fixed;
+    left:2px;
+    top:1px;
+    right:2px;
+    bottom:1px;
+
+}
+
+#main-input-div
+{
+
+    background-color: #204d74;
+    position: absolute;
+    top: 15%;
+    left: 35%;
+    border: solid 2px;
+    padding-bottom: 10%;
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+#input-password
+{
+    margin-top: 5px;
+    margin-bottom: 15%;
+}
+#input-submit-main
+{
+    margin-left: 5%;
+}
+#input-login-button
+{
+    position: relative;
+    left: 13%;
+}
+#admin-window-left-div
+{
+    background-color: rgb(61, 143, 158);
+    color: #fcf8e3;
+    position: absolute;
+    top: 1%;
+    left: 0.5%;
+    border: solid 1px;
+    padding-bottom: 43.7%;
+    padding-top: 1%;
+    padding-left: 1%;
+    padding-right: 9%;
+
+}
+
+#admin-window-right-div
+{
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 1%;
+    left: 20%;
+    border: solid 1px;
+    padding-bottom: 45%;
+    padding-top: 1%;
+    padding-left: 2%;
+    padding-right: 77%;
+
+}
