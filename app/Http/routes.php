@@ -17,8 +17,8 @@ Route::get ('AuthorsList', 'usersController@showAuthorsList');
 ////Route::get ('show_author_list', 'usersController@show_author_list');
 //Route::post ('remove_author/id', 'usersController@remove_author');
 Route::get('EditAuthorRecord/{id}','usersController@getAuthorRecord');
-Route::get('getAuthorRecord/{id}','usersController@getAuthorRecord');
-Route::post('update_author_record/{id}','usersController@update_author_record');
+
+Route::post('updateAuthorRecord/{id}','usersController@saveAuthorEdition');
 Route::get('deleteAuthorRecord/{id}','usersController@deleteAuthorRecord');
 //Route::get ('page', 'books_materialController@page');
 Route::get('AddAuthor','usersController@addAuthor');
@@ -27,19 +27,24 @@ Route::post('authorSignUp','usersController@authorSignUp');
 
 
 //student
-Route::get ('students', 'usersController@show_student_list');
+Route::get ('students', 'usersController@showStudentList');
+Route::get ('AddStudent', 'usersController@addStudent');
+Route::get ('StudentSignUp', 'usersController@studentSignUp');
 
-Route::get ('student_signup', 'usersController@student_signup_page');
-Route::post ('create_student', 'usersController@create_student');
-Route::get('get_student_list','usersController@show_student_list');
-Route::get('get_student_record/{id}','usersController@get_student_record');
-Route::get('delete_student/{id}','usersController@delete');
+
+//Route::get ('student_signup', 'usersController@student_signup_page');
+//Route::post ('create_student', 'usersController@create_student');
+//Route::get('get_student_list','usersController@show_student_list');
+Route::get('EditStudent/{id}','usersController@getStudentRecord');
+Route::get('EditStudent','usersController@getStudentRecord1');
+Route::get('DeleteStudent/{id}','usersController@deleteStudent');
+Route::post('updateStudentRecord/{id}','usersController@saveStudentEdition');
 Route::get('update_student_record/{id}','usersController@update_student_record');
 
 //categories
 
-Route::get('categories','books_materialController@get_category_list');
-Route::get('categories_page','books_materialController@index');
+Route::get('categories','books_materialController@showCategoryList');
+Route::get('AddCategory','books_materialController@addCategory');
 
 Route::post('Add_category','books_materialController@Add_category');
 Route::get('get_category_list','books_materialController@get_category_list');

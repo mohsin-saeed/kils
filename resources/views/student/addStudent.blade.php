@@ -11,18 +11,18 @@
                 </div>
                 <div class="x_content">
                   <br>
-                  <form id="demo-form2"  class="form-horizontal form-label-left" method="post">
+                  <form id="demo-form2"  class="form-horizontal form-label-left" method="get" action="StudentSignUp">
 
                     <div class="form-group">
                       <label  for="first-name" style="margin-left: 85px;">Student Name <span class="required"></span>
                       </label>
-                        <input type="text" id="studentName" required="required" >
+                        <input type="text" id="studentName" required="required" name="name">
                     </div>
 
                     <div class="form-group">
-                      <label  for="last-name" style="margin-left: 129px;">Roll No <span class="required"></span>
+                      <label  for="last-name" style="margin-left: 129px;">Roll No <span class="required" ></span>
                       </label>
-                      <input type="email" id="rollNumber" name="rollNumber" required="@">
+                      <input type="text" id="rollNumber" name="rollnumber" required="@">
                     </div>
 
                      <div class="form-group">

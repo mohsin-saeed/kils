@@ -2,7 +2,7 @@
 
 @section('content')
 
-           <a href="addStudent"><button type="button" class="button2">Add Student</button></a>
+           <a href="AddStudent"><button type="button" class="button2">Add Student</button></a>
 
 
   <div class="row">
@@ -47,11 +47,12 @@
                                <tr>
                                 <td> <?php echo($conter++."  "); ?></td>
                                 <td> <?php echo($data->name." ");?></td>
-                                <td> <?php echo($data->user_id." ");?></td>
+                                <td> <?php echo($data->password." ");?></td>
                                 <td> <?php echo($data->roll_no." ");?></td>
                                 <td>
-                                    <a href="get_student_record/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                    <a href="delete_student/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                    <a href="EditStudent" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                    <a href="EditStudent/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                    <a href="DeleteStudent/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                                 </td>
 
                                 </tr>

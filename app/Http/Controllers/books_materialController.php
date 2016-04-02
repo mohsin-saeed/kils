@@ -28,7 +28,7 @@ class books_materialController extends Controller
     }
 //edting of category
 
-    public function get_category_list()
+    public function showCategoryList()
     {
         $category = DB::table('categories')->get();
         return view('categories/categories', array("data" => $category));
@@ -96,7 +96,7 @@ class books_materialController extends Controller
 
     public function get_books_list()
     {
-        $books = DB::table('books')->get();
+          $books = DB::table('books')->get();
         return view('author/show_book_record_for_updation', array("data" => $books));
     }
 

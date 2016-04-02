@@ -111,17 +111,18 @@ class usersController extends Controller
     }
 
 
-    public function update_author_record($id)
+    public function saveAuthorEdition($id)
     {
         DB::table('users')
             ->where('id', $id)
             ->update(
                 ['name'=> Input::get('name'),
-                    'user_id'=> Input::get('roll_no'),
+                    'user_id'=> Input::get('userid'),
                     'password'=> Input::get('password')]
 
             );
-        return redirect('show_author_list');
+
+        return redirect('AuthorsList');
     }
 
     public function deleteAuthorRecord($id)
@@ -133,17 +134,35 @@ class usersController extends Controller
 
 //student
 
+
+
+    public function addStudent()
+    {
+        return view('Student/AddStudent');
+    }
     public function addAuthor()
     {
         return view('author/AddAuthor');
     }
 
-    public function student_signup_page()
+  /*  public function student_signup_page()
     {
 
         return view ('student/student_signup');
+    }*/
+
+    public function studentSignUp()
+    {
+        $input['name'] = Input::get('name');
+        $input['roll_no'] = Input::get('rollnumber');
+        $input['user_id'] = Input::get('rollnumber');
+        $input['password'] = "123";
+        $input['user_typ'] = "student";
+        users::create($input);
+        return redirect('students');
     }
-    public function create_student()
+
+    /*public function create_student()
     {
         $input['name'] = Input::get('name');
         $input['roll_no'] = Input::get('roll_no');
@@ -152,18 +171,18 @@ class usersController extends Controller
         $input['user_typ'] = "student";
         users::create($input);
         return "student created";
-    }
+    }*/
 
-    public function delete($id)
+    public function deleteStudent($id)
     {
         DB::table('users')->where('id',$id)->delete();
-        return redirect('get_student_list');
+        return redirect('students');
     }
 
-    public function show_student_list()
+    public function showStudentList()
     {
         $users = DB::table('users')->where('user_typ',"student")->get();
-        return view('student/student', array("data"=>$users));
+        return view('student/students', array("data"=>$users));
     }
     /*public function show_student_list1()
     {
@@ -171,26 +190,33 @@ class usersController extends Controller
         return view('student/show_student_record_for_updation', array("data"=>$users));
     }*/
 
-    public function get_student_record($id)
+    public function getStudentRecord1()
+
+    {
+        // $student=DB::table('users')->where('id',$id)->get();
+        return view('student/EditStudent' );
+    }
+
+    public function getStudentRecord($id)
 
     {
         $student=DB::table('users')->where('id',$id)->get();
-        return view('student/Edit_student_page' , array("data"=>$student));
+        return view('student/EditStudent' , array("data"=>$student));
     }
 
-    public function update_student_record($id)
+    public function saveStudentEdition($id)
     {
 
         DB::table('users')
             ->where('id', $id)
             ->update(
                 ['name'=> Input::get('name'),
-                    'roll_No'=> Input::get('roll_no'),
-                    'user_id'=> Input::get('roll_no'),
+                    'roll_no'=> Input::get('rollno'),
+                    'user_id'=> Input::get('rollno'),
                     'password'=> Input::get('password')]
             );
 
-        return redirect('get_student_list');
+        return redirect('students');
 
     }
 
@@ -200,10 +226,10 @@ class usersController extends Controller
     }
 
 
-    public function addStudent(){
+    /*public function addStudent(){
 
         return view('student/addStudent');
-    }
+    }*/
     public function editStudent(){
 
         return view('student/editStudent');

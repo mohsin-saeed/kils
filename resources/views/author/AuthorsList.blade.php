@@ -50,7 +50,7 @@
                                 <td> <?php echo($data->user_id." ");?></td>
                                 <td> <?php echo($data->password." ");?></td>
                                 <td>
-                                    <a href="getAuthorRecord/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                    <a href="EditAuthorRecord/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                     <a href="deleteAuthorRecord/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                                 </td>
 
