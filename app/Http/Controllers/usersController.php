@@ -18,11 +18,9 @@ class usersController extends Controller
 
     public function create_admin()
     {
-
         $input['user_id']= Input::get('username');
         $input['password']= Input::get('password');
         users::create($input);
-
     }
 
     public function admin_authentication()
@@ -32,8 +30,6 @@ class usersController extends Controller
 
         if(DB::table('users')->select('user_id','password')->where('user_id','=',$username1)->where('password','=',$password1)->get())
         {
-
-//die("OK");
             return view ('admin/demo');
         }
 
@@ -45,47 +41,34 @@ class usersController extends Controller
 
 
     //Author
+
+    public function addAuthor()
+    {
+        return view('author/AddAuthor');
+    }
+
     public function authorSignUp()
     {
-
         $input['name']= Input::get('name');
         $input['user_id']= Input::get('user_id');
         $input['password']= Input::get('password');
         $input['user_typ']= "author";
         users::create($input);
         return redirect('AuthorsList');
-
     }
 
-
-   /* public function author_signup_page()
+    public function returnAuthorLoginPage()
     {
-
-        return view ('author/author_signup');
-    }
-*/
-    /*public function create_author()
-    {
-        $input['name']= Input::get('name');
-        $input['user_id']= Input::get('user_id');
-        $input['password']= Input::get('password');
-        $input['user_typ']= "author";
-        users::create($input);
-        return redirect('author_signup');
-    }*/
-
-    public function author_login_page()
-    {
-        return view ('author/author_login');
+        return view('author/AuthorLogin');
     }
 
-    public function author_login_authentication()
+    public function isAuthor()
     {
         $username = Input::get('username');
         $password = Input::get('password');
         if(DB::table('users')->where('user_id','=',$username)->where('password','=',$password)->where('user_typ','=',"author")->get())
         {
-            return view('author/author_page');
+            return view('author/Author');
         }
 
         else
@@ -100,16 +83,11 @@ class usersController extends Controller
         return view('author/AuthorsList', array("data"=>$catgories));
     }
 
-
-
     public function getAuthorRecord($id)
-
     {
-
         $user=DB::table('users')->where('id',$id)->get();
         return view('author/EditAuthor', array("data"=>$user));
     }
-
 
     public function saveAuthorEdition($id)
     {
@@ -121,7 +99,6 @@ class usersController extends Controller
                     'password'=> Input::get('password')]
 
             );
-
         return redirect('AuthorsList');
     }
 
@@ -134,22 +111,10 @@ class usersController extends Controller
 
 //student
 
-
-
     public function addStudent()
     {
         return view('Student/AddStudent');
     }
-    public function addAuthor()
-    {
-        return view('author/AddAuthor');
-    }
-
-  /*  public function student_signup_page()
-    {
-
-        return view ('student/student_signup');
-    }*/
 
     public function studentSignUp()
     {
@@ -162,17 +127,6 @@ class usersController extends Controller
         return redirect('students');
     }
 
-    /*public function create_student()
-    {
-        $input['name'] = Input::get('name');
-        $input['roll_no'] = Input::get('roll_no');
-        $input['user_id'] = Input::get('roll_no');
-        $input['password'] = Input::get('password');
-        $input['user_typ'] = "student";
-        users::create($input);
-        return "student created";
-    }*/
-
     public function deleteStudent($id)
     {
         DB::table('users')->where('id',$id)->delete();
@@ -184,17 +138,17 @@ class usersController extends Controller
         $users = DB::table('users')->where('user_typ',"student")->get();
         return view('student/students', array("data"=>$users));
     }
-    /*public function show_student_list1()
-    {
-        $users = DB::table('users')->where('user_typ',"student")->get();
-        return view('student/show_student_record_for_updation', array("data"=>$users));
-    }*/
 
     public function getStudentRecord1()
 
     {
-        // $student=DB::table('users')->where('id',$id)->get();
         return view('student/EditStudent' );
+    }
+
+    public function test($id)
+
+    {
+        return view('student/es' );
     }
 
     public function getStudentRecord($id)
@@ -220,26 +174,10 @@ class usersController extends Controller
 
     }
 
-    public function demoLayout(){
-       // die("acha ggggg");
-        return view('admin.demo' , array());
-    }
-
-
-    /*public function addStudent(){
-
-        return view('student/addStudent');
-    }*/
     public function editStudent(){
 
         return view('student/editStudent');
     }
-    public function addCategory(){
-
-        return view('categories/addCategory');
-    }
-
-
 
 
 }

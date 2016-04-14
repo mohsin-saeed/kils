@@ -30,7 +30,7 @@
 
                     <div class="form-group">
                         <label  style="margin-left: 101px;">Password</label>
-                        <input type="text" name="password" value="<?php echo $data[0]->password ?>" >
+                        <input type="text" name="password" value="<?php echo $data[0]->password?>" >
 
                       </div>
 

@@ -1,4 +1,7 @@
 <?php
+//layout
+Route::get('layout','usersController@demoLayout');
+
 
 //admin
 Route::get('/', 'usersController@index');
@@ -6,82 +9,67 @@ Route::get ('admin_creation_confirmation', 'usersController@admin_creation');
 Route::post ('admin_authentication', 'usersController@admin_authentication');
 Route::get ('admin_page', 'usersController@index');
 
+
 //author
-//Route::get ('author_page', 'authorController@author_page');
-Route::get ('AuthorsList', 'usersController@showAuthorsList');
-
-//Route::get ('author_signup', 'usersController@author_signup_page');
-//Route::post ('create_author', 'usersController@create_author');
-//Route::get ('author_login', 'usersController@author_login_page');
-//Route::post ('author_login_authentication', 'usersController@author_login_authentication');
-////Route::get ('show_author_list', 'usersController@show_author_list');
-//Route::post ('remove_author/id', 'usersController@remove_author');
-Route::get('EditAuthorRecord/{id}','usersController@getAuthorRecord');
-
-Route::post('updateAuthorRecord/{id}','usersController@saveAuthorEdition');
-Route::get('deleteAuthorRecord/{id}','usersController@deleteAuthorRecord');
-//Route::get ('page', 'books_materialController@page');
+Route::get('AuthorsList','usersController@showAuthorsList');
 Route::get('AddAuthor','usersController@addAuthor');
 Route::post('authorSignUp','usersController@authorSignUp');
-//Route::get('EditAuthor','usersController@authorSignUp');
+Route::get('EditAuthorRecord/{id}','usersController@getAuthorRecord');
+Route::post('updateAuthorRecord/{id}','usersController@saveAuthorEdition');
+Route::get('deleteAuthorRecord/{id}','usersController@deleteAuthorRecord');
+Route::get('AuthorLogin', 'usersController@returnAuthorLoginPage');
+Route::post ('IsAuthor', 'usersController@isAuthor');
+Route::get ('Author', 'usersController@returnAuthorPage');
 
 
 //student
 Route::get ('students', 'usersController@showStudentList');
 Route::get ('AddStudent', 'usersController@addStudent');
 Route::get ('StudentSignUp', 'usersController@studentSignUp');
-
-
-//Route::get ('student_signup', 'usersController@student_signup_page');
-//Route::post ('create_student', 'usersController@create_student');
-//Route::get('get_student_list','usersController@show_student_list');
 Route::get('EditStudent/{id}','usersController@getStudentRecord');
 Route::get('EditStudent','usersController@getStudentRecord1');
 Route::get('DeleteStudent/{id}','usersController@deleteStudent');
 Route::post('updateStudentRecord/{id}','usersController@saveStudentEdition');
-Route::get('update_student_record/{id}','usersController@update_student_record');
+
 
 //categories
-
-Route::get('categories','books_materialController@showCategoryList');
+Route::get('Categories','books_materialController@showCategoryList');
 Route::get('AddCategory','books_materialController@addCategory');
-
-Route::post('Add_category','books_materialController@Add_category');
-Route::get('get_category_list','books_materialController@get_category_list');
-Route::get('category/delete/{id}','books_materialController@delete_category');
-Route::get('category/get_category_record/{id}','books_materialController@get_category_record');
-Route::get('update_category_record/{id}','books_materialController@update_category_record');
+Route::get('createCategory','books_materialController@createCategory');
+Route::get('EditCategory/{id}','books_materialController@getCategoryRecord');
+Route::get('UpdateCategoryRecord/{id}','books_materialController@saveCategoryEdition');
+Route::get('deleteCategoryRecord/{id}','books_materialController@deleteCategory');
 
 //books
-Route::get('show_category_list','books_materialController@show_category_list');
-Route::get('add_book','books_materialController@show_category_list');
+Route::get('Books','books_materialController@showBooksList');
+Route::get('AddBook','books_materialController@addBook');
+Route::get('GetBookName/{id}','books_materialController@getBookName');
+Route::get('CreateBook','books_materialController@createBook');
+Route::get('DeleteBookRecord/{id}','books_materialController@deleteBook');
+Route::get('EditBookRecord/{id}','books_materialController@getBookRecord');
+Route::get('updateBookRecord/{id}','books_materialController@saveBookEdition');
 
-
-Route::get('books_page','books_materialController@books_page');
-Route::get('save_book','books_materialController@add_book');
-Route::get('get_books_list','books_materialController@get_books_list');
-Route::get('book/delete/{id}','books_materialController@delete_book');
-Route::get('get_book_record/{id}','books_materialController@get_book_record');
-Route::get('update_book_record/{id}','books_materialController@update_book_record');
 
 //pages
-Route::get('show_books_list','books_materialController@show_books_list');
-Route::get('add_page/{id}','books_materialController@add_page');
-Route::post('save_page/{id}','books_materialController@save_page');
+Route::get('Pages/{id}','books_materialController@showBookPages');
+Route::get('AddPage/{id}','books_materialController@addPage');
+Route::post('SavePage/{id}','books_materialController@savePage');
+Route::get('EditPageRecord/{id}','books_materialController@editPage');
+Route::post('UpdatePageRecord/{id}','books_materialController@savePageEdition');
+Route::get('DeletePageRecord/{id}','books_materialController@deletePage');
+
 
 //objects
-//Route::get('','books_materialController@show_books_list');
+Route::get('Objects/{id}','books_materialController@showPageObject');
+Route::get('AddObject/{id}','books_materialController@addPageObject');
+Route::post('SavePageObject/{id}','books_materialController@savePageObject');
+Route::get('EditObjectRecord/{id}','books_materialController@editObject');
+Route::post('UpdateObjectRecord/{id}','books_materialController@saveObjectEdition');
+Route::get('DeleteObjectRecord/{id}','books_materialController@deleteObject');
 
 
 
+//test
 
-
-
-
-Route::get('layout','usersController@demoLayout');
-
-Route::get('addStudent','usersController@addStudent');
-Route::get('editstudent','usersController@editStudent');
-Route::get('addCategory','usersController@addCategory');
-
+Route::get('test/{id}','books_materialController@showPageObjecttest');
 ?>

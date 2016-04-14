@@ -1,14 +1,15 @@
 @extends('layouts.author')
-
 @section('content')
+
         <!--Middle Content-->
-         <a href="addAuthor"><button type="button" class="button2">Add Author</button> </a>
+        <a href="<?php echo url();?>/AddObject/<?php echo ($data[0]->page_id);?>"><button type="button" class="button2">Add Object</button> </a>
+
 
   <div class="row">
               <div class="col-md-12">
                 <div class="x_panel2">
                   <div class="x_title">
-                    <h2>Authors</h2>
+                    <h2>Objects</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -32,9 +33,9 @@
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 20%">Author Name</th>
-                          <th style="width: 20%">Author ID</th>
-                          <th style="width: 20%">Password</th>
+                          <th style="width: 20%">Page ID</th>
+                          <th style="width: 20%">Object</th>
+                          <th style="width: 20%"></th>
                           <th style="width: 20% ; ">Action</th>
                         </tr>
                       </thead>
@@ -45,12 +46,12 @@
                            ?>
                                <tr>
                                 <td><?php echo($conter++."  "); ?></td>
-                                <td> <?php echo($data->name." ");?></td>
-                                <td> <?php echo($data->user_id." ");?></td>
-                                <td> <?php echo($data->password." ");?></td>
+                                <td> <?php echo($data->page_id." ");?></td>
+                                <td> <?php echo($data->object_path." ");?></td>
+                                <td> </td>
                                 <td>
-                                    <a href="get_student_record/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                    <a href="delete_student/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                    <a href="<?php echo url();?>/EditObjectRecord/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                    <a href="<?php echo url();?>/DeleteObjectRecord/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                                 </td>
 
                                 </tr>

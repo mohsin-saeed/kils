@@ -3,6 +3,7 @@
 use App\categories;
 use App\books;
 use App\pages;
+use App\objects;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
@@ -10,23 +11,23 @@ use Illuminate\Support\Facades\View;
 
 class books_materialController extends Controller
 {
-
-
-    public function categories()
+    public function addCategory()
     {
-
-        return view('categories/categories');
+       return view ('categories/AddCategory');
     }
 
-
-    public function Add_category()
+    public function createCategory()
     {
-        $input['category_name'] = Input::get('category_name');
-        // $input['category_name1']=Input::post('category_name');
+        $input['category_name'] = Input::get('name');
         categories::create($input);
-        return "category created";
+        return redirect('Categories');
     }
-//edting of category
+
+    public function getCategoryRecord($id)
+    {
+        $category = DB::table('categories')->where('id', $id)->get();
+        return view('categories/editCategory', array("data" => $category));
+    }
 
     public function showCategoryList()
     {
@@ -34,218 +35,104 @@ class books_materialController extends Controller
         return view('categories/categories', array("data" => $category));
     }
 
-    public function get_category_list1()
+    public function saveCategoryEdition($id)
     {
-        $category = DB::table('categories')->get();
-        return view('categories/show_category_record_for_updation', array("data" => $category));
+        DB::table('categories')->where('id', $id)->update(['category_name' => Input::get('name'),]);
+        return redirect('Categories');
     }
 
-    public function delete_category($id)
+    public function deleteCategory($id)
     {
         DB::table('categories')->where('id', $id)->delete();
-        return "student deleted";
-    }
-
-
-    public function get_category_record($id)
-
-    {
-        $category = DB::table('categories')->where('id', $id)->get();
-
-        //return View::make('student/Edit_student_page')->with(array('name' =>$student->name, 'roll_no' => $student->Roll_No));
-
-        return view('categories/edit_category_page', array("data" => $category));
-    }
-
-    public function update_category_record($id)
-    {
-        // die($id);
-
-        DB::table('categories')
-            ->where('id', $id)
-            ->update(
-
-            //->update(['votes' => 1]);
-                ['category_name' => Input::get('category_name'),]
-            );
-        return redirect('get_category_list');
-
-        //return redirect('student/get_student_record/17');
-
+        return redirect('Categories');
     }
 
 
     //books addtion
 
-    public function show_category_list()
+    public function showBooksList()
     {
-        $category = DB::table('categories')->get();
-        return view('books/add_book', array("data" => $category));
+        $books = DB::table('books')->get();
+        return view('books/Books', array("data" => $books));
     }
 
+    public function addBook()
+    {
+        $category = DB::table('categories')->get();
+        return view('books/AddBook', array("data" => $category));
 
-    public function add_book()
+    }
+
+    public function createBook()
     {
         $input['title'] = Input::get('title');
         $input['description'] = Input::get('description');
         $input['category_id'] =Input::get('category_id');
         books::create($input);
-        //var_dump($input) ;
-        return redirect('add_book');
+        return redirect('Books');
     }
 
-    public function get_books_list()
+    public function getBookRecord($id)
     {
-          $books = DB::table('books')->get();
-        return view('author/show_book_record_for_updation', array("data" => $books));
+        $book=DB::table('books')->where('id',$id)->get();
+        return view('books/EditBook' , array("data"=>$book));
     }
 
 
-    public function delete_book($id)
+    public function saveBookEdition($id)
+    {
+        DB::table('books')
+            ->where('id', $id)
+            ->update(
+                ['title'=> Input::get('title'),
+                    'description'=> Input::get('description')]
+            );
+        return redirect('Books');
+    }
+
+    public function deleteBook($id)
     {
         DB::table('books')->where('id',$id)->delete();
-        return redirect('get_books_list');
+        return redirect('Books');
     }
 
 
-    public function get_book_record($id)
 
-    {
-        $category=DB::table('books')->where('id',$id)->get();
-
-        //return View::make('student/Edit_student_page')->with(array('name' =>$student->name, 'roll_no' => $student->Roll_No));
-
-        return view('categories/edit_category_page' , array("data"=>$category));
-    }
-
-  /*  public function update_category_record($id)
-    {
-        // die($id);
-
-        DB::table('categories')
-            ->where('id', $id)
-            ->update(
-
-            //->update(['votes' => 1]);
-                ['category_name'=> Input::get('category_name'),]
-            );
-        return redirect ('get_category_list');
-
-        //return redirect('student/get_student_record/17');
-
-    }
-
-    public function get_category_list()
-    {
-        $category = DB::table('categories')->get();
-        return view('categories/show_category_record_for_updation', array("data"=>$category));
-    }
-
-    public function delete_category($id)
-    {
-        DB::table('categories')->where('id',$id)->delete();
-        return "student deleted";
-    }
+//pagess//////////////////
 
 
-    public function get_category_record($id)
-
-    {
-        $category=DB::table('categories')->where('id',$id)->get();
-
-        //return View::make('student/Edit_student_page')->with(array('name' =>$student->name, 'roll_no' => $student->Roll_No));
-
-        return view('categories/edit_category_page' , array("data"=>$category));
-    }
-
-    public function update_category_record($id)
-    {
-        // die($id);
-
-        DB::table('categories')
-            ->where('id', $id)
-            ->update(
-
-            //->update(['votes' => 1]);
-                ['category_name'=> Input::get('category_name'),]
-            );
-        return redirect ('get_category_list');
-
-        //return redirect('student/get_student_record/17');
-
-    }
-
-    public function get_category_list()
-    {
-        $category = DB::table('categories')->get();
-        return view('categories/show_category_record_for_updation', array("data"=>$category));
-    }
-
-    public function delete_category($id)
-    {
-        DB::table('categories')->where('id',$id)->delete();
-        return "student deleted";
-    }
-
-
-    public function get_category_record($id)
-
-    {
-        $category=DB::table('categories')->where('id',$id)->get();
-
-        //return View::make('student/Edit_student_page')->with(array('name' =>$student->name, 'roll_no' => $student->Roll_No));
-
-        return view('categories/edit_category_page' , array("data"=>$category));
-    }
-
-    public function update_category_record($id)
-    {
-        // die($id);
-
-        DB::table('categories')
-            ->where('id', $id)
-            ->update(
-
-            //->update(['votes' => 1]);
-                ['category_name'=> Input::get('category_name'),]
-            );
-        return redirect ('get_category_list');
-
-        //return redirect('student/get_student_record/17');
-
-    }*/
-
-    public function add_page($id)
+    public function addPage($id)
     {
         $books = DB::table('books')->where('id',$id)->get();
-        return view('books/add_page', array("data" => $books));
-       // return view('books/add_page');
+        return view('books/AddPage',array("data"=>$books));
+    }
+
+    public function getBookName($id)
+    {
+        $Book = DB::table('Books')->where('book_id',$id)->get();
+        return view('books/AddBook',array("data"=>$Book));
+
+    }
+    public function showBookPages($id)
+    {
+        $Book = DB::table('pages')->where('book_id',$id)->get();
+        return view('books/Pages',array("data"=>$Book));
 
     }
 
-    public function show_books_list()
+    public function savePage($id)
     {
-        $books = DB::table('books')->get();
-        return view('books/show_book_record_for_page_insertion', array("data" => $books));
-    }
-
-    public function books_page()
-    {
-        return view('author/books_page');
-
-    }
-
-    public function save_page($id)
-    {
-
-
         if (Input::hasFile('filename'))
         {
+            $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
             $destinationPath = public_path().'\storage\public\pages';
-            $input['bg']=Input::file('filename')->move($destinationPath,uniqid ("page"));
+            $name = uniqid ("page", true);
+            Input::file('filename')->move($destinationPath,$name.".".$extension);
+            $input['bg']= $name.".".$extension;
             $input['book_id']=$id;
             pages::create($input);
-            return redirect('add_page/'.$id);
+            return redirect('Pages/'.$id);
         }
         else
         {
@@ -255,5 +142,152 @@ class books_materialController extends Controller
     }
 
 
+    public function editPage($id)
+    {
+
+        $page=DB::table('pages')->where('id',$id)->get();
+        return view('books/EditPage' , array("data"=>$page));
+    }
+
+    public function savePageEdition($id)
+    {
+        if (Input::hasFile('filename'))
+        {
+
+
+            //delete file from folder
+           $data=DB::table('pages')->where('id',$id)->get();
+           $folderpath="D:/xampp/htdocs/project/public/storage/public/pages/";
+            $path=$folderpath.$data[0]->bg;
+            unlink($path);
+
+            //replace file onserver
+            $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
+           $extension = $fileTokens[count($fileTokens) - 1];
+           $destinationPath = public_path().'\storage\public\pages';
+           $name = uniqid ("page", true);
+           Input::file('filename')->move($destinationPath,$name.".".$extension);
+           DB::table('pages')
+               ->where('id', $id)
+               ->update(['bg'=> $name.".".$extension]);
+            $bookid =DB::table('pages')->where('id',$id)->get();
+            return redirect('Pages/'.$bookid[0]->book_id);
+
+        }
+
+        else
+        {
+            return "file not slected";
+        }
+    }
+
+    public function deletePage($id)
+    {
+        //delete file from folder
+        $data=DB::table('pages')->where('id',$id)->get();
+        $folderpath="D:/xampp/htdocs/project/public/storage/public/pages/";
+        $path=$folderpath.$data[0]->bg;
+        unlink($path);
+        //removing from db
+        DB::table('pages')->where('id',$id)->delete();
+        return redirect('Pages/'.$data[0]->book_id);
+
+    }
+
+
+//objectsssssssssssssssssssssssssss
+
+    public function showPageObject($id)
+    {
+        $objects = DB::table('objects')->where('page_id',$id)->get();
+        return view('books/Object', array("data" => $objects));
+    }
+    public function addPageObject($id)
+    {
+        $page = DB::table('pages')->where('id',$id)->get();
+        return view('books/AddObject', array("data" => $page));
+    }
+    public function savePageObject($id)
+    {
+        if (Input::hasFile('filename'))
+        {
+            $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
+            $destinationPath = public_path().'\storage\public\objects';
+            $name = uniqid ("page", true);
+            Input::file('filename')->move($destinationPath,$name.".".$extension);
+            $input['object_path']=$name.".".$extension;;
+            $input['page_id']=$id;
+            objects::create($input);
+            return redirect('Objects/'.$id);
+        }
+        else
+        {
+            return "file not slected";
+        }
+    }
+
+
+    public function editObject($id)
+    {
+
+        $object=DB::table('objects')->where('id',$id)->get();
+        return view('books/EditObject' , array("data"=>$object));
+    }
+
+
+    public function saveObjectEdition($id)
+    {
+        if (Input::hasFile('filename'))
+        {
+
+            //delete file from folder
+            $data=DB::table('objects')->where('id',$id)->get();
+            $folderpath="D:/xampp/htdocs/project/public/storage/public/objects/";
+            $path=$folderpath.$data[0]->object_path;
+            unlink($path);
+
+            //replace in db
+            $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
+            $destinationPath = public_path().'\storage\public\objects';
+            $name = uniqid ("object", true);
+            Input::file('filename')->move($destinationPath,$name.".".$extension);
+             DB::table('objects')
+                ->where('id', $id)
+                ->update(['object_path'=> $name.".".$extension]);
+            $objectid =DB::table('objects')->where('id',$id)->get();
+            return redirect('Objects/'.$objectid[0]->page_id);
+
+        }
+
+        else
+        {
+            return "file not slected";
+        }
+    }
+
+    public function deleteObject($id)
+    {
+        //delete file from folder
+        $data=DB::table('objects')->where('id',$id)->get();
+        $folderpath="D:/xampp/htdocs/project/public/storage/public/objects/";
+        $path=$folderpath.$data[0]->object_path;
+        unlink($path);
+        //removing from db
+        DB::table('objects')->where('id',$id)->delete();
+        return redirect('Objects/'.$data[0]->page_id);
+
+    }
+
+
+
+    //test
+
+    public function showPageObjecttest($id)
+    {
+        $objects = DB::table('objects')->where('page_id',$id)->get();
+        return view('books/test',array("data" => $objects));
+    }
 
 }

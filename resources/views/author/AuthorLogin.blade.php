@@ -18,13 +18,16 @@
     <div id="main-input-div">
 
 
-        <form  method="post" action='author_login_authentication'>
+        <form  method="post" action='IsAuthor'>
 
         <div>
                 <input type="text" name="username" placeholder="userName">
         </div>
 
 
+
+
+         <input type="hidden" name="_token" value="{{csrf_token()}}">
 
         <div id="input-password">
                 <input type="password" name="password" placeholder="password">
@@ -36,7 +39,7 @@
 
                    <span id="input-login-button"> <input type="submit" value="log in"> </span>
         </div>
-        <input type="hidden" name="_token" value="{{csrf_token()}}">
+
         </form>
 
     </div>

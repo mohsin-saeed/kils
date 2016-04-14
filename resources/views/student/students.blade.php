@@ -47,8 +47,8 @@
                                <tr>
                                 <td> <?php echo($conter++."  "); ?></td>
                                 <td> <?php echo($data->name." ");?></td>
-                                <td> <?php echo($data->password." ");?></td>
                                 <td> <?php echo($data->roll_no." ");?></td>
+                                <td> <?php echo($data->password." ");?></td>
                                 <td>
                                     <a href="EditStudent" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                     <a href="EditStudent/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>

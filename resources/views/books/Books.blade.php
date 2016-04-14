@@ -1,17 +1,16 @@
-@extends('layouts.admin')
+@extends('layouts.author')
 
 @section('content')
+
         <!--Middle Content-->
 
-         <a href="AddCategory"><button type="button" class="button2">Add Category</button> </a>
-
-
+         <a href="AddBook"><button type="button" class="button2">Add Book</button> </a>
 
   <div class="row">
               <div class="col-md-12">
                 <div class="x_panel2">
                   <div class="x_title">
-                    <h2>Categories</h2>
+                    <h2>Authors</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -35,10 +34,10 @@
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 20%">Category ID</th>
-                          <th style="width: 20%">Category Name</th>
-                          <th style="width: 20%">Action</th>
-
+                          <th style="width: 20%">Book Title</th>
+                          <th style="width: 20%">Description</th>
+                          <th style="width: 20%"></th>
+                          <th style="width: 20% ; ">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -48,12 +47,13 @@
                            ?>
                                <tr>
                                 <td><?php echo($conter++."  "); ?></td>
-                                <td> <?php echo($data->id." ");?></td>
-                                <td> <?php echo($data->category_name." ");?></td>
-
+                                <td> <?php echo($data->title." ");?></td>
+                                <td> <?php echo($data->description." ");?></td>
+                                <td> </td>
                                 <td>
-                                    <a href="EditCategory/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                    <a href="deleteCategoryRecord/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                    <a href="Pages/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Pages</a>
+                                    <a href="EditBookRecord/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                    <a href="DeleteBookRecord/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                                 </td>
 
                                 </tr>

@@ -5,7 +5,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h3 style="margin-left: 34%;"><b>Edit Student</b></h3>
+                  <h3 style="margin-left: 34%;"><b >Edit Student</b></h3>
 
                   <div class="clearfix"></div>
                 </div>
@@ -46,4 +46,6 @@
                 </div>
               </div>
             </div>
+
+
 @endsection

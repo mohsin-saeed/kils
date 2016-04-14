@@ -6,7 +6,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class objects extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class states extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
 
@@ -15,14 +15,14 @@ class objects extends Model implements AuthenticatableContract, CanResetPassword
 	 *
 	 * @var string
 	 */
-	protected $table = 'objects';
+	protected $table = 'books';
 
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['page_id','object_path'];
+	protected $fillable = ['object_id', 'state','bg','width','hight','next_state','audio'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
