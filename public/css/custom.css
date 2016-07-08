@@ -372,6 +372,16 @@ body {
     font-weight: 400;
     line-height: 1.471;
 }
+.body2 {
+    color: #73879C;
+    background: FFFFFF;
+    /*#ECF0F1; #FCFCFC*/
+
+    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.471;
+}
 
 .main_container .top_nav {
     padding: 0 !important;
@@ -487,6 +497,12 @@ table.no-margin .progress {
 @media (min-width: 1200px) {
     .col-md-55 {
         width: 20%;
+    }
+    .col-md-56 {
+        width: 14%;
+        border-radius: 10px;
+        background-color: rgba(97, 104, 100, 0.21);
+        margin-left: 20px;
     }
 }
 
@@ -1089,6 +1105,39 @@ h2 {
     transition: all .2s ease;
 }
 
+.x_panel3 {
+    width: 30%;
+    margin-left: 1%;
+    margin-bottom: 10px;
+    padding: 10px 10px;
+    display: inline-block;
+    background: white;
+    border: 1px solid #E6E9ED;
+
+}
+
+.x_panel4{
+    position: relative;
+    width: 90%;
+    margin-left: 5%;
+
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    display: inline-block;
+    background: white;
+    border: 1px solid #E6E9ED;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+    opacity: 1;
+    -moz-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    -webkit-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+
 .x_title {
     border-bottom: 2px solid #E6E9ED;
     padding: 1px 5px 6px;
@@ -1121,6 +1170,15 @@ h2 {
     padding: 0 5px 6px;
     position: relative;
     width: 100%;
+    float: left;
+    clear: both;
+    margin-top: 5px;
+
+}
+.x_content2 {
+    padding: 0 5px 6px;
+    position: relative;
+    width: 55%;
     float: left;
     clear: both;
     margin-top: 5px;
@@ -2313,6 +2371,21 @@ button,
     margin-bottom: 5px;
     margin-right: 5px;
 }
+.buttons4,
+button4,
+.btn4 {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    border-radius: 7%;
+}
+.buttons5,
+button5,
+.btn5{
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-left: 5%;
+    border-radius: 7%;
+}
 
 .btn-group-vertical .btn,
 .btn-group .btn {
@@ -2983,6 +3056,21 @@ select.parsley-error {
     border: 1px solid #ddd;
     background-color: #fafafa;
     font-size: 12px;
+}
+.btn2 {
+    position: relative;
+
+
+    min-width: 25px;
+    height: 25px;
+
+
+    border-radius: 0;
+    text-align: left;
+    color: #666;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    font-size: 8px;
 }
 
 .btn.btn-app > .fa,
@@ -4695,6 +4783,14 @@ ul.project_files li a i {
     height: 190px;
     overflow: hidden;
 }
+.thumbnail2 {
+    padding-top: 1px;
+    padding-left: 1px;
+    padding-right: 0px;
+    height: 228px;
+    width: 99%;
+    overflow: hidden;
+}
 
 .view {
     overflow: hidden;
@@ -5868,8 +5964,8 @@ form:after {
 #username { background-position: 10px 10px !important }
 #password { background-position: 10px -53px !important }
 .login_content form div a {
-    font-size: 12px;
-    margin: 10px 15px 0 0;
+    font-size: 14.5px;
+    width: 30%;
 }
 .reset_pass{margin-top:10px !important;}
 .login_content div .reset_pass{margin-top: 13px !important; margin-right: 39px; float: right;}
@@ -6389,9 +6485,26 @@ ul.notifications {
 }
 .button2 {
     width: 13%;
-    height: 45px;
+    height: 35px;
     margin-left: 73%;
-   background-color: #204d74;
+     background-color: #204d74;
+    color: white;
+    border-radius: 10px;
+    font-size: 1.5em;
+}
+.button3 {
+    width: 13%;
+    height: 35px;
+    margin-left: 69%;
+     background-color: #204d74;
+    color: white;
+    border-radius: 10px;
+    font-size: 1.5em;
+}
+.button4 {
+    width: 13%;
+    height: 35px;
+     background-color: #204d74;
     color: white;
     border-radius: 10px;
     font-size: 1.5em;
@@ -6426,4 +6539,60 @@ ul.notifications {
     top: 0px;
 
 
+}
+.btn3{
+    display: inline-block;
+    padding: 1px 1px;
+    margin-bottom: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.btn2
+{
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-left: 13px;
+}
+
+.body2
+{
+    color: #73879C;
+    background: rgba(42, 63, 84, 0.12);
+    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.471;
+}
+
+
+.active1
+{
+    background-color: #516b88;
+    color: #ffffff;
+}
+.titalbg
+{
+    background: rgba(158, 166, 165, 0.13);
+    margin-left: 19px;
+    padding: 1px;
+    padding-left: 30px;
+    margin-right: 912px;
+    border-radius: 8px;
+    margin-top: 10px;
+    color: black;
 }

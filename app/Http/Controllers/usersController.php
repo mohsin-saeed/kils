@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Hash;
 
+
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
 class usersController extends Controller
@@ -13,7 +15,7 @@ class usersController extends Controller
     public function index()
     {
 
-        return view('admin/admin_login');
+        return view('admin/login');
     }
 
     public function create_admin()
@@ -23,20 +25,42 @@ class usersController extends Controller
         users::create($input);
     }
 
-    public function admin_authentication()
+    public function authentication()
     {
         $username1=Input::get('username');
         $password1=Input::get('password');
+        $usertype=Input::get('rolechoice');
 
-        if(DB::table('users')->select('user_id','password')->where('user_id','=',$username1)->where('password','=',$password1)->get())
+
+        if($usertype=="admin")
         {
-            return view ('admin/demo');
+            if (DB::table('users')->select('user_id', 'password')->where('user_id', '=', $username1)->where('password', '=', $password1)->where('user_typ', '=',"admin")->get())
+            {
+                return view('admin/admin');
+            }
+            else
+            {
+                return view('admin/login')->with('message', 'Login Failed');
+            }
         }
-
         else
         {
-            return "Access denied";
+            if (DB::table('users')->select('user_id', 'password')->where('user_id', '=', $username1)->where('password', '=', $password1)->where('user_typ', '=',"author")->get())
+            {
+                return view('author/Author');
+            }
+            else
+            {
+               // Session::put('aa', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+
+                return view('admin/login')->with('message', 'Login Failed');
+
+
+            }
+
         }
+
+
     }
 
 
@@ -177,6 +201,26 @@ class usersController extends Controller
     public function editStudent(){
 
         return view('student/editStudent');
+    }
+
+
+    public function authenticateStudent()
+    {
+        $username = Input::get('username');
+        $password = Input::get('password');
+
+        echo '<script language="javascript">';
+        echo 'alert("message successfully sent")';
+        echo '</script>';
+        if(DB::table('users')->where('user_id','=',$username)->where('password','=',$password)->where('user_typ','=',"student")->get())
+        {
+            return true;
+        }
+
+        else
+        {
+            return "false";
+        }
     }
 
 

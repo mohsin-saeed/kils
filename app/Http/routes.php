@@ -6,7 +6,7 @@ Route::get('layout','usersController@demoLayout');
 //admin
 Route::get('/', 'usersController@index');
 Route::get ('admin_creation_confirmation', 'usersController@admin_creation');
-Route::post ('admin_authentication', 'usersController@admin_authentication');
+Route::post ('authentication', 'usersController@authentication');
 Route::get ('admin_page', 'usersController@index');
 
 
@@ -72,4 +72,43 @@ Route::get('DeleteObjectRecord/{id}','books_materialController@deleteObject');
 //test
 
 Route::get('test/{id}','books_materialController@showPageObjecttest');
+Route::get('test2','books_materialController@test');
+Route::post('saveState','books_materialController@saveState' );
+Route::get('getObjectStates','books_materialController@getObjectStates' );
+Route::get('getState','books_materialController@getState' );
+Route::get('deleteState','books_materialController@deleteState' );
+Route::get('preview/{page_id}','books_materialController@previewPage' );
+Route::post('editState','books_materialController@editState');
+Route::get('test1',function(){return view("test1");});
+Route::get('authenticateStudent','authenticateStudent');
+//Route::get('test','books_materialController@testfun' );
+/*{
+    if(Request::ajax()){
+        return '{ "messageCount":31, "inviteCount":32, "friendCount":33}';
+    }
+
+});*/
+
+
+
+require "connection.php";
+
+$mysql_qry = "select * from books";
+
+$result = mysqli_query($conn ,$mysql_qry);
+$response=array();
+
+while($row=mysqli_fetch_array($result)){
+    array_push($response,array("title"=>$row[0]));
+}
+echo json_encode(array("sever_response"=>$response));
+mysqli_close($conn);
+
+
+
+
+
+
+
+
 ?>

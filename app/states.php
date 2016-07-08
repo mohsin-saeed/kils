@@ -15,14 +15,14 @@ class states extends Model implements AuthenticatableContract, CanResetPasswordC
 	 *
 	 * @var string
 	 */
-	protected $table = 'books';
+	protected $table = 'states';
 
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['object_id', 'state','bg','width','hight','next_state','audio'];
+	protected $fillable = ['object_id','bg','width','height','next_state','audio','x','y','action','delay','duration'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

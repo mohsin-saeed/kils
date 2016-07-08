@@ -15,20 +15,21 @@
                   <form id="demo-form2"  class="form-horizontal form-label-left" method="get" action="CreateBook">
 
                     <div class="form-group">
-                      <label  for="first-name" style="margin-left: 20%;">Book Title <span class="required"></span></label>
-                      <input type="text" id="name" name="title" required="required" >
+                      <label  for="first-name" style="margin-left: 2%;"><span class="required">Book Title </span></label>
+                      <input type="text" id="name" name="title" required="required" style="width: 70%;padding: 3px;margin-left: 3%;">
                     </div>
 
                     <div class="form-group">
-                      <label  for="last-name" style="margin-left:3%;">Description about Book <span class="required"></span></label>
-                      <textarea name="description" ></textarea>
+                      <label  for="last-name" > <span class="required">Description </span></label>
+                      <textarea name="description" required="" style="padding: 20px;vertical-align: middle;width: 70%;margin-left: 3%;
+                                                                                                                        border-radius: 3%;"></textarea>
                     </div>
 
                      <div class="form-group">
-                         <label  for="first-name" style="margin-left: 13%;">Category Name <span class="required"></span></label>
-                         <select name="category_id">
+                         <label  for="first-name" > <span class="required">Category Name</span></label>
+                         <select name="category_id" class="btn3 btn-success dropdown-toggle stats-list" required="required" style="width: 40%;padding: 1%" >
 
-                             <option >Options</option>
+                             <option value="">Options</option>
                               <?php foreach ($data as $data)
                                 {
                                   ?>
@@ -43,6 +44,7 @@
                               ?>
                            </select>
                      </div>
+
 
                      <div class="form-group">
                       <button type="submit" class="btn btn-primary" style="margin-left: 36%;">Save</button>

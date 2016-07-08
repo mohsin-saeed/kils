@@ -4,6 +4,7 @@ use App\categories;
 use App\books;
 use App\pages;
 use App\objects;
+use App\states;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
@@ -214,11 +215,23 @@ class books_materialController extends Controller
             $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
             $destinationPath = public_path().'\storage\public\objects';
+            $destinationPath2 = public_path().'\storage\public\objectsbg';
             $name = uniqid ("page", true);
             Input::file('filename')->move($destinationPath,$name.".".$extension);
-            $input['object_path']=$name.".".$extension;;
+          //  Input::file('filename')->move($destinationPath2,$name.".".$extension);
+            $input['object_path']=$name.".".$extension;
             $input['page_id']=$id;
+           copy ($destinationPath."\\".$name.".".$extension,$destinationPath2."\\".$name.".".$extension);
             objects::create($input);
+            $lastrow =DB::table('objects')->where('page_id',$id)->orderBy('Id', 'desc')->first();
+            $input['object_id']=$lastrow->id;
+            $input['bg']=$name.".".$extension;
+            $input['width']=15;
+            $input['height']=8;
+            $input['x']=0;
+            $input['y']=0;
+            $input['action']="Rotate";
+            states::create($input);
             return redirect('Objects/'.$id);
         }
         else
@@ -289,5 +302,198 @@ class books_materialController extends Controller
         $objects = DB::table('objects')->where('page_id',$id)->get();
         return view('books/test',array("data" => $objects));
     }
+    public function test()
+    {
+        return view('books/test2');
+    }
 
+    public function testfun($p)
+    {
+
+     //$a=Input::all();
+     $b=Input::get('field1');
+     //$c=$a;
+    //print_r($b);
+        //die;
+     return($p." --- aaaa");
+    //echo $a;
+    }
+
+    public function saveState()
+    {
+        //die(Input::all());
+        $lastrow =DB::table('states')->orderBy('Id', 'desc')->first();
+        if($lastrow==null)
+        {
+            $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
+            $destinationPath = public_path().'\storage\public\objectsbg';
+            $name = uniqid ("page", true);
+            Input::file('logo')->move($destinationPath,$name.".".$extension);
+            $input['bg']=$name.".".$extension;
+
+            $inputs=Input::all();
+            $input['object_id']=$inputs['obj_id'];
+            $input['x']=$inputs['x'];
+            $input['y']=$inputs['y'];
+            $input['width']=$inputs['width'];
+            $input['height']=$inputs['height'];
+            $input['action']=$inputs['action'];
+            $input['delay']=$inputs['delay'];
+            $input['duration']=$inputs['duration'];
+            states::create($input);
+
+
+        }
+        else
+        {
+
+            if (Input::file('logo'))
+            {
+                $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
+                $extension = $fileTokens[count($fileTokens) - 1];
+                $destinationPath = public_path().'\storage\public\objectsbg';
+                $name = uniqid ("page", true);
+                Input::file('logo')->move($destinationPath,$name.".".$extension);
+                $input['bg']=$name.".".$extension;
+                $id= $lastrow->Id;
+
+                DB::table('states')
+                    ->where('Id', $id)
+                    ->update(['next_state'=>$id+1]);
+
+                $inputs=Input::all();
+                $input['object_id']=$inputs['obj_id'];
+                $input['x']=$inputs['x'];
+                $input['y']=$inputs['y'];
+                $input['width']=$inputs['width'];
+                $input['height']=$inputs['height'];
+                $input['action']=$inputs['action'];
+                $input['delay']=$inputs['delay'];
+                $input['duration']=$inputs['duration'];
+                states::create($input);
+
+
+
+            }
+            else
+            {
+                return "file not slected";
+            }
+
+
+         }
+
+
+    }
+    public function getObjectStates()
+    {
+        $data=DB::table('states')->where('object_id',Input::get('id'))->get();
+        return($data);
+    }
+    public function getState()
+    {
+         return $state=DB::table('states')->where('id',Input::get('id'))->get();
+    }
+    public function deleteState()
+    {
+         return $status=DB::table('states')->where('id',Input::get('id'))->delete();
+    }
+
+
+    public function previewPage($page_id){
+        $data =DB::select("SELECT * FROM objects
+
+
+
+        WHERE page_id = ".$page_id."
+
+        ORDER BY objects.id");
+
+        foreach($data as &$obj){
+            $states = DB::select("SELECT * FROM `states`
+            WHERE object_id = ".$obj->id."
+            ORDER BY states.id");
+            $obj->states=$states;
+        }
+        $json_data =  json_encode($data);
+//        echo "<pre>";
+//        var_dump($data);
+//        echo "</pre><br><br> JSON HERE <br><br><pre>";
+//        var_dump( json_encode($json_data));
+
+        $data["raw_data"] = $data;
+        $data["json_data"] = $json_data;
+
+        return view('books/page_preview', $data);
+    }
+
+
+
+    public function editState()
+    {
+            //$lastrow =DB::table('states')->orderBy('Id', 'desc')->first();
+            /*$fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
+            $destinationPath = public_path().'\storage\public\objectsbg';
+            $name = uniqid ("page", true);
+            Input::file('logo')->move($destinationPath,$name.".".$extension);
+            $input['bg']=$name.".".$extension;*/
+
+
+
+            //die("jdkjsdkshdkjshdkjshdkjsdkjd");
+        //return  ("hhhhh");
+            $inputs=Input::all();
+        return($inputs['x']);
+        DB::table('states')
+                ->where('Id',$inputs['id'])
+                ->update([
+                        'x'=>$inputs['x'],
+                        'y'=>$inputs['y'],
+                        'width'=>$inputs['width'],
+                        'height'=>$inputs['height'],
+                        'action'=>$inputs['action'],
+                        'delay'=>$inputs['delay'],
+                        'duration'=>$inputs['duration']]);
+                        //states::create($input);
+
+
+
+
+          /*  if (Input::file('logo'))
+            {
+                $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
+                $extension = $fileTokens[count($fileTokens) - 1];
+                $destinationPath = public_path().'\storage\public\objectsbg';
+                $name = uniqid ("page", true);
+                Input::file('logo')->move($destinationPath,$name.".".$extension);
+                $input['bg']=$name.".".$extension;
+                $id= $lastrow->Id;
+
+                DB::table('states')
+                    ->where('Id', $id)
+                    ->update(['next_state'=>$id+1]);
+
+                $inputs=Input::all();
+                $input['object_id']=$inputs['obj_id'];
+                $input['x']=$inputs['x'];
+                $input['y']=$inputs['y'];
+                $input['width']=$inputs['width'];
+                $input['height']=$inputs['height'];
+                $input['action']=$inputs['action'];
+                $input['delay']=$inputs['delay'];
+                $input['duration']=$inputs['duration'];
+                states::create($input);
+            }
+            else
+            {
+                return "file not slected";
+            }*/
+
+
+
+
+
+    }
 }
