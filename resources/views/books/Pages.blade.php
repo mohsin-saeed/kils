@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\DB;
 
 
          <a href="<?php echo url();?>/AddPage/<?php echo $data['book_id']?>"><button type="button" class="button2">Add Page</button> </a>
-        <?php if(!empty($data[0])){ ?>
+        <?php if(!empty($data['pages'])){ ?>
         <div class="row">
               <div class="col-md-12">
                 <div class="x_panel2">
                   <div class="x_title">
-                  <?php $title=DB::table('Books')->select('title')->where('id',$data[0]->book_id)->get();?>
+                  <?php $title=DB::table('Books')->select('title')->where('id',$data['book_id'])->get();?>
                     <h2>Pages Of BooK<?php echo "  (".$title[0]->title."  )";?></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -51,27 +51,28 @@ use Illuminate\Support\Facades\DB;
                       </thead>
                       <tbody>
                       <?php $conter=1; ?>
-                        <?php foreach ($data as $d)
+                        <?php foreach ($data['pages'] as $key => $d)
                         {
-                              $d = (array)$d;
-                              //  $bookId = $d->book_id;
-                              var_dump($d);
-                      $bookId = $d['book_id'];
-                      //        die($bookId);
-                         ?>
-                             <tr>
-                                <td><?php echo($conter++."  "); ?></td>
-                                <td style="margin-left: 6%"> <?php echo($bookId);?></td>
-                                <td> <?php echo($d['bg']." ");?></td>
-                                <td> </td>
-                                <td>
-                                <a href="<?php echo url();?>/test/<?php echo($d['id']);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Detail</a>
-                                <a href="<?php echo url();?>/EditPageRecord/<?php echo($did);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                <a href="<?php echo url();?>/DeletePageRecord/<?php echo($d->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                                </td>
 
-                             </tr>
-                         <?php
+
+
+
+                                    $d = (array)$d;
+                                    ?>
+                                     <tr>
+                                        <td><?php echo($conter++."  "); ?></td>
+                                        <td style="margin-left: 6%"> <?php echo( $d['book_id']);?></td>
+                                        <td> <?php echo($d['bg']." ");?></td>
+                                        <td> </td>
+                                        <td>
+                                        <a href="<?php echo url();?>/test/<?php echo($d['id']);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Detail</a>
+                                        <a href="<?php echo url();?>/EditPageRecord/<?php echo($d['id']);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                        <a href="<?php echo url();?>/DeletePageRecord/<?php echo($d['id']);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                        </td>
+
+                                     </tr>
+                                    <?php
+
                           }
                          ?>
                       </tbody>

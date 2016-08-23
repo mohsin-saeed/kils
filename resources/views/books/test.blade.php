@@ -36,12 +36,31 @@ use Illuminate\Support\Facades\View;
 
 
 
-
+<script>
+    function reloadScreen(){
+        ocation.reload();
+    }
+</script>
 
 <!--Middle Content-->
-<a href="<?php echo url();?>/preview/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button3" >Preview </button> </a>
-<a href="<?php echo url();?>/AddObject/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button4">Add Object</button> </a>
+
 <div>
+
+
+
+</div>
+<div>
+    <a href="<?php echo url();?>/preview/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button3" >Preview </button> </a>
+    <a href="<?php echo url();?>/AddObject/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button4">Add Object</button> </a>
+</div>
+
+
+<div>
+    <div class="alert alert-info alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <strong>Note</strong> Double click object to change state specific details of that object.
+    </div>
      <div style="width: 65%;float: left">
             <!--<?php echo($data[0]->page_id);
             ?>-->
@@ -60,8 +79,18 @@ use Illuminate\Support\Facades\View;
                 <?php
                  foreach($objec as $objec)
                    {
+                     $states =DB::table('states')->where('object_id',$objec->id)->get();
+                         $h = "";
+                         $w = "";
+                         if(!empty($states[0])){
+                             $h =    $states[0]->height;
+                             $w =    $states[0]->width;
+                         }
+
+
+
                 ?>
-                     <img id="obj_{{$objec->id}}" class="obj-dragable obj-img-wrapper aa" src="<?php echo url().$objectdir.$objec->object_path; ?>" style="height: 100%;width: 100%;top:0px;" >
+                     <img aaaa id="obj_{{$objec->id}}" class="obj-dragable obj-img-wrapper aa" src="<?php echo url().$objectdir.$objec->object_path; ?>" style="height: <?php echo $h?>px;width: <?php echo $w?>px;top:0px;" >
                 <?php
                    }
                 ?>
@@ -75,6 +104,15 @@ use Illuminate\Support\Facades\View;
 </div>
 
 <div class="x_panel3">
+
+    <div id="successDiv" class="ui-pnotify dark ui-pnotify-fade-normal ui-pnotify-in ui-pnotify-fade-in ui-pnotify-move" aria-live="assertive" aria-role="alertdialog" style="display: none; width: 300px; right: 36px; top: 36px; cursor: auto;">
+        <div class="alert ui-pnotify-container alert-info ui-pnotify-shadow" role="alert" style="min-height: 16px;">
+            <div class="ui-pnotify-closer" aria-role="button" tabindex="0" title="Close" style="cursor: pointer; visibility: hidden; display: none;">
+                <span class="glyphicon glyphicon-remove"></span></div><div class="ui-pnotify-sticker" aria-role="button" aria-pressed="true" tabindex="0" title="Unstick" style="cursor: pointer; visibility: hidden; display: none;"><span class="glyphicon glyphicon-play" aria-pressed="true"></span></div><div class="ui-pnotify-icon"><span class="glyphicon glyphicon-info-sign"></span></div>
+            <h4 class="ui-pnotify-title">Success!</h4>
+            <div class="ui-pnotify-text" aria-role="alert">Data Saved Successfully</div>
+        </div>
+    </div>
 
           <h2 style="background: #1ABB9C;padding-top: 2%;padding-bottom: 2%;border-radius: 5px;padding-left: 29%;color: white;">Apply Animation </h2>
                 <ul class="nav navbar-right panel_toolbox">
@@ -200,6 +238,12 @@ $(document).ready(function()
                 data: formData,
                 async: false,
                 success: function (data) {
+                    if(data == 1){
+                        $("#successDiv").show();
+                        setTimeout(function(){$("#successDiv").hide();}, 3000)
+                    }else{
+                        alert("Error!")
+                    }
                    // alert(data)
                 },
                 cache: false,

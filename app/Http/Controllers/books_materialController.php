@@ -116,7 +116,7 @@ class books_materialController extends Controller
     }
     public function showBookPages($id)
     {
-        $data = DB::table('pages')->where('book_id',$id)->get();
+        $data['pages'] = DB::table('pages')->where('book_id',$id)->get();
         $data["book_id"] = $id;
         return view('books/Pages',array("data"=>$data));
 
@@ -215,20 +215,22 @@ class books_materialController extends Controller
         {
             $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
-            $destinationPath = public_path().'\storage\public\objects';
-            $destinationPath2 = public_path().'\storage\public\objectsbg';
+            $destinationPath = public_path().'/storage/public/objects';
+            $destinationPath2 = public_path().'/storage/public/objectsbg';
             $name = uniqid ("page", true);
             Input::file('filename')->move($destinationPath,$name.".".$extension);
           //  Input::file('filename')->move($destinationPath2,$name.".".$extension);
             $input['object_path']=$name.".".$extension;
             $input['page_id']=$id;
-           copy ($destinationPath."\\".$name.".".$extension,$destinationPath2."\\".$name.".".$extension);
+           copy ($destinationPath."/".$name.".".$extension,$destinationPath2."/".$name.".".$extension);
+
+            $imageDimensions = getimagesize($destinationPath2."/".$name.".".$extension);
             objects::create($input);
             $lastrow =DB::table('objects')->where('page_id',$id)->orderBy('Id', 'desc')->first();
             $input['object_id']=$lastrow->id;
             $input['bg']=$name.".".$extension;
-            $input['width']=15;
-            $input['height']=8;
+            $input['width']=$imageDimensions[0];
+            $input['height']=$imageDimensions[1];
             $input['x']=0;
             $input['y']=0;
             $input['action']="Rotate";
@@ -334,7 +336,7 @@ class books_materialController extends Controller
         {
             $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
-            $destinationPath = public_path().'\storage\public\objectsbg';
+            $destinationPath = public_path().'/storage/public/objectsbg';
             $name = uniqid ("page", true);
             Input::file('logo')->move($destinationPath,$name.".".$extension);
             $input['bg']=$name.".".$extension;
@@ -359,7 +361,7 @@ class books_materialController extends Controller
             {
                 $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
                 $extension = $fileTokens[count($fileTokens) - 1];
-                $destinationPath = public_path().'\storage\public\objectsbg';
+                $destinationPath = public_path().'/storage/public/objectsbg';
                 $name = uniqid ("page", true);
                 Input::file('logo')->move($destinationPath,$name.".".$extension);
                 $input['bg']=$name.".".$extension;
@@ -379,13 +381,13 @@ class books_materialController extends Controller
                 $input['delay']=$inputs['delay'];
                 $input['duration']=$inputs['duration'];
                 states::create($input);
-
+                return 1;
 
 
             }
             else
             {
-                return "file not slected";
+                return 0;
             }
 
 
@@ -410,13 +412,10 @@ class books_materialController extends Controller
 
     public function previewPage($page_id){
         $data =DB::select("SELECT * FROM objects
-
-
-
         WHERE page_id = ".$page_id."
-
         ORDER BY objects.id");
 
+        $page = DB::select("SELECT * FROM pages WHERE  id =".$page_id);
         foreach($data as &$obj){
             $states = DB::select("SELECT * FROM `states`
             WHERE object_id = ".$obj->id."
@@ -428,9 +427,12 @@ class books_materialController extends Controller
 //        var_dump($data);
 //        echo "</pre><br><br> JSON HERE <br><br><pre>";
 //        var_dump( json_encode($json_data));
+        $page[0]->bgUrl = url('/storage/public/pages/'.$page[0]->bg);
 
         $data["raw_data"] = $data;
         $data["json_data"] = $json_data;
+        $data["page"] = $page;
+        $data["baseUrl"] = url('');
 
         return view('books/page_preview', $data);
     }
@@ -452,7 +454,7 @@ class books_materialController extends Controller
             //die("jdkjsdkshdkjshdkjshdkjsdkjd");
         //return  ("hhhhh");
             $inputs=Input::all();
-        return($inputs['x']);
+        //return($inputs['x']);
         DB::table('states')
                 ->where('Id',$inputs['id'])
                 ->update([

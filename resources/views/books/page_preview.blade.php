@@ -3,13 +3,16 @@
 <?php
 $PAGE_WIDTH = "798";
 $PAGE_HEIGHT = "448";
+//print_r($page);
 ?>
-<div style="background: url('http://localhost/project/public/storage/public/pages/page570669beb55b79.42127429.jpg'); background-repeat: no-repeat; width: <?php echo $PAGE_WIDTH?>; height: <?php echo $PAGE_HEIGHT?>; ">
+
+
+<div style="background: url('<?php echo $page[0]->bgUrl?>'); background-repeat: no-repeat; width: <?php echo $PAGE_WIDTH?>; height: <?php echo $PAGE_HEIGHT?>; ">
 
     <?php foreach($raw_data as $obj){
         if(isset($obj->states[0])){
-            $width = ($obj->states[0]->width/100)*$PAGE_WIDTH;
-            $height = ($obj->states[0]->height/100)*$PAGE_HEIGHT;
+            $width = ($obj->states[0]->width/$PAGE_WIDTH)*100;
+            $height = ($obj->states[0]->height/$PAGE_HEIGHT)*100;
              $x = 0;//($obj->states[0]->x/100)*$PAGE_WIDTH;
              $y = 0;//(($obj->states[0]->y/100)*$PAGE_HEIGHT) + $PAGE_HEIGHT;
 
@@ -32,6 +35,8 @@ objects = <?php echo $json_data; ?>
 PAGE_WIDTH = <?php echo $PAGE_WIDTH; ?>
 
 PAGE_HEIGHT = <?php echo $PAGE_HEIGHT; ?>
+
+BASE_URL = <?php echo "'".$baseUrl."'"; ?>
 
 
 
@@ -65,6 +70,15 @@ $(document).ready(function(){
         var str = "";
         var innerStr = getActionStrInner(state,  bid, pid);
         var cor = getPixalCordinate(state);
+     if(state.action == 'rotate'){
+         state.effect = state.action;
+     }else if(state.action == 'skew'){
+         state.effect = state.action;
+     }else if(state.action == 'resize'){
+         state.effect = state.action;
+     }
+     console.log("-here us state details-");
+     console.log(state);
         if(state.effect){
             str = "move('#obj-"+state.oid+"').x("+cor.x+").y("+cor.y+")."+state.effect+"("+state.degree+").duration("+state.duration+").delay("+state.delay+")"+innerStr;
         }else{
@@ -83,7 +97,7 @@ $(document).ready(function(){
         var str = "";
         if(state.bg){
            //str = "jQuery('#obj-"+state.oid+"').css('background-image','url("+hostUrl+"/sites/default/files/books/book_"+bid+"/page_"+pid+"/assets/"+state.image+")')";
-            str = ".set('background-image','url(http://localhost/project/public/storage/public/objectsbg/"+state.bg+")') ";
+            str = ".set('background-image','url("+BASE_URL+"/storage/public/objectsbg/"+state.bg+")') ";
         }
         //console.log("------"+str);
         return str;
