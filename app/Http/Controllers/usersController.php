@@ -4,16 +4,19 @@ use App\users;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Hash;
-
+use MessageBage;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+
 
 class usersController extends Controller
 {
 
     public function index()
     {
+
+        //{{ $php_errormsg->first('username'); }};
 
         return view('admin/login');
     }
@@ -40,7 +43,14 @@ class usersController extends Controller
             }
             else
             {
-                return view('admin/login')->with('message', 'Login Failed');
+             /* //  session()->flash('alert-success', 'User was successful added!');
+                $errors = new MessageBag(['password' => ['Email and/or password invalid.']]);
+                return Redirect::back()->withErrors($errors)->withInput(Input::except('password'));*/
+
+               // return redirect("/");
+
+                /*Session::flash('key', 'Invalid User Id Or Password');
+                return view('admin/login')->with('message', 'Login Failed');*/
             }
         }
         else

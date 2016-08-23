@@ -108,11 +108,12 @@ $(document).ready(function(){
              for(var i=1; i < strArr.length; i++){
                  str += ")";
              }
-
+ alert("out")
              console.log(str);
              console.log("#obj-"+object);
              //eval(strArr[0]);
              if(strArr[1]){
+             alert("innn")
                 $("#obj-"+object).click( function() {
                                   console.log("clicked obect")
                                   console.log(str);

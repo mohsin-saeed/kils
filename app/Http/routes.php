@@ -5,6 +5,7 @@ Route::get('layout','usersController@demoLayout');
 
 //admin
 Route::get('/', 'usersController@index');
+Route::get('logout', 'usersController@index');
 Route::get ('admin_creation_confirmation', 'usersController@admin_creation');
 Route::post ('authentication', 'usersController@authentication');
 Route::get ('admin_page', 'usersController@index');
@@ -90,7 +91,7 @@ Route::get('authenticateStudent','authenticateStudent');
 });*/
 
 
-
+/*
 require "connection.php";
 
 $mysql_qry = "select * from books";
@@ -102,7 +103,7 @@ while($row=mysqli_fetch_array($result)){
     array_push($response,array("title"=>$row[0]));
 }
 echo json_encode(array("sever_response"=>$response));
-mysqli_close($conn);
+mysqli_close($conn);*/
 
 
 

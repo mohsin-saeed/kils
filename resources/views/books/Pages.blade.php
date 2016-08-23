@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 ?>
         <!--Middle Content-->
-         <a href="<?php echo url();?>/AddPage/<?php echo $data[0]->book_id?>"><button type="button" class="button2">Add Page</button> </a>
+
+
+         <a href="<?php echo url();?>/AddPage/<?php echo $data['book_id']?>"><button type="button" class="button2">Add Page</button> </a>
+        <?php if(!empty($data[0])){ ?>
         <div class="row">
               <div class="col-md-12">
                 <div class="x_panel2">
@@ -48,21 +51,26 @@ use Illuminate\Support\Facades\DB;
                       </thead>
                       <tbody>
                       <?php $conter=1; ?>
-                        <?php foreach ($data as $data)
+                        <?php foreach ($data as $d)
                         {
+                              $d = (array)$d;
+                              //  $bookId = $d->book_id;
+                              var_dump($d);
+                      $bookId = $d['book_id'];
+                      //        die($bookId);
                          ?>
-                         <tr>
-                            <td><?php echo($conter++."  "); ?></td>
-                            <td style="margin-left: 6%"> <?php echo($data->book_id." ");?></td>
-                            <td> <?php echo($data->bg." ");?></td>
-                            <td> </td>
-                            <td>
-                            <a href="<?php echo url();?>/test/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Detail</a>
-                            <a href="<?php echo url();?>/EditPageRecord/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                            <a href="<?php echo url();?>/DeletePageRecord/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                         </td>
+                             <tr>
+                                <td><?php echo($conter++."  "); ?></td>
+                                <td style="margin-left: 6%"> <?php echo($bookId);?></td>
+                                <td> <?php echo($d['bg']." ");?></td>
+                                <td> </td>
+                                <td>
+                                <a href="<?php echo url();?>/test/<?php echo($d['id']);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Detail</a>
+                                <a href="<?php echo url();?>/EditPageRecord/<?php echo($did);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                <a href="<?php echo url();?>/DeletePageRecord/<?php echo($d->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                </td>
 
-                         </tr>
+                             </tr>
                          <?php
                           }
                          ?>
@@ -73,5 +81,13 @@ use Illuminate\Support\Facades\DB;
                 </div>
               </div>
             </div>
+    <?php }else {?>
+<div class="row">
+    <div class="col-md-12">
+        No page(s) found
+    </div>
+</div>
+
+    <?php } ?>
 
 @endsection

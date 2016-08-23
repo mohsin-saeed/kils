@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 use Illuminate\Support\Facades\View;
-
+class testit{
+    public $page_id = -1;
+}
 class books_materialController extends Controller
 {
     public function addCategory()
@@ -97,8 +99,6 @@ class books_materialController extends Controller
         return redirect('Books');
     }
 
-
-
 //pagess//////////////////
 
 
@@ -116,8 +116,9 @@ class books_materialController extends Controller
     }
     public function showBookPages($id)
     {
-        $Book = DB::table('pages')->where('book_id',$id)->get();
-        return view('books/Pages',array("data"=>$Book));
+        $data = DB::table('pages')->where('book_id',$id)->get();
+        $data["book_id"] = $id;
+        return view('books/Pages',array("data"=>$data));
 
     }
 
@@ -127,7 +128,7 @@ class books_materialController extends Controller
         {
             $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
-            $destinationPath = public_path().'\storage\public\pages';
+            $destinationPath = public_path().'/storage/public/pages';
             $name = uniqid ("page", true);
             Input::file('filename')->move($destinationPath,$name.".".$extension);
             $input['bg']= $name.".".$extension;
@@ -300,11 +301,17 @@ class books_materialController extends Controller
     public function showPageObjecttest($id)
     {
         $objects = DB::table('objects')->where('page_id',$id)->get();
+        if(!isset($objects[0])){
+
+            $objects[0] = new testit();
+
+            $objects[0]->page_id = $id;
+        }
         return view('books/test',array("data" => $objects));
     }
     public function test()
     {
-        return view('books/test2');
+        return view('books/ ');
     }
 
     public function testfun($p)

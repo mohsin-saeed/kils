@@ -33,6 +33,11 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 
 ?>
+
+
+
+
+
 <!--Middle Content-->
 <a href="<?php echo url();?>/preview/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button3" >Preview </button> </a>
 <a href="<?php echo url();?>/AddObject/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button4">Add Object</button> </a>
@@ -45,8 +50,10 @@ use Illuminate\Support\Facades\View;
                 $bg=DB::table('pages')->where('id',$data[0]->page_id)->get() ;
                 $pagedir="/storage/public/pages/";
                 $objectdir="/storage/public/objects/";
-            ?>
-            <div class="imgdiv" style="width: {{$screen_width}}px; height: {{$screen_height}}px">
+
+                if($bg){
+                    ?>
+                        <div class="imgdiv" style="width: {{$screen_width}}px; height: {{$screen_height}}px">
                 <img src="<?php echo url().$pagedir.$bg[0]->bg ?>" width="100%" height="100%">
                 <?php $objec=DB::table('objects')->where('page_id',$data[0]->page_id)->get();?>
                  <div class="img " style="top: 0px;">
@@ -60,6 +67,7 @@ use Illuminate\Support\Facades\View;
                 ?>
                  </div>
             </div>
+                <?php } ?>
 
     <div id="dive">
 
