@@ -151,6 +151,125 @@ class books_materialController extends Controller
         return view('books/EditPage' , array("data"=>$page));
     }
 
+
+    public function customisePage($id)
+    {
+
+        /* $page=DB::table('pages')->where('id',$id)->get();
+         return view('books/EditPage' , array("data"=>$page));*/
+        $objects=DB::table('objects')->where('page_id',$id)->get();
+        return view('books/BookPageListing' , array("data"=>$objects));
+    }
+
+
+    public function showPageState($id)
+    {
+        $states=DB::table('states')->where('object_id',$id)->get();
+
+
+        return view('books/EditPageObject' , array("data"=>$states));
+    }
+    public function showObjectStateDetail($id)
+    {
+        $states=DB::table('states')->where('Id',$id)->get();
+
+        $object=DB::table('objects')->where('Id',$states[0]->object_id)->get();
+
+        $page=DB::table('pages')->where('Id',$object[0]->page_id)->get();
+        $states["page"] = $page[0];
+        //echo "<pre>";
+        //var_dump($states);
+        //var_dump($object);
+
+        //var_dump($page);
+        return view('books/ObjectStateDetail' , array("data"=>$states));
+    }
+    public function deletePageObject($id)
+    {
+        $objectdir="D:/xampp/htdocs/project/public/storage/public/objects/";
+        $statedir="D:/xampp/htdocs/project/public/storage/public/objectsbg/";
+        $data=DB::table('objects')->where('id',$id)->get();
+        $path=$data[0]->object_path;
+        $page_id=$data[0]->page_id;
+        $object_id=$data[0]->id;
+        $statedata=DB::table('states')->where('object_id',$object_id)->get();
+
+        foreach($statedata as $statedata)
+        {
+            $statedatatodelete=DB::table('states')->where('Id',$statedata->Id)->get();
+            unlink($statedir.$statedatatodelete[0]->bg);
+            DB::table('states')->where('Id',$statedata->Id)->delete();
+
+        }
+        DB::table('objects')->where('id',$id)->delete();
+        unlink($objectdir.$path);
+        $objects=DB::table('objects')->where('page_id',$page_id)->get();
+        return view('books/BookPageListing',array("data"=>$objects));
+    }
+    public function deleteObjectStateDetail($id)
+    {
+        $statedir="D:/xampp/htdocs/project/public/storage/public/objectsbg/";
+        $data=DB::table('states')->where('Id',$id)->get();
+
+        unlink($statedir.$data[0]->bg);
+        DB::table('states')->where('Id',$id)->delete();
+        $data=DB::table('states')->where('object_id',$data[0]->object_id)->get();
+
+        return view('books/EditPageObject',array("data"=>$data));
+    }
+
+    public function saveObjectStateDetailChange()
+    {
+
+
+
+        if (Input::hasFile('filename'))
+        {
+            //delete file from folder
+            $id=$_POST["id"];
+            $x=$_POST["x"];
+            $y=$_POST["y"];
+            $delay=$_POST["delay"];
+            $duration=$_POST["duration"];
+            $action=$_POST["action"];
+            $data=DB::table('states')->where('id',$id)->get();
+            $statesdir="D:/xampp/htdocs/project/public/storage/public/objectsbg/";
+            $path=$statesdir.$data[0]->bg;
+            unlink($path);
+            //replace file onserver
+            $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
+            $destinationPath = public_path().'\storage\public\objectsbg';
+            $name = uniqid ("page", true);
+            Input::file('filename')->move($destinationPath,$name.".".$extension);
+            DB::table('states')
+                ->where('id', $id)
+                ->update([
+                    'x'=>$x,
+                    'y'=> $y,
+                    'duration'=> $duration,
+                    'delay'=> $delay,
+                    'action'=> $action,
+                    'bg'=> $name.".".$extension
+                ]);
+
+
+
+
+            $data =DB::table('states')->where('id',$id)->get();
+            return view('books/ObjectStateDetail',array("data"=>$data));
+
+        }
+
+        else
+        {
+            return "file not slected";
+        }
+        $data=$_POST["category"];
+        echo $data;
+    }
+
+
     public function savePageEdition($id)
     {
         if (Input::hasFile('filename'))
