@@ -78,7 +78,8 @@ $(document).ready(function(){
          state.effect = state.action;
      }
      console.log("-here us state details-");
-     console.log(state.effect);
+     console.log(state);
+     console.log(cor);
         if(state.effect){
             str = "move('#obj-"+state.oid+"').x("+cor.x+").y("+cor.y+")."+state.effect+"("+state.degree+").duration("+state.duration+").delay("+state.delay+")"+innerStr;
         }else{

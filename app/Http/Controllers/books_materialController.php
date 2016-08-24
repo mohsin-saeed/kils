@@ -466,6 +466,7 @@ class books_materialController extends Controller
             $input['object_id']=$inputs['obj_id'];
             $input['x']=$inputs['x'];
             $input['y']=$inputs['y'];
+            $input['degree']=$inputs['degree'];
             $input['width']=$imageDimensions[0];//$inputs['width'];
             $input['height']=$imageDimensions[1];//$inputs['height'];
             $input['action']=$inputs['action'];
@@ -498,6 +499,7 @@ class books_materialController extends Controller
 
             }
 
+            $input['degree']=$inputs['degree'];
             $input['object_id']=$inputs['obj_id'];
             $input['x']=$inputs['x'];
             $input['y']=$inputs['y'];
@@ -549,12 +551,7 @@ class books_materialController extends Controller
             $obj->states=$states;
         }
         $json_data =  json_encode($data);
-//        echo "<pre>";
-//        var_dump($data);
-//        echo "</pre><br><br> JSON HERE <br><br><pre>";
-//        var_dump( json_encode($json_data));
         $page[0]->bgUrl = url('/storage/public/pages/'.$page[0]->bg);
-
         $data["raw_data"] = $data;
         $data["json_data"] = $json_data;
         $data["page"] = $page;
@@ -567,20 +564,7 @@ class books_materialController extends Controller
 
     public function editState()
     {
-            //$lastrow =DB::table('states')->orderBy('Id', 'desc')->first();
-            /*$fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
-            $extension = $fileTokens[count($fileTokens) - 1];
-            $destinationPath = public_path().'\storage\public\objectsbg';
-            $name = uniqid ("page", true);
-            Input::file('logo')->move($destinationPath,$name.".".$extension);
-            $input['bg']=$name.".".$extension;*/
-
-
-
-            //die("jdkjsdkshdkjshdkjshdkjsdkjd");
-        //return  ("hhhhh");
-            $inputs=Input::all();
-        //return($inputs['x']);
+        $inputs=Input::all();
         $state[0] = DB::table('states')
             ->where('Id',$inputs['id'])->first();
         DB::table('states')
@@ -588,70 +572,24 @@ class books_materialController extends Controller
                 ->update([
                         'x'=>$inputs['x'],
                         'y'=>$inputs['y'],
+                        'degree'=>$inputs['degree'],
                         //'width'=>$inputs['width'],
                         //'height'=>$inputs['height'],
                         'action'=>$inputs['action'],
+                        'delay'=>$inputs['delay'],
+                        'duration'=>$inputs['duration']
 
                     ]
                 );
 
-        DB::table('states')
-            ->where('Id',$inputs['id'])
-            ->update([
-                'x'=>$inputs['x'],
-                'y'=>$inputs['y'],
-                //'width'=>$inputs['width'],
-                //'height'=>$inputs['height'],
-                'action'=>$inputs['action'],
-                'delay'=>$inputs['delay'],
-                'duration'=>$inputs['duration']]);
-
-        if($state[0] && $state[0]->next_state){
-            print_r($state[0]->next_state);
-            DB::table('states')
-                ->where('Id',$state[0]->next_state)
-                ->update([
-                    //'action'=>$inputs['action'],
-                    'delay'=>$inputs['delay'],
-                    'duration'=>$inputs['duration']]);
-        }
-                        //states::create($input);
-
-
-
-
-          /*  if (Input::file('logo'))
-            {
-                $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
-                $extension = $fileTokens[count($fileTokens) - 1];
-                $destinationPath = public_path().'\storage\public\objectsbg';
-                $name = uniqid ("page", true);
-                Input::file('logo')->move($destinationPath,$name.".".$extension);
-                $input['bg']=$name.".".$extension;
-                $id= $lastrow->Id;
-
-                DB::table('states')
-                    ->where('Id', $id)
-                    ->update(['next_state'=>$id+1]);
-
-                $inputs=Input::all();
-                $input['object_id']=$inputs['obj_id'];
-                $input['x']=$inputs['x'];
-                $input['y']=$inputs['y'];
-                $input['width']=$inputs['width'];
-                $input['height']=$inputs['height'];
-                $input['action']=$inputs['action'];
-                $input['delay']=$inputs['delay'];
-                $input['duration']=$inputs['duration'];
-                states::create($input);
-            }
-            else
-            {
-                return "file not slected";
-            }*/
-
-
-
+//        if($state[0] && $state[0]->Id){
+//            print_r($state[0]->Id);
+//            DB::table('states')
+//                ->where('next_state',$state[0]->Id)
+//                ->update([
+//                    'delay'=>$inputs['delay'],
+//                    'duration'=>$inputs['duration']]);
+//        }
 
 
     }

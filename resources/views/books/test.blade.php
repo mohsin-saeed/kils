@@ -137,7 +137,7 @@ use Illuminate\Support\Facades\View;
           </div>
 
 
-     <select class="btn3 btn-success dropdown-toggle action" style="width: 49%;padding: 1%;margin-left: 1%;" id="disableid">
+     <select class="btn3 btn-success dropdown-toggle action action-select" style="width: 49%;padding: 1%;margin-left: 1%;" id="disableid">
         <option>Select Action</option>
         <option value="move">Move</option>
         <option value="rotate">Rotate</option>
@@ -159,13 +159,18 @@ use Illuminate\Support\Facades\View;
 
 
 
-        <div class="x_content">
+        <div class="x_content"  title="Delay to start this step">
             <span class="btn btn-defaultt">Delay:</span>
             <span><input class="btn3 btn-success" type="number" value="0" step=".5" id="delay" style="width: 20%;margin-left: 5%;" name="delay"/></span>
-              </div>
-        <div class="x_content">
+        </div>
+        <div class="x_content" title="Duration to reach this step">
         <span class="btn btn-defaultt">Duration:</span>
         <span><input class="btn3 btn-success" type="number" value="0" step=".5" id="duration" style="width: 20%" name="duration"/></span>
+
+        </div>
+        <div class="x_content">
+            <span class="btn btn-defaultt">Degree:</span>
+            <span><input class="btn3 btn-success" type="number" value="0" step=".5" id="degree" style="width: 20%" name="degree"/></span>
 
         </div>
 
@@ -323,13 +328,15 @@ $(document).ready(function()
                var x=data[0].x;
                var y=data[0].y;
                var delay=data[0].delay;
+               var degree=data[0].degree;
                var duration=data[0].duration;
 
-               $('.action option[value="'+action+'"]').prop('selected',true);
                $('input[name=x]').val(x);
                $('input[name=y]').val(y);
                $('input[name=delay]').val(delay);
+               $('input[name=degree]').val(degree);
                $('input[name=duration]').val(duration);
+               $('.action-select').val(action);
 
         })
 
@@ -360,9 +367,10 @@ $(document).ready(function()
             var duration=$("input[name=duration]").val();
 
             var formData = new FormData($(this)[0]);
-            action=$('.action option:selected').text();
+            action=$('.action-select').val();
             formData.append("x", $("input[name=x]").val());
             formData.append("y", $("input[name=y]").val());
+            formData.append("degree", $("input[name=degree]").val());
             formData.append("action", action);
             formData.append("delay", delay);
             formData.append("duration", duration);
