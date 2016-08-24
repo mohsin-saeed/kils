@@ -449,9 +449,18 @@ class books_materialController extends Controller
 
     public function saveState()
     {
+
         //die(Input::all());
         //$lastrow =DB::table('states')->orderBy('Id', 'desc')->first();
         $inputs=Input::all();
+        if(empty($inputs['duration']) || $inputs['duration'] < 1){
+            $inputs['duration'] = 1000;
+        }
+
+        if(empty($inputs['degree'])){
+            $inputs['degree'] = 0;
+        }
+
         $previousState = DB::table('states')->where("object_id", $inputs['obj_id'])->orderBy('Id', 'desc')->first();
         if($previousState==null)
         {
@@ -471,7 +480,7 @@ class books_materialController extends Controller
             $input['height']=$imageDimensions[1];//$inputs['height'];
             $input['action']=$inputs['action'];
             $input['delay']=$inputs['delay'];
-            $input['duration']=$inputs['duration'];
+            $input['duration']= $inputs['duration'];
             states::create($input);
         }
         else

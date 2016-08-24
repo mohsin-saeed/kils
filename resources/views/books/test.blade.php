@@ -131,14 +131,14 @@ use Illuminate\Support\Facades\View;
 
     <div class="x_content" id="edit">
             <select class="btn3 btn-success dropdown-toggle stats-list" style="width: 50%;padding: 1%" id="disableid">
-                 <option name="option" class="op">Select State to See/Eit</option>
+                 <option name="option" class="op">New State</option>
                   </select>
 
           </div>
 
 
      <select class="btn3 btn-success dropdown-toggle action action-select" style="width: 49%;padding: 1%;margin-left: 1%;" id="disableid">
-        <option>Select Action</option>
+        <option value="Select Action">Select Action</option>
         <option value="move">Move</option>
         <option value="rotate">Rotate</option>
         <option value="scale">Resize</option>
@@ -229,9 +229,14 @@ $(document).ready(function()
     var x, y, height, width, action, object_id;
 
     $('form#object-state').submit(function(e){
+            if(!object_id || typeof object_id == 'undefined'){
+                alert("Please select an object (by double click) to add/edit state");
+                return false;
+            }
+
             e.preventDefault();
             var formData = new FormData($(this)[0]);
-            action=$('.action option:selected').text();
+            action=$('.action-select').val();
             formData.append("x", x);
             formData.append("y", y);
             formData.append("width", width);
@@ -239,6 +244,8 @@ $(document).ready(function()
             formData.append("action", action);
             formData.append("delay", delay);
             formData.append("duration", duration);
+            formData.append("degree", $("input[name=degree]").val());
+
             formData.append("obj_id", object_id);
 
             $.ajax({
@@ -249,7 +256,7 @@ $(document).ready(function()
                 success: function (data) {
                     if(data == 1){
                         $("#successDiv").show();
-                        setTimeout(function(){$("#successDiv").hide();}, 3000)
+                        setTimeout(function(){$("#successDiv").hide(); location.reload() }, 3000)
                     }else{
                         alert("Error!")
                     }
@@ -301,7 +308,7 @@ $(document).ready(function()
         $('#edit').show();
         object_id = $(e.target).attr("id").split("_")[1]
         $(".selected_obj").val(object_id);
-        alert(object_id);
+
         $.get('<?php echo url();?>/getObjectStates',{id:object_id},function(data)
         {
         for(i=0;i<data.length;i++)
@@ -322,7 +329,7 @@ $(document).ready(function()
         var state_id=$('.stats-list option:selected').val();
         $.get('<?php echo url();?>/getState',{id:state_id},function(data)
         {
-            alert("ok---")
+
             console.log(data);
                var action=data[0].action;
                var x=data[0].x;
@@ -346,7 +353,8 @@ $(document).ready(function()
 
         var state_id=$('.stats-list option:selected').val();
         $.get('<?php echo url();?>/getState',{id:state_id},function(data){
-                    $.get('<?php echo url();?>/deleteState',{id:state_id},function(data){})
+                    $.get('<?php echo url();?>/deleteState',{id:state_id},function(data){$("#successDiv").show();
+                        setTimeout(function(){$("#successDiv").hide(); location.reload() }, 2000)})
                 }
             )
 
@@ -384,7 +392,8 @@ $(document).ready(function()
                 data: formData,
                 async: false,
                 success: function (data) {
-                alert("sss")
+                    $("#successDiv").show();
+                    setTimeout(function(){$("#successDiv").hide(); location.reload() }, 3000);
                    // alert(data)
                 },
                 cache: false,
