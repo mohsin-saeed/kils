@@ -61,7 +61,7 @@ use Illuminate\Support\Facades\View;
         </button>
         <strong>Note</strong> Double click object to change state specific details of that object.
     </div>
-     <div id="canvas-container" style="width: 65%;float: left">
+     <div id="canvas-container" style="width: 65%;float: left; ">
             <!--<?php echo($data[0]->page_id);
             ?>-->
 
@@ -70,11 +70,14 @@ use Illuminate\Support\Facades\View;
                 $pagedir="/storage/public/pages/";
                 $objectdir="/storage/public/objects/";
 
+         $PAGE_WIDTH = "751";
+         $PAGE_HEIGHT = "563";
+
                 if($bg){
                     ?>
                         {{--<div class="imgdiv" style="width: {{$screen_width}}px; height: {{$screen_height}}px">--}}
-                <div class="imgdiv" style="width: 100%; height: 100%">
-                <img src="<?php echo url().$pagedir.$bg[0]->bg ?>" width="100%" height="100%">
+                <div class="imgdiv" style="width: <?php echo $PAGE_WIDTH?>px; height: <?php echo $PAGE_HEIGHT?>px; border: none;">
+                <img src="<?php echo url().$pagedir.$bg[0]->bg ?>" width="100%" height="100%" style="width: <?php echo $PAGE_WIDTH?>px; height: <?php echo $PAGE_HEIGHT?>px;">
                 <?php $objec=DB::table('objects')->where('page_id',$data[0]->page_id)->get();?>
                  <div class="img " style="top: 0px;">
                 <?php
@@ -290,8 +293,8 @@ $(document).ready(function()
                   var y1 = screen_height - (xPos.top + $(e.target).height());
                   x = (xPos.left/screen_width)*100;
                   y = (y1/screen_height)*100;
-                  x2 = Math.round(x);
-                  y2 = Math.round(y);
+                  x2 = x;//Math.round(x);
+                  y2 = y;//Math.round(y);
                   $('input[name=x]').val(x2);
                   $('input[name=y]').val(y2);
             }

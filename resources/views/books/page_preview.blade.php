@@ -1,18 +1,29 @@
  <script src="{{url("js/jquery.min.js?")}}"> </script>
   <script src="{{url("js/move.js?")}}"> </script>
 <?php
-$PAGE_WIDTH = "798";
-$PAGE_HEIGHT = "448";
+$PAGE_WIDTH = "600";
+$PAGE_HEIGHT = "338";
+
+$DECIDED_WIDTH = "751";
+$DECIDED_HEIGHT = "563";
+
+$WF =     $PAGE_WIDTH/  $DECIDED_WIDTH;
+$HF =     $PAGE_HEIGHT/  $DECIDED_HEIGHT;
+
+$WP = "9";
+$HP = "9";
+
+
 //print_r($page);
 ?>
 
 
-<div style="background: url('<?php echo $page[0]->bgUrl?>'); background-repeat: no-repeat; width: <?php echo $PAGE_WIDTH?>; height: <?php echo $PAGE_HEIGHT?>; background-size: 100%">
+<div id="playing-canvas" style="background: url('<?php echo $page[0]->bgUrl?>'); background-repeat: no-repeat; width: <?php echo $PAGE_WIDTH?>; height: <?php echo $PAGE_HEIGHT?>; background-size: <?php echo $PAGE_WIDTH-$WP?>px <?php echo $PAGE_HEIGHT-$HP?>px">
 
     <?php foreach($raw_data as $obj){
         if(isset($obj->states[0])){
-            $width = ($obj->states[0]->width/$PAGE_WIDTH)*100;
-            $height = ($obj->states[0]->height/$PAGE_HEIGHT)*100;
+            $width = ($obj->states[0]->width*$WF);
+            $height = ($obj->states[0]->height*$HF);
              $x = 0;//($obj->states[0]->x/100)*$PAGE_WIDTH;
              $y = 0;//(($obj->states[0]->y/100)*$PAGE_HEIGHT) + $PAGE_HEIGHT;
 
@@ -30,6 +41,11 @@ $PAGE_HEIGHT = "448";
 
 <script>
 
+    var playingCanvas = $("#playing-canvas");
+
+    var decidedPageWidth = <?php echo $DECIDED_WIDTH; ?>;
+    var decidedPageHeight = <?php echo $DECIDED_HEIGHT; ?>;
+
 objects = <?php echo $json_data; ?>
 
 PAGE_WIDTH = <?php echo $PAGE_WIDTH; ?>
@@ -38,9 +54,21 @@ PAGE_HEIGHT = <?php echo $PAGE_HEIGHT; ?>
 
 BASE_URL = <?php echo "'".$baseUrl."'"; ?>
 
+var WF = PAGE_WIDTH/decidedPageWidth;
+var HF = PAGE_HEIGHT/decidedPageHeight;
+
 
 
 $(document).ready(function(){
+
+
+    var playingCanvas = $("#playing-canvas");
+
+
+    PAGE_WIDTH = playingCanvas.width();
+
+    PAGE_HEIGHT = playingCanvas.height();
+
 
     $.each(objects, function(index, value){
          console.log("Goiy yo ptint obj");
@@ -52,8 +80,11 @@ $(document).ready(function(){
                      count = 0;
                      oid = 0
          $.each(value.states, function(ind, state){
-            state.oid = value.id;
-            objStrArr[count++] = getActionStr(state, 1, 32);
+             state.oid = value.id;
+             if(count == 0){
+                 setFistState(state)
+             }
+             objStrArr[count++] = getActionStr(state, 1, 32);
             //str +=  "move('"+obj_elem+"'). "
          })
          bindObjectAnimation(value.id, objStrArr)
@@ -64,6 +95,16 @@ $(document).ready(function(){
         console.log("+++++++++++");
         console.log(objects);
 });
+
+function setFistState(state){
+    console.log("this is FIRST STATE")
+    console.log(state)
+    var cor = getPixalCordinate(state);
+    var str = "move('#obj-"+state.oid+"').x("+cor.x+").y("+cor.y+").duration("+state.duration+").delay("+state.delay+").end()";
+    //$('#obj-'+state.oid).css({top:cor.y, left:cor.x});
+    console.log(str);
+    eval(str);
+}
 
  function getActionStr(state, bid, pid){
 
@@ -109,7 +150,7 @@ $(document).ready(function(){
             var cor = {};
             var calcY = 100 - parseInt(state.y);
             cor.x = (parseInt(state.x)*PAGE_WIDTH)/100;
-            cor.y = (calcY*PAGE_HEIGHT)/100;
+            cor.y = ((calcY*PAGE_HEIGHT)/100) - HF*state.height;
             return cor;
         }
 
@@ -123,12 +164,10 @@ $(document).ready(function(){
              for(var i=1; i < strArr.length; i++){
                  str += ")";
              }
- alert("out")
              console.log(str);
              console.log("#obj-"+object);
              //eval(strArr[0]);
              if(strArr[1]){
-             alert("innn")
                 $("#obj-"+object).click( function() {
                                   console.log("clicked obect")
                                   console.log(str);
