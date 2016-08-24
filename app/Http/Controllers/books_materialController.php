@@ -573,6 +573,8 @@ class books_materialController extends Controller
 
     public function editState()
     {
+
+
         $inputs=Input::all();
         $state[0] = DB::table('states')
             ->where('Id',$inputs['id'])->first();
@@ -590,6 +592,25 @@ class books_materialController extends Controller
 
                     ]
                 );
+
+        if (Input::file('logo'))
+        {
+            $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
+            $destinationPath = public_path().'/storage/public/objectsbg';
+            $name = uniqid ("page", true);
+            Input::file('logo')->move($destinationPath,$name.".".$extension);
+            $imageDimensions = getimagesize($destinationPath."/".$name.".".$extension);
+            $input = [];
+            $input['bg']=$name.".".$extension;
+            $input['width']=$imageDimensions[0];
+            $input['height']=$imageDimensions[1];
+
+            DB::table('states')
+                ->where('Id',$inputs['id'])
+                ->update($input);
+
+        }
 
 //        if($state[0] && $state[0]->Id){
 //            print_r($state[0]->Id);

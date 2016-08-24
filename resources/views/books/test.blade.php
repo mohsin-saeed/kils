@@ -226,7 +226,16 @@ $(document).ready(function()
     var screen_width = $canvasContainer.width();
     var screen_height = $canvasContainer.height();
     //alert(screen_width+" X "+ screen_height);
-    var x, y, height, width, action, object_id;
+    var x, y, height, width, action, object_id, ajaxFiles;
+
+
+    $('input[name=logo]').on('change', prepareUpload);
+
+// Grab the files and set them to our variable
+    function prepareUpload(event)
+    {
+        ajaxFiles = event.target.files;
+    }
 
     $('form#object-state').submit(function(e){
             if(!object_id || typeof object_id == 'undefined'){
@@ -323,6 +332,7 @@ $(document).ready(function()
 
     $('.stats-list').change(function()
     {
+        ajaxFiles = [];
        $('.editstate').show();
        $('.deletestate').show();
        $('.savestate').hide();
@@ -374,7 +384,15 @@ $(document).ready(function()
             var delay=$("input[name=delay]").val();
             var duration=$("input[name=duration]").val();
 
+
+
+
             var formData = new FormData($(this)[0]);
+                $.each(ajaxFiles, function(key, value)
+                {
+                    formData.append("logo", ajaxFiles[0]);
+                });
+                //formData.append("logo", ajaxFiles[0])
             action=$('.action-select').val();
             formData.append("x", $("input[name=x]").val());
             formData.append("y", $("input[name=y]").val());
