@@ -450,32 +450,31 @@ class books_materialController extends Controller
     public function saveState()
     {
         //die(Input::all());
-        $lastrow =DB::table('states')->orderBy('Id', 'desc')->first();
-        if($lastrow==null)
+        //$lastrow =DB::table('states')->orderBy('Id', 'desc')->first();
+        $inputs=Input::all();
+        $previousState = DB::table('states')->where("object_id", $inputs['obj_id'])->orderBy('Id', 'desc')->first();
+        if($previousState==null)
         {
             $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
             $destinationPath = public_path().'/storage/public/objectsbg';
             $name = uniqid ("page", true);
             Input::file('logo')->move($destinationPath,$name.".".$extension);
+            $imageDimensions = getimagesize($destinationPath."/".$name.".".$extension);
             $input['bg']=$name.".".$extension;
 
-            $inputs=Input::all();
             $input['object_id']=$inputs['obj_id'];
             $input['x']=$inputs['x'];
             $input['y']=$inputs['y'];
-            $input['width']=$inputs['width'];
-            $input['height']=$inputs['height'];
+            $input['width']=$imageDimensions[0];//$inputs['width'];
+            $input['height']=$imageDimensions[1];//$inputs['height'];
             $input['action']=$inputs['action'];
             $input['delay']=$inputs['delay'];
             $input['duration']=$inputs['duration'];
             states::create($input);
-
-
         }
         else
         {
-
             if (Input::file('logo'))
             {
                 $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
@@ -483,32 +482,40 @@ class books_materialController extends Controller
                 $destinationPath = public_path().'/storage/public/objectsbg';
                 $name = uniqid ("page", true);
                 Input::file('logo')->move($destinationPath,$name.".".$extension);
+                $imageDimensions = getimagesize($destinationPath."/".$name.".".$extension);
                 $input['bg']=$name.".".$extension;
-                $id= $lastrow->Id;
-
-                DB::table('states')
-                    ->where('Id', $id)
-                    ->update(['next_state'=>$id+1]);
-
-                $inputs=Input::all();
-                $input['object_id']=$inputs['obj_id'];
-                $input['x']=$inputs['x'];
-                $input['y']=$inputs['y'];
-                $input['width']=$inputs['width'];
-                $input['height']=$inputs['height'];
-                $input['action']=$inputs['action'];
-                $input['delay']=$inputs['delay'];
-                $input['duration']=$inputs['duration'];
-                states::create($input);
-                return 1;
-
+                $input['width']=$imageDimensions[0];
+                $input['height']=$imageDimensions[1];
 
             }
             else
             {
-                return 0;
+
+                $input['bg']=$previousState->bg;
+                $input['object_id']=$inputs['obj_id'];
+                $input['width']= $previousState->width;
+                $input['height']= $previousState->height;
+
             }
 
+            $input['object_id']=$inputs['obj_id'];
+            $input['x']=$inputs['x'];
+            $input['y']=$inputs['y'];
+            //$input['width']=$inputs['width'];
+            //$input['height']=$inputs['height'];
+            $input['action']=$inputs['action'];
+            $input['delay']=$inputs['delay'];
+            $input['duration']=$inputs['duration'];
+            //states::create($input);
+
+            $newId= DB::table('states')->insertGetId($input);
+
+            $id= $previousState->Id;
+            DB::table('states')
+                ->where('Id', $id)
+                ->update(['next_state'=>$newId]);
+
+            return 1;
 
          }
 
@@ -574,16 +581,40 @@ class books_materialController extends Controller
         //return  ("hhhhh");
             $inputs=Input::all();
         //return($inputs['x']);
+        $state[0] = DB::table('states')
+            ->where('Id',$inputs['id'])->first();
         DB::table('states')
                 ->where('Id',$inputs['id'])
                 ->update([
                         'x'=>$inputs['x'],
                         'y'=>$inputs['y'],
-                        'width'=>$inputs['width'],
-                        'height'=>$inputs['height'],
+                        //'width'=>$inputs['width'],
+                        //'height'=>$inputs['height'],
                         'action'=>$inputs['action'],
-                        'delay'=>$inputs['delay'],
-                        'duration'=>$inputs['duration']]);
+
+                    ]
+                );
+
+        DB::table('states')
+            ->where('Id',$inputs['id'])
+            ->update([
+                'x'=>$inputs['x'],
+                'y'=>$inputs['y'],
+                //'width'=>$inputs['width'],
+                //'height'=>$inputs['height'],
+                'action'=>$inputs['action'],
+                'delay'=>$inputs['delay'],
+                'duration'=>$inputs['duration']]);
+
+        if($state[0] && $state[0]->next_state){
+            print_r($state[0]->next_state);
+            DB::table('states')
+                ->where('Id',$state[0]->next_state)
+                ->update([
+                    //'action'=>$inputs['action'],
+                    'delay'=>$inputs['delay'],
+                    'duration'=>$inputs['duration']]);
+        }
                         //states::create($input);
 
 

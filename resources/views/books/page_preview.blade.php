@@ -7,7 +7,7 @@ $PAGE_HEIGHT = "448";
 ?>
 
 
-<div style="background: url('<?php echo $page[0]->bgUrl?>'); background-repeat: no-repeat; width: <?php echo $PAGE_WIDTH?>; height: <?php echo $PAGE_HEIGHT?>; ">
+<div style="background: url('<?php echo $page[0]->bgUrl?>'); background-repeat: no-repeat; width: <?php echo $PAGE_WIDTH?>; height: <?php echo $PAGE_HEIGHT?>; background-size: 100%">
 
     <?php foreach($raw_data as $obj){
         if(isset($obj->states[0])){
@@ -74,11 +74,11 @@ $(document).ready(function(){
          state.effect = state.action;
      }else if(state.action == 'skew'){
          state.effect = state.action;
-     }else if(state.action == 'resize'){
+     }else if(state.action == 'scale'){
          state.effect = state.action;
      }
      console.log("-here us state details-");
-     console.log(state);
+     console.log(state.effect);
         if(state.effect){
             str = "move('#obj-"+state.oid+"').x("+cor.x+").y("+cor.y+")."+state.effect+"("+state.degree+").duration("+state.duration+").delay("+state.delay+")"+innerStr;
         }else{

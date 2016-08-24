@@ -61,7 +61,7 @@ use Illuminate\Support\Facades\View;
         </button>
         <strong>Note</strong> Double click object to change state specific details of that object.
     </div>
-     <div style="width: 65%;float: left">
+     <div id="canvas-container" style="width: 65%;float: left">
             <!--<?php echo($data[0]->page_id);
             ?>-->
 
@@ -72,7 +72,8 @@ use Illuminate\Support\Facades\View;
 
                 if($bg){
                     ?>
-                        <div class="imgdiv" style="width: {{$screen_width}}px; height: {{$screen_height}}px">
+                        {{--<div class="imgdiv" style="width: {{$screen_width}}px; height: {{$screen_height}}px">--}}
+                <div class="imgdiv" style="width: 100%; height: 100%">
                 <img src="<?php echo url().$pagedir.$bg[0]->bg ?>" width="100%" height="100%">
                 <?php $objec=DB::table('objects')->where('page_id',$data[0]->page_id)->get();?>
                  <div class="img " style="top: 0px;">
@@ -138,10 +139,10 @@ use Illuminate\Support\Facades\View;
 
      <select class="btn3 btn-success dropdown-toggle action" style="width: 49%;padding: 1%;margin-left: 1%;" id="disableid">
         <option>Select Action</option>
-        <option value="Move">Move</option>
-        <option value="Rotate">Rotate</option>
-        <option value="Resize">Resize</option>
-        <option value="Skew">Skew</option>
+        <option value="move">Move</option>
+        <option value="rotate">Rotate</option>
+        <option value="scale">Resize</option>
+        <option value="skew">Skew</option>
       </select>
         <div class="x_content">
         <span btn3 btn-success style="margin-left: 4%">X:axis</span>
@@ -192,9 +193,9 @@ use Illuminate\Support\Facades\View;
         <form method="post"  enctype="multipart/form-data" id="object-state2" >
                    {{--<input type='file' id='files' name='files' multiple='multiple' />--}}
                <div class="x_content2">
-                        <div style="float: left">
-                            <input type="file" class="btn3 btn-success bg"  style="width: 100%" id="disableid" name="logo">
-                        </div>
+                        {{--<div style="float: left">--}}
+                            {{--<input type="file" class="btn3 btn-success bg"  style="width: 100%" id="disableid" name="logo">--}}
+                        {{--</div>--}}
                          <input type="hidden" class="selected_obj" name="selected_obj"/>
                    </div>
                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -215,8 +216,11 @@ $(document).ready(function()
     $('.editstate').hide();
     $('.deletestate').hide();
 
-    var screen_width = <?php echo $screen_width; ?>;
-    var screen_height = <?php echo $screen_height; ?>;
+    $canvasContainer = $("#canvas-container");
+
+    var screen_width = $canvasContainer.width();
+    var screen_height = $canvasContainer.height();
+    //alert(screen_width+" X "+ screen_height);
     var x, y, height, width, action, object_id;
 
     $('form#object-state').submit(function(e){
@@ -251,13 +255,12 @@ $(document).ready(function()
                 processData: false
             });
 
-        });
+        }
+    );
 
-    $( "img.obj-dragable" ).draggable(
-            {
+    $( "img.obj-dragable" ).draggable({
             containment: ".imgdiv", scroll: false ,
-            stop: function(e)
-            {
+            stop: function(e) {
                   object_id = $(e.target).attr("id").split("_")[1]
                   $(".selected_obj").val(object_id);
                   var xPos = $(e.target).position();
@@ -272,163 +275,94 @@ $(document).ready(function()
                   $('input[name=y]').val(y2);
             }
         }
-        );
+    );
 
-        $("#delay").bind('keyup mouseup', function ()
-        {
+    $("#delay").bind('keyup mouseup', function (){
             delay= $(this).val();
-          });
+        }
+    );
 
-        $("#duration").bind('keyup mouseup', function ()
-        {
+    $("#duration").bind('keyup mouseup', function (){
             duration= $(this).val();
-          });
+        }
+    );
+
+    $('[id="disableid"]').prop('disabled',false);
 
 
-        $('[id="disableid"]').prop('disabled',false);
-
-
-        $(".img").dblclick(function(e)
+    $(".img").dblclick(function(e)
+    {
+        var a;
+        $('#edit').show();
+        object_id = $(e.target).attr("id").split("_")[1]
+        $(".selected_obj").val(object_id);
+        alert(object_id);
+        $.get('<?php echo url();?>/getObjectStates',{id:object_id},function(data)
         {
+        for(i=0;i<data.length;i++)
+         {
 
-            var a;
+             var state_id = '<option value="'+data[i].Id+'">State '+(i+1)+'</option>'
+             $(".stats-list").append(state_id);
 
-            $('#edit').show();
-            object_id = $(e.target).attr("id").split("_")[1]
-            $(".selected_obj").val(object_id);
-            alert(object_id);
-            $.get('<?php echo url();?>/getObjectStates',{id:object_id},function(data)
-            {
-
-            for(i=0;i<data.length;i++)
-             {
-
-                 var state_id = '<option value="'+data[i].Id+'">State '+(i+1)+'</option>'
-                 $(".stats-list").append(state_id);
-
-             }
-
-
-            })
-
-
+         }
         })
-        $('.stats-list').change(function()
+    });
+
+    $('.stats-list').change(function()
+    {
+       $('.editstate').show();
+       $('.deletestate').show();
+       $('.savestate').hide();
+        var state_id=$('.stats-list option:selected').val();
+        $.get('<?php echo url();?>/getState',{id:state_id},function(data)
         {
+            alert("ok---")
+            console.log(data);
+               var action=data[0].action;
+               var x=data[0].x;
+               var y=data[0].y;
+               var delay=data[0].delay;
+               var duration=data[0].duration;
 
-
-                       $('.editstate').show();
-                       $('.deletestate').show();
-                       $('.savestate').hide();
-           var state_id=$('.stats-list option:selected').val();
-            $.get('<?php echo url();?>/getState',{id:state_id},function(data)
-            {
-
-
-                   var action=data[0].action;
-                   var x=data[0].x;
-                   var y=data[0].y;
-                   var delay=data[0].delay;
-                   var duration=data[0].delay;
-
-                   $('.action option[value="'+action+'"]').prop('selected',true);
-                   $('input[name=x]').val(x);
-                   $('input[name=y]').val(y);
-                   $('input[name=delay]').val(delay);
-                   $('input[name=duration]').val(duration);
-                   var id='#obj_'+data[0].object_id;
-
-                       if(action=="Move")
-                       {
-                        move(id).translate(x, y).end()
-                       }
-                       if(action=="Rotate")
-                       {
-                           alert(action);
-                           move(id)
-                           .rotate(140)
-                           .end();
-                       }
-                       if(action=="Resize")
-                       {
-                           alert(action);
-                           move(id)
-                           .scale(3)
-                           .end();
-                       }
-                       if(action=="Skew")
-                       {
-                           alert(action);
-                           move(id)
-                           .x(300)
-                           .skew(50)
-                           .set('height', 20)
-                           .end();
-                       }
-
-                   $('').submit(function(e){
-                               e.preventDefault();
-                               var formData = new FormData($(this)[0]);
-                               action=$('.action option:selected').text();
-                               formData.append("x", x);
-                               formData.append("y", y);
-                               formData.append("width", width);
-                               formData.append("height", height);
-                               formData.append("action", action);
-                               formData.append("delay", delay);
-                               formData.append("duration", duration);
-                               formData.append("obj_id", object_id);
-
-                               $.ajax({
-                                   url: '<?php echo url();?>/editState',
-                                   type: 'POST',
-                                   data: formData,
-                                   async: false,
-                                   success: function (data) {
-                                      // alert(data)
-                                   },
-                                   cache: false,
-                                   contentType: false,
-                                   processData: false
-                               });
-
-                           });
-
-            })
+               $('.action option[value="'+action+'"]').prop('selected',true);
+               $('input[name=x]').val(x);
+               $('input[name=y]').val(y);
+               $('input[name=delay]').val(delay);
+               $('input[name=duration]').val(duration);
 
         })
 
-        $(".deletestate").click(function()
-                {
+    });
 
+    $(".deletestate").click(function(){
 
-                        var state_id=$('.stats-list option:selected').val();
-                        $.get('<?php echo url();?>/getState',{id:state_id},function(data)
-                            {
-                                $.get('<?php echo url();?>/deleteState',{id:state_id},function(data){})
-                            })
-
+        var state_id=$('.stats-list option:selected').val();
+        $.get('<?php echo url();?>/getState',{id:state_id},function(data){
+                    $.get('<?php echo url();?>/deleteState',{id:state_id},function(data){})
                 }
-                )
-        $('form#object-state2').submit(function(e)
-        {
+            )
+
+        }
+    )
+    $('form#object-state2').submit(function(e){
+            //var target = $("#obj_"+object_id);
+
             var state_id=$('.stats-list option:selected').val();
             e.preventDefault();
-            var xPos = $(e.target).position();
-            height=$(e.target).height();
-            width=$(e.target).width();
-            var y1 = screen_height - (xPos.top + $(e.target).height());
-            var x3 = (xPos.left/screen_width)*100;
-            var y3 = (y1/screen_height)*100;
-            var delay=0
-            var duration=0
-            alert(x3);
+            //var xPos = $(target).position();
+            //height=$(target).height();
+            //width=$(target).width();
+            //var y1 = screen_height - (xPos.top + $(e.target).height());
+            //var x3 = (xPos.left/screen_width)*100;
+            //var y3 = (y1/screen_height)*100;
+            var delay=$("input[name=delay]").val();
+            var duration=$("input[name=duration]").val();
+
             var formData = new FormData($(this)[0]);
             action=$('.action option:selected').text();
-            formData.append("x", x3);
-            formData.append("y", y3);
-            formData.append("width", width);
-            formData.append("height", height);
+            formData.append("x", $("input[name=x]").val());
+            formData.append("y", $("input[name=y]").val());
             formData.append("action", action);
             formData.append("delay", delay);
             formData.append("duration", duration);
@@ -450,58 +384,8 @@ $(document).ready(function()
                 processData: false
             });
         }
-        )
+    )
 
-
-
-
-        $('#1').click(function()
-            {
-            $.get('<?php echo url();?>/getState',function(data)
-            {
-
-                for(i=0;i<data.length;i++)
-                {
-                    //$('#dive').append(data);
-                    var str=data[i].action
-                                if(str=="Move")
-                                {
-                                        alert(str);
-                                        //$('#dive').append(data[0].action);
-                                        move(".aa").translate(data[i].x, data[i].y).end()
-                                }
-                                if(str=="Rotate")
-                                {
-                                    alert(str);
-                                    move('.aa')
-                                    .rotate(140)
-                                    .end();
-                                }
-                                if(str=="Resize")
-                                {
-                                    alert(str);
-                                    move('.aa')
-                                    .scale(3)
-                                    .end();
-                                }
-                                if(str=="Skew")
-                                {
-                                    alert(str);
-                                    move('.aa')
-                                    .x(300)
-                                    .skew(50)
-                                    .set('height', 20)
-                                    .end();
-                                }
-                }
-
-
-            });
-
-        }
-        )
-
-   // alert("ready end");
  });
 
 
