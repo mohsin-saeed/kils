@@ -69,9 +69,16 @@ use Illuminate\Support\Facades\View;
                 $bg=DB::table('pages')->where('id',$data[0]->page_id)->get() ;
                 $pagedir="/storage/public/pages/";
                 $objectdir="/storage/public/objects/";
+         $DECIDED_WIDTH = 998;
+         $DECIDED_HEIGHT = 561;
 
-         $PAGE_WIDTH = "751";
-         $PAGE_HEIGHT = "563";
+         $PAGE_WIDTH = 751;
+         $PAGE_HEIGHT = 422;
+
+         $WF =     $PAGE_WIDTH/  $DECIDED_WIDTH;
+         $HF =     $PAGE_HEIGHT/  $DECIDED_HEIGHT;
+
+
 
                 if($bg){
                     ?>
@@ -87,14 +94,14 @@ use Illuminate\Support\Facades\View;
                          $h = "";
                          $w = "";
                          if(!empty($states[0])){
-                             $h =    $states[0]->height;
-                             $w =    $states[0]->width;
+                             $h =    $states[0]->height*$HF;
+                             $w =    $states[0]->width*$WF;
                          }
 
 
 
                 ?>
-                     <img aaaa id="obj_{{$objec->id}}" class="obj-dragable obj-img-wrapper aa" src="<?php echo url().$objectdir.$objec->object_path; ?>" style="height: <?php echo $h?>px;width: <?php echo $w?>px;top:0px;" >
+                     <img aaaa id="obj_{{$objec->id}}" class="obj-dragable obj-img-wrapper aa" src="<?php echo url().$objectdir.$states[0]->bg; ?>" style="height: <?php echo $h?>px;width: <?php echo $w?>px;top:0px;" >
                 <?php
                    }
                 ?>

@@ -187,7 +187,7 @@ class books_materialController extends Controller
     public function deletePageObject($id)
     {
         $objectdir="D:/xampp/htdocs/project/public/storage/public/objects/";
-        $statedir="D:/xampp/htdocs/project/public/storage/public/objectsbg/";
+        $statedir="D:/xampp/htdocs/project/public/storage/public/objects/";
         $data=DB::table('objects')->where('id',$id)->get();
         $path=$data[0]->object_path;
         $page_id=$data[0]->page_id;
@@ -575,6 +575,7 @@ class books_materialController extends Controller
     {
 
 
+
         $inputs=Input::all();
         $state[0] = DB::table('states')
             ->where('Id',$inputs['id'])->first();
@@ -595,17 +596,20 @@ class books_materialController extends Controller
 
         if (Input::file('logo'))
         {
+            //echo "in";
             $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
-            $destinationPath = public_path().'/storage/public/objectsbg';
+            $destinationPath = public_path().'/storage/public/objects';
             $name = uniqid ("page", true);
             Input::file('logo')->move($destinationPath,$name.".".$extension);
             $imageDimensions = getimagesize($destinationPath."/".$name.".".$extension);
+            //print_r($imageDimensions);
             $input = [];
             $input['bg']=$name.".".$extension;
             $input['width']=$imageDimensions[0];
             $input['height']=$imageDimensions[1];
-
+            //print_r($input);
+            //echo "AND -".$inputs['id'];
             DB::table('states')
                 ->where('Id',$inputs['id'])
                 ->update($input);

@@ -101,6 +101,9 @@ Route::get('api/categories','ApiController@categories');
 
 Route::get('api/books','ApiController@books');
 
+
+Route::get('package/{bookId}','PackagerController@package');
+
 //Route::get('test','books_materialController@testfun' );
 /*{
     if(Request::ajax()){
