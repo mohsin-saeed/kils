@@ -2,6 +2,9 @@ PAGE_WIDTH = 0;
 PAGE_HEIGHT = 0;
 
 
+DECIDED_HEIGHT = 563;
+DECIDED_WIDTH = 998;
+
 
 function initPageEventBinding(page){
     var objects = page.objects
@@ -10,7 +13,7 @@ function initPageEventBinding(page){
         var obj_elem = "#obj-"+value.id;
         objStrArr = [];
         count = 0;
-        oid = 0
+        oid = 0;
         $.each(value.states, function(ind, state){
             state.oid = value.id;
             if(count == 0){
@@ -19,16 +22,16 @@ function initPageEventBinding(page){
             objStrArr[count++] = getActionStr(state, 1, 32);
             //str +=  "move('"+obj_elem+"'). "
         })
-        bindObjectAnimation(value.id, objStrArr)
+        bindObjectAnimation(value.id, objStrArr, value)
     });
 }
 
 function setFistState(state){
     // ----- setting styles first ---//
-    $width = (state.width*PAGE_WIDTH);
-    $height = (state.height*PAGE_WIDTH);
+    $width = (state.width*WF);
+    $height = (state.height*HF);
     $objEl = $("#obj-"+state.oid);
-    $objEl.css({width: $width+'px', height: $height+'px'});
+    $objEl.css({width: $width+'px', height: $height+'px', 'background-size': '100%'});
     // ----- moving to actual positions ----- //
     var cor = getPixalCordinate(state);
     var str = "move('#obj-"+state.oid+"').x("+cor.x+").y("+cor.y+").duration("+state.duration+").delay("+state.delay+").end()";
@@ -75,7 +78,7 @@ function getPixalCordinate(state){
     var cor = {};
     var calcY = 100 - parseInt(state.y);
     cor.x = (parseInt(state.x)*PAGE_WIDTH)/100;
-    cor.y = ((calcY*PAGE_HEIGHT)/100) - state.height;
+    cor.y = ((calcY*PAGE_HEIGHT)/100) - (HF*state.height);
     return cor;
 }
 
@@ -102,13 +105,31 @@ function bindObjectAnimation(object, strArr){
 }
 
 
-
+function setAudioObjects(texts, bid, pid){
+    var readToMe =  true;
+    $.each(texts, function(ind, states){
+        var firstIndex = first(states);
+        var state = states[firstIndex];
+        var str = "$('#object-" + state.oid + "').show('slow')";
+        eval(str);
+        if(readToMe){
+            var str = "$('#object-" + state.oid + "').trigger('click')";
+            setTimeout(function(){
+                    eval(str);
+                },
+                1500)
+        }
+        return false;
+    });
+}
 
 $( document ).ready(function() {
     PAGE_WIDTH = Math.round($(document).width()*.6);
     PAGE_HEIGHT = (PAGE_WIDTH/16)*9; // Formula for aspect reation i think 16:9
     console.log( "ready!" ); //bg-dialog
 
+    WF = PAGE_WIDTH/DECIDED_WIDTH;
+    HF = PAGE_HEIGHT/DECIDED_HEIGHT;
 
     var pageStyle = {
         width: PAGE_WIDTH+"px",
@@ -126,16 +147,23 @@ $( document ).ready(function() {
 
         loop:false,
         grabCursor: true,
-        onSlideChangeStart: function(swiper){
-            //document.getElementById("obj-sounds").innerHTML = "";
-            //if(swiper){
-            //    if($(swiper.activeSlide()).data("visited")){
-            //        //setInitialObjectsStates(bookPages[swiper.activeIndex].objects, bookPages[swiper.activeIndex].bid, bookPages[swiper.activeIndex].pid);
-            //
-            //    }
-            //    setAudioObjects(bookPages[swiper.activeIndex].texts, bookPages[swiper.activeIndex].bid, bookPages[swiper.activeIndex].pid);
-            //    $(swiper.activeSlide()).data("visited", true);
-            //}
+        onSlideChangeEnd: function(swiper){
+            document.getElementById("obj-sounds").innerHTML = "";
+
+
+            if(bookPages[swiper.activeIndex].audioRelPath){
+                var audio = document.querySelector("audio#playme-"+swiper.activeIndex);
+                audio.play();
+            }
+
+            if(swiper){
+                //if($(swiper.activeSlide()).data("visited")){
+                //    //setInitialObjectsStates(bookPages[swiper.activeIndex].objects, bookPages[swiper.activeIndex].bid, bookPages[swiper.activeIndex].pid);
+                //
+                //}
+                //setAudioObjects(bookPages[swiper.activeIndex].texts, bookPages[swiper.activeIndex].bid, bookPages[swiper.activeIndex].pid);
+                //$(swiper.activeSlide()).data("visited", true);
+            }
 
 
         }
@@ -146,4 +174,8 @@ $( document ).ready(function() {
     $.each(bookPages, function( index, page ) {
         initPageEventBinding(page);
     });
+
+    setTimeout(function(){
+        $("#loading-div").hide();
+    },3000)
 });

@@ -19,6 +19,11 @@
                        <label  for="first-name" style="margin-left: 84px;">Select Page Background <span class="required"></span></label>
                         <input type="file" name="filename"  accept="image/gif, image/jpeg, image/png,image/jpg" >
                     </div>
+
+                   <div class="form-group">
+                      <label  for="first-name" style="margin-left: 84px;">Select Page Narration <span class="required"></span></label>
+                      <input type="file" name="audio"  accept=".mp3,audio/*" >
+                   </div>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                      <div class="form-group">
                       <button type="submit" class="btn btn-primary" style="margin-left: 38%;">Save</button>

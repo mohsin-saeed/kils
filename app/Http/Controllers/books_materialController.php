@@ -208,7 +208,7 @@ class books_materialController extends Controller
     }
     public function deleteObjectStateDetail($id)
     {
-        $statedir="D:/xampp/htdocs/project/public/storage/public/objectsbg/";
+        $statedir="D:/xampp/htdocs/project/public/storage/public/objects/";
         $data=DB::table('states')->where('Id',$id)->get();
 
         unlink($statedir.$data[0]->bg);
@@ -233,13 +233,13 @@ class books_materialController extends Controller
             $duration=$_POST["duration"];
             $action=$_POST["action"];
             $data=DB::table('states')->where('id',$id)->get();
-            $statesdir="D:/xampp/htdocs/project/public/storage/public/objectsbg/";
+            $statesdir="D:/xampp/htdocs/project/public/storage/public/objects/";
             $path=$statesdir.$data[0]->bg;
             unlink($path);
             //replace file onserver
             $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
-            $destinationPath = public_path().'\storage\public\objectsbg';
+            $destinationPath = public_path().'/storage/public/objects';
             $name = uniqid ("page", true);
             Input::file('filename')->move($destinationPath,$name.".".$extension);
             DB::table('states')
@@ -278,24 +278,48 @@ class books_materialController extends Controller
 
             //delete file from folder
            $data=DB::table('pages')->where('id',$id)->get();
-           $folderpath="D:/xampp/htdocs/project/public/storage/public/pages/";
+           $folderpath= public_path()."/storage/public/pages/";
             $path=$folderpath.$data[0]->bg;
             unlink($path);
 
             //replace file onserver
             $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
            $extension = $fileTokens[count($fileTokens) - 1];
-           $destinationPath = public_path().'\storage\public\pages';
+           $destinationPath = public_path().'/storage/public/pages';
            $name = uniqid ("page", true);
            Input::file('filename')->move($destinationPath,$name.".".$extension);
            DB::table('pages')
                ->where('id', $id)
                ->update(['bg'=> $name.".".$extension]);
             $bookid =DB::table('pages')->where('id',$id)->get();
-            return redirect('Pages/'.$bookid[0]->book_id);
+
 
         }
 
+        if(Input::hasFile('audio')){
+            $data=DB::table('pages')->where('id',$id)->get();
+            $folderpath=public_path()."/storage/public/pages/";
+            $path=$folderpath.$data[0]->audio;
+            if(file_exists($path)){
+                //unlink($path);
+            }
+
+
+            //replace file onserver
+            $fileTokens = explode(".",Input::file('audio')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
+            $destinationPath = public_path().'/storage/public/pages';
+            $name = uniqid ("audio-".$id."-", true);
+            Input::file('audio')->move($destinationPath,$name.".".$extension);
+            DB::table('pages')
+                ->where('id', $id)
+                ->update(['audio'=> $name.".".$extension]);
+            $bookid =DB::table('pages')->where('id',$id)->get();
+        }
+
+        if(Input::hasFile('filename') || Input::hasFile('audio')){
+            return redirect('Pages/'.$bookid[0]->book_id);
+        }
         else
         {
             return "file not slected";
@@ -335,7 +359,7 @@ class books_materialController extends Controller
             $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
             $destinationPath = public_path().'/storage/public/objects';
-            $destinationPath2 = public_path().'/storage/public/objectsbg';
+            $destinationPath2 = public_path().'/storage/public/objects';
             $name = uniqid ("page", true);
             Input::file('filename')->move($destinationPath,$name.".".$extension);
           //  Input::file('filename')->move($destinationPath2,$name.".".$extension);
@@ -466,7 +490,7 @@ class books_materialController extends Controller
         {
             $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
-            $destinationPath = public_path().'/storage/public/objectsbg';
+            $destinationPath = public_path().'/storage/public/objects';
             $name = uniqid ("page", true);
             Input::file('logo')->move($destinationPath,$name.".".$extension);
             $imageDimensions = getimagesize($destinationPath."/".$name.".".$extension);
@@ -489,7 +513,7 @@ class books_materialController extends Controller
             {
                 $fileTokens = explode(".",Input::file('logo')->getClientOriginalName());
                 $extension = $fileTokens[count($fileTokens) - 1];
-                $destinationPath = public_path().'/storage/public/objectsbg';
+                $destinationPath = public_path().'/storage/public/objects';
                 $name = uniqid ("page", true);
                 Input::file('logo')->move($destinationPath,$name.".".$extension);
                 $imageDimensions = getimagesize($destinationPath."/".$name.".".$extension);

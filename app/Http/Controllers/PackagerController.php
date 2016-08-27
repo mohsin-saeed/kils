@@ -58,6 +58,9 @@ class PackagerController extends Controller
             $page->dirPath = $dir;
             $page->dirRelPath = 'pages/page_'.$page->pageNo;
             $page->bgRelPath = $page->dirRelPath.'/'.$page->bg;
+            if($page->audio){
+                $page->audioRelPath = $page->dirRelPath.'/'.$page->audio;
+            }
             $page->objects = $pageObjects;
             foreach($page->objects as &$obj){
                 $objectStates = DB::table('states')
@@ -117,6 +120,12 @@ class PackagerController extends Controller
         $html = '<div class="swiper-wrapper">';
         foreach($pages as $page){
             $html .= '<div class="playing-canvas swiper-slide" style="background: url('.$page->bgRelPath.'); background-repeat: no-repeat; background-size:100%">';
+            if(!empty($page->audioRelPath)){
+                $html .='<audio id="playme-'.($page->pageNo - 1) .'" style="position: fixed; top: -20px">
+                        <source src="'.$page->audioRelPath.'" type="audio/mpeg" />
+                    </audio>';
+
+            }
             foreach($page->objects as $object){
                 if(!empty($object->states[0])){
                     $html .= '<div id="obj-'.$object->id.'" style=" background: url('.$object->states[0]->bgRelPath.'); background-repeat: no-repeat;"></div>';
@@ -162,6 +171,11 @@ class PackagerController extends Controller
 
         $pageSource = public_path('/storage/public/pages/'.$page->bg);
         copy($pageSource, $dir.'/'.$page->bg);
+
+        $pageSource = public_path('/storage/public/pages/'.$page->audio);
+        if(!is_dir($pageSource) && file_exists($pageSource)){
+            copy($pageSource, $dir.'/'.$page->audio);
+        }
         return $dir;
     }
 
