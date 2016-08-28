@@ -18,7 +18,7 @@ class usersController extends Controller
 
         //{{ $php_errormsg->first('username'); }};
 
-        return view('admin/login');
+        return view('auth/login');
     }
 
     public function create_admin()
