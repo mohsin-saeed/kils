@@ -11,6 +11,7 @@ Route::get('/', 'usersController@index');
 Route::get('logout', 'usersController@index');
 Route::get('admin_creation_confirmation', 'usersController@admin_creation');
 Route::get('home', 'books_materialController@showCategoryList');
+
 Route::post('authentication', 'usersController@authentication');
 Route::get('admin_page', 'usersController@index');
 
@@ -121,8 +122,10 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
+
 Route::group(['prefix' => 'api'], function(){
     Route::post('login', 'ApiController@login');
     Route::post('register', 'ApiController@register');
 })
+
 ?>

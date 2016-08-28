@@ -10,9 +10,9 @@
     <link href="{{asset('css/animate.min.css')}}" rel="stylesheet">
 
     <!-- Custom styling plus plugins -->
-{{--
-    <link href="{{asset('css/custom.css')}}" rel="stylesheet">
---}}
+    {{--
+        <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+    --}}
     <link href="{{asset('css/icheck/flat/green.css')}}" rel="stylesheet">
 
 
@@ -48,7 +48,7 @@
             </div>
         @endif
         <div class="row">
-            <form method="POST" action="{{url('auth/register')}}">
+            <form method="POST" action="{{url('api/register')}}">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                 <div class="form-group">
@@ -82,8 +82,8 @@
 
 <!--{!! Form::open(array('url' => 'foo/bar', 'method' => 'put')) !!}
 
-   <input class="field" name="first_name" type="text" value="Chuck" style="background-color: #0000C2">
-{!! Form::close() !!}*/
+        <input class="field" name="first_name" type="text" value="Chuck" style="background-color: #0000C2">
+     {!! Form::close() !!}*/
 !-->
 </body>
 
