@@ -104,6 +104,49 @@ Route::get('api/books','ApiController@books');
 
 Route::get('package/{bookId}','PackagerController@package');
 
+
+
+Route::get('download/{filename}', function($filename)
+{
+    // Check if file exists in app/storage/file folder
+    $file_path = storage_path() .'/'. $filename;
+    if (file_exists($file_path))
+    {
+        // Send Download
+        return Response::download($file_path, $filename, [
+            'Content-Length: '. filesize($file_path)
+        ]);
+    }
+    else
+    {
+        // Error
+        exit('Requested file does not exist on our server!');
+    }
+})
+    ->where('filename', '[A-Za-z0-9\-\_\.]+');
+
+
+Route::get('downloadBook/{bookId}', function($bookId)
+{
+    // Check if file exists in app/storage/file folder
+    // public/books/ready/book_22/book.zip
+    $file_path = storage_path() .'/public/books/ready/book_'. $bookId.'/book.zip';
+    if (file_exists($file_path))
+    {
+        // Send Download
+        return Response::download($file_path, 'book_'.$bookId.".zip", [
+            'Content-Length: '. filesize($file_path)
+        ]);
+    }
+    else
+    {
+        // Error
+        exit('Requested file does not exist on our server!');
+    }
+})
+    ->where('filename', '[A-Za-z0-9\-\_\.]+');
+
+
 //Route::get('test','books_materialController@testfun' );
 /*{
     if(Request::ajax()){

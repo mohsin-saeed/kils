@@ -128,7 +128,7 @@ class PackagerController extends Controller
             }
             foreach($page->objects as $object){
                 if(!empty($object->states[0])){
-                    $html .= '<div id="obj-'.$object->id.'" style=" background: url('.$object->states[0]->bgRelPath.'); background-repeat: no-repeat;"></div>';
+                    $html .= '<div id="obj-'.$object->id.'" style=" background: url('.$object->states[0]->bgRelPath.'); background-repeat: no-repeat;"><img id="obj-'.$object->id.'-s" class="swirl" style="display:none" src="images/swirl.png"/></div>';
                 }
             }
             $html .= '</div>';
