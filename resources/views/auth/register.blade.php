@@ -48,7 +48,7 @@
             </div>
         @endif
         <div class="row">
-            <form method="POST" action="{{url('api/register')}}">
+            <form method="POST" action="{{url('auth/register')}}">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                 <div class="form-group">
