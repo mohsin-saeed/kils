@@ -52,6 +52,7 @@
                                 <td> </td>
                                 <td>
                                     <a href="Pages/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>Pages</a>
+                                    <a href="{{url('package/'.$data->id)}}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Package Book</a>
                                     <a href="EditBookRecord/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                     <a href="DeleteBookRecord/<?php echo($data->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                                 </td>

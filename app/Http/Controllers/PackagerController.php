@@ -75,7 +75,7 @@ class PackagerController extends Controller
             }
         }
 
-        print_r($pages);
+        //print_r($pages);
 
         return json_encode($pages);
     }
