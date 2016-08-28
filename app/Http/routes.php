@@ -104,6 +104,16 @@ Route::get('api/books','ApiController@books');
 
 Route::get('package/{bookId}','PackagerController@package');
 
+
+//videos
+Route::get('videos','books_materialController@showVideoList');
+Route::get('addvideo','books_materialController@addVideo');
+Route::post('addvideo','books_materialController@saveVideo');
+Route::get('deletevideo/{id}','books_materialController@deleteVideo');
+Route::get('editvideo/{id}','books_materialController@editVideo');
+Route::post('editvideo/{id}','books_materialController@saveEdition');
+Route::post('detail/{id}','books_materialController@showDetail');
+
 //Route::get('test','books_materialController@testfun' );
 /*{
     if(Request::ajax()){

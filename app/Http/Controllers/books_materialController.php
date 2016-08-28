@@ -5,15 +5,19 @@ use App\books;
 use App\pages;
 use App\objects;
 use App\states;
+use App\Videos;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 use Illuminate\Support\Facades\View;
+
 class testit{
     public $page_id = -1;
 }
 class books_materialController extends Controller
 {
+
+
     public function addCategory()
     {
        return view ('categories/AddCategory');
@@ -116,7 +120,8 @@ class books_materialController extends Controller
     }
     public function showBookPages($id)
     {
-        $data['pages'] = DB::table('pages')->where('book_id',$id)->get();
+        //$data['pages'] = DB::table('pages')->where('book_id',$id)->get();
+        $data['pages'] = DB::table('pages')->where('book_id',$id)->first();
         $data["book_id"] = $id;
         return view('books/Pages',array("data"=>$data));
 
@@ -651,4 +656,65 @@ class books_materialController extends Controller
 
 
     }
+    public function showVideoList(){
+
+        $videos = DB::table('videos')->get();
+
+
+
+        /*$vid=Videos::all();
+        var_dump($vid);exit;*/
+
+        return view('videos/videos', array("data" => $videos));
+
+
+
+    }
+    public function addVideo(){
+        return view('videos/addvideo');
+    }
+    public function saveVideo(){
+
+        $video_obj=new Videos();
+        $input['title']=Input::get('title');
+        $input['url']=$url=Input::get('url');
+        $input['description']=Input::get('description');
+        $input['thumbnail']=$video_obj->tokenize($url);
+        Videos::create($input);
+        return redirect('videos');
+
+    }
+    public function deleteVideo($id){
+
+        DB::table('videos')->where('id', $id)->delete();
+        return redirect('videos');
+
+    }
+    public function editVideo($id){
+
+        $video=DB::table('videos')->where('id',$id)->get();
+        return view('videos/editvideo',array("data"=>$video));
+
+    }
+    public function saveEdition($id){
+        $video_obj=new Videos();
+        DB::table('videos')
+            ->where('id', $id)
+            ->update([
+                'title'=>Input::get('title'),
+                'description'=>Input::get('description'),
+                'url'=>Input::get('url'),
+                'thumbnail'=>$video_obj->tokenize(Input::get('url'))
+            ]);
+        return redirect('videos');
+
+    }
+
+    public function showDetail($id){
+
+        return view('videos/detail');
+
+    }
+
+
 }

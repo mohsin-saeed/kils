@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\DB;
               <div class="col-md-12">
                 <div class="x_panel2">
                   <div class="x_title">
-                  <?php $title=DB::table('Books')->select('title')->where('id',$data['book_id'])->get();?>
-                    <h2>Pages Of BooK<?php echo "  (".$title[0]->title."  )";?></h2>
+                  <?php $title=DB::table('Books')->select('title')->where('id',$data['book_id'])->first();?>
+                    <h2>Pages Of BooK<?php echo "  (".$title->title."  )";?></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>

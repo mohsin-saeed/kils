@@ -1137,6 +1137,18 @@ h2 {
     transition: all .2s ease;
 }
 
+.x_panel_mc1 {
+    position: relative;
+    width: 90%;
+    margin-left: 0%;
+
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    display: inline-block;
+
+}
+
+
 
 .x_title {
     border-bottom: 2px solid #E6E9ED;
@@ -4766,8 +4778,12 @@ ul.project_files li a i {
 /* *********  media gallery  **************************** */
 
 .thumbnail .image {
-    height: 120px;
+    height: 150px;
     overflow: hidden;
+}
+.thumbnail .image_mc1 {
+    height: 150px;
+    overflow:inherit;
 }
 
 .caption {
@@ -4776,11 +4792,12 @@ ul.project_files li a i {
 }
 
 .caption p {
-    margin-bottom: 5px;
+    margin-bottom: 5%;
+    margin-left: 15%;
 }
 
 .thumbnail {
-    height: 190px;
+    height: 200px;
     overflow: hidden;
 }
 .thumbnail2 {
@@ -4865,6 +4882,9 @@ ul.project_files li a i {
     opacity: 0;
     background-color: rgba(0, 0, 0, 0.5);
     transition: all 0.4s ease-in-out;
+}
+.p_link a{
+    color: white !important;
 }
 
 .view-first .tools {
@@ -6508,6 +6528,16 @@ ul.notifications {
     color: white;
     border-radius: 10px;
     font-size: 1.5em;
+}
+.button6 {
+    width: 13%;
+    height: 35px;
+    margin-left: -10px;
+    background-color: #204d74;
+    color: white;
+    border-radius: 0px;
+    font-size: 1.5em;
+    border-radius: 2px;
 }
 
 .imgdiv

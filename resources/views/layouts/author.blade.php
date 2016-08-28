@@ -59,6 +59,7 @@
             <div class="menu_section">
               <ul class="nav side-menu">
                 <li><a href="<?php echo url();?>/Books"><i class="fa fa-book"></i> Books </a>
+                <li><a href="<?php echo url();?>/videos"><i class="fa fa-caret-square-o-right"></i> Videos </a>
                 </li>
               </ul>
             </div>
