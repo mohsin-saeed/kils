@@ -27,8 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 //student
     Route::get('students', 'usersController@showStudentList');
-    Route::get('AddStudent', 'usersController@addStudent');
-    Route::get('StudentSignUp', 'usersController@studentSignUp');
+    Route::get('addstudent', 'usersController@getStudent');
+    Route::post('addstudent', 'usersController@postStudent');
     Route::get('EditStudent/{id}', 'usersController@getStudentRecord');
     Route::get('EditStudent', 'usersController@getStudentRecord1');
     Route::get('DeleteStudent/{id}', 'usersController@deleteStudent');
@@ -44,12 +44,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 //books
     Route::get('Books', 'books_materialController@showBooksList');
-    Route::get('AddBook', 'books_materialController@addBook');
+    Route::get('addbook', 'books_materialController@addBook');
     Route::get('GetBookName/{id}', 'books_materialController@getBookName');
-    Route::get('CreateBook', 'books_materialController@createBook');
-    Route::get('DeleteBookRecord/{id}', 'books_materialController@deleteBook');
-    Route::get('EditBookRecord/{id}', 'books_materialController@getBookRecord');
-    Route::get('updateBookRecord/{id}', 'books_materialController@saveBookEdition');
+    Route::post('addbook', 'books_materialController@saveBook');
+    Route::get('deletebook/{id}', 'books_materialController@deleteBook');
+    Route::get('editbook/{id}', 'books_materialController@getBookRecord');
+    Route::post('editbook/{id}', 'books_materialController@saveBookEdition');
 
 //pages
     Route::get('Pages/{id}', 'books_materialController@showBookPages');
@@ -95,6 +95,8 @@ Route::get('api/categories', 'ApiController@categories');
 
 Route::get('api/books', 'ApiController@books');
 
+Route::get('api/videos', 'ApiController@videos');
+
 
 
 
@@ -138,8 +140,9 @@ Route::get('addvideo','books_materialController@addVideo');
 Route::post('addvideo','books_materialController@saveVideo');
 Route::get('deletevideo/{id}','books_materialController@deleteVideo');
 Route::get('editvideo/{id}','books_materialController@editVideo');
-Route::post('editvideo/{id}','books_materialController@saveEdition');
-Route::post('detail/{id}','books_materialController@showDetail');
+Route::post('editvideo/{id}','books_materialController@saveVideoEdition');
+Route::get('videodetail/{id}','books_materialController@showVideoDetail');
+//Route::get('aaa','books_materialController@aaa');
 
 //Route::get('test','books_materialController@testfun' );
 /*{

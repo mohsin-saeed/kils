@@ -2,7 +2,7 @@
 
 @section('content')
 
-           <a href="AddStudent"><button type="button" class="button2">Add Student</button></a>
+           <a href="addstudent"><button type="button" class="button2">Add Student</button></a>
 
 
   <div class="row">

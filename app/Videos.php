@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Validator;
 //use App\books_materialController;
 
 class Videos extends Model implements AuthenticatableContract, CanResetPasswordContract {
@@ -35,9 +36,29 @@ class Videos extends Model implements AuthenticatableContract, CanResetPasswordC
     public function tokenize($url){
         $token=explode("=",$url);
         $thumbnail_token=$token[count($token) - 1];
-        $thumbnail= "https://i.ytimg.com/vi/".$thumbnail_token."/hqdefault.jpg";
-        return $thumbnail;
+        //$thumbnail= "https://i.ytimg.com/vi/".$thumbnail_token."/hqdefault.jpg";
+        return $thumbnail_token;
     }
+
+    public function validateVideo(array $data){
+        return Validator::make($data, [
+            'title' => 'required',
+            'url'=>'required|unique:videos',
+            'description'=>'required'
+
+        ]);
+
+    }
+    public function validateEditVideo(array $data){
+        return Validator::make($data, [
+            'title' => 'required',
+            'url'=>'required',
+            'description'=>'required'
+
+        ]);
+
+    }
+
 
 
 }

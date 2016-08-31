@@ -1139,8 +1139,8 @@ h2 {
 
 .x_panel_mc1 {
     position: relative;
-    width: 90%;
-    margin-left: 0%;
+    width: 95%;
+    margin-left: 2%;
 
     margin-bottom: 10px;
     padding: 10px 17px;
@@ -6532,7 +6532,7 @@ ul.notifications {
 .button6 {
     width: 13%;
     height: 35px;
-    margin-left: -10px;
+    margin-left: 1%;
     background-color: #204d74;
     color: white;
     border-radius: 0px;
@@ -6548,6 +6548,12 @@ ul.notifications {
     border:solid 2px;
 
 
+}
+.border-seprater
+{
+    margin-left: 4%;
+    border-bottom: solid ;
+    width: 30%
 }
 
 .img
@@ -6625,4 +6631,33 @@ ul.notifications {
     border-radius: 8px;
     margin-top: 10px;
     color: black;
+}
+.iframe
+{
+    margin-left: 12%;
+    border: solid 16px black;
+
+}
+.detail1
+{
+    margin-left: 11%;
+    margin-top: 4%;
+    border: solid 2px;
+    border-color: ghostwhite;
+    width: 69%;
+    background: ghostwhite;
+    color: #000000;
+
+}
+.no-data
+{
+    margin-left: 16%;
+}
+.error-msg-default
+{
+    background: white;
+    color: #000000;
+    border: solid 4px;
+    border-color: whitesmoke;
+    border-radius: 9px;
 }

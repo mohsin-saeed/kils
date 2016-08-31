@@ -75,7 +75,7 @@
 
                     <li><a href="AuthorsList">Authors</a>
                     </li>
-                     <li><a href="students">Students</a>
+                     <li><a href="<?php echo url()?>/students">Students</a>
                      </li>
 
                   </ul>

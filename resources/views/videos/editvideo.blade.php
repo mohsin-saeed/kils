@@ -9,7 +9,18 @@
 
                   <h3 style="margin-left: 34%;"><b>Edit Video </b></h3>
 
-                  <div class="clearfix"></div>
+                  <div class="clearfix">
+                    @if (count($errors) > 0)
+                      <div class="error-msg-default">
+                          <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                   @endif
+                  </div>
                 </div>
                 <div class="x_content">
                   <br>

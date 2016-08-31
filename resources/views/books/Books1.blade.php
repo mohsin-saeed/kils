@@ -3,6 +3,7 @@
         <!--Middle Content-->
     <div style="padding: 2%">
 
+
         <div>
 
             <div class="title_right">
@@ -24,12 +25,12 @@
 
         <div >
 
-            <a href="addvideo"><button type="button" class="button6">Add Video</button></a>
+            <a href="addbook"><button type="button" class="button6">Add Book</button></a>
         </div>
             <div class="row">
               <div class="">
                 <div class="x_panel_mc1" style="background: white">
-                  <h2 style="margin-left: 3%"><b>VIDEOS</b></h2>
+                  <h2 style="margin-left: 3%"><b>Books</b></h2>
                   <div class="x_title">
 
                     <ul class="nav navbar-right panel_toolbox">
@@ -48,27 +49,37 @@
                         <img class="no-data" src="http://localhost/kils/public/storage/public/images/no_data_img.png">
 
                     @endif
-                    <?php foreach($data as $video)
+                    <?php foreach($data as $book)
                     {?>
 
                           <div class="col-md-55">
                             <div class="thumbnail">
                               <div class="image view view-first">
 
+                                <?php $front_page="http://localhost/kils/public/storage/public/images/no_page_img.png";
+                                $folder_path="http://localhost/kils/public/storage/public/pages/";
+                                ?>
 
-                                <img style="width: 100%;height: 100%; display: block;" src="<?php echo "https://i.ytimg.com/vi/".$video->thumbnail."/hqdefault.jpg";?>">
+
+                                @if($page=DB::table('pages')->where('book_id',$book->id)->first())
+                                    <?php $front_page=$page->bg;
+                                          $front_page=$folder_path.$front_page;
+                                    ?>
+                                @endif
+
+                                <img style="width: 100%;height: 100%; display: block;" src="<?php echo $front_page;?>" alt="No Image">
                                 <div class="mask">
-                                  <p class="p_link"><a href="videodetail/<?php echo $video->id;?>" target="_blank">Click Me to See Detail</a></p>
+                                  <p class="p_link"><a href="bookdetail/<?php echo $book->id;?>" target="_blank" >Click Me to See Detail</a></p>
                                   <div class="tools tools-bottom">
 
-                                    <a href="editvideo/<?php echo$video->id;?>"><i class="fa fa-pencil"></i></a>
-                                    <a href="deletevideo/<?php echo$video->id;?>"><i class="fa fa-times"></i></a>
+                                    <a href="editbook/<?php echo$book->id;?>"><i class="fa fa-pencil"></i></a>
+                                    <a href="deletebook/<?php echo$book->id;?>"><i class="fa fa-times"></i></a>
                                   </div>
                                 </div>
                               </div>
                               <div >
 
-                                <b><p style="text-align: center;margin-top: 15px;"><?php echo $video->title;?></p></b>
+                                <b><p style="text-align: center;margin-top: 15px;"><?php echo $book->title;?></p></b>
                               </div>
                             </div>
                           </div>

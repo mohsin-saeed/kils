@@ -1,13 +1,14 @@
 <?php namespace App\Http\Controllers;
 
-use App\users;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use Hash;
-use MessageBage;
-
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Validator;
 
 
 class usersController extends Controller
@@ -111,6 +112,9 @@ class usersController extends Controller
         }
     }
 
+
+
+
     public function showAuthorsList()
     {
         $catgories = DB::table('users')->where('user_typ',"author")->get();
@@ -145,20 +149,43 @@ class usersController extends Controller
 
 //student
 
-    public function addStudent()
+    public function getStudent()
     {
-        return view('Student/AddStudent');
+        return view('Student/addstudent');
     }
 
-    public function studentSignUp()
+    public function postStudent(Request $request)
     {
-        $input['name'] = Input::get('name');
-        $input['roll_no'] = Input::get('rollnumber');
-        $input['user_id'] = Input::get('rollnumber');
-        $input['password'] = "123";
-        $input['user_typ'] = "student";
-        users::create($input);
+        $validator=usersController::validateStudent($request->all());
+
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        usersController::createStudent($request->all());
+
         return redirect('students');
+
+    }
+    public function validateStudent(array $data){
+        return Validator::make($data, [
+            'name' => 'required|Alpha',
+            'roll_no'=>'required|size:4|unique:users'
+
+        ]);
+
+    }
+
+    public function createStudent(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'roll_no' => $data['roll_no'],
+            'user_typ'=>'student',
+            'password'=> bcrypt($data['roll_no'])
+        ]);
     }
 
     public function deleteStudent($id)

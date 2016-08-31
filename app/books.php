@@ -5,8 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-
-class books extends Model implements AuthenticatableContract, CanResetPasswordContract {
+use Validator;
+class Books extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
 	use Authenticatable, CanResetPassword;
 
@@ -30,5 +30,22 @@ class books extends Model implements AuthenticatableContract, CanResetPasswordCo
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+
+    public function validateBook(array $data){
+        return Validator::make($data, [
+            'category_id' => 'required',
+            'title'=>'required|unique:Books',
+            'description'=>'required'
+        ]);
+
+    }
+    public function validateEditBook(array $data){
+        return Validator::make($data, [
+            'category_id' => 'required',
+            'title'=>'required',
+            'description'=>'required'
+        ]);
+
+    }
 
 }

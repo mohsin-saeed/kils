@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Input;
 use App\student;
 use App\categories;
 use App\books;
+use App\Videos;
+
 //use Hash;
 
 use Illuminate\Support\Facades\View;
@@ -75,6 +77,13 @@ class ApiController extends Controller
             'error'   => 0,
             'message' => 'Registered successfully. You login now by using your credentials'
         ];
+    }
+
+    public function videos(){
+        $video_obj=new Videos();
+        $videos=$video_obj->all();
+        $videos=$videos->toArray();
+        return $this->_sendResponse($videos,0,'');
     }
 
 }

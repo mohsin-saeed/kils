@@ -8,7 +8,7 @@ use App\states;
 use App\Videos;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
 class testit{
@@ -60,7 +60,8 @@ class books_materialController extends Controller
     public function showBooksList()
     {
         $books = DB::table('books')->get();
-        return view('books/Books', array("data" => $books));
+        //return view('books/Books', array("data" => $books));
+        return view('books/Books1', array("data" => $books));
     }
 
     public function addBook()
@@ -70,8 +71,18 @@ class books_materialController extends Controller
 
     }
 
-    public function createBook()
+    public function saveBook(Request $request)
     {
+        $book_obj=new Books();
+        $validator=$book_obj->validateBook($request->all());
+
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
         $input['title'] = Input::get('title');
         $input['description'] = Input::get('description');
         $input['category_id'] =Input::get('category_id');
@@ -81,24 +92,36 @@ class books_materialController extends Controller
 
     public function getBookRecord($id)
     {
-        $book=DB::table('books')->where('id',$id)->get();
+        $book=DB::table('books')->where('id',$id)->first();
         return view('books/EditBook' , array("data"=>$book));
     }
 
-
-    public function saveBookEdition($id)
+    public function saveBookEdition(Request $request,$id)
     {
-        DB::table('books')
-            ->where('id', $id)
-            ->update(
-                ['title'=> Input::get('title'),
-                    'description'=> Input::get('description')]
+
+        $book_obj=new Books();
+        $validator=$book_obj->validateEditBook($request->all());
+
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
             );
+        }
+
+        DB::table('books')
+            ->where('id',$id)
+            ->update([
+                    'title'=> Input::get('title'),
+                    'description'=> Input::get('description'),
+                    'category_id'=>Input::get('category_id'),
+                    ]);
         return redirect('Books');
     }
 
     public function deleteBook($id)
     {
+        
         DB::table('books')->where('id',$id)->delete();
         return redirect('Books');
     }
@@ -660,11 +683,6 @@ class books_materialController extends Controller
 
         $videos = DB::table('videos')->get();
 
-
-
-        /*$vid=Videos::all();
-        var_dump($vid);exit;*/
-
         return view('videos/videos', array("data" => $videos));
 
 
@@ -673,7 +691,25 @@ class books_materialController extends Controller
     public function addVideo(){
         return view('videos/addvideo');
     }
-    public function saveVideo(){
+
+    public function saveVideo(Request $request)
+    {
+        $video_obj=new Videos();
+        $validator=$video_obj->validateVideo($request->all());
+
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        books_materialController::createVideo();
+
+        return redirect('videos');
+
+    }
+
+    public function createVideo(){
 
         $video_obj=new Videos();
         $input['title']=Input::get('title');
@@ -681,7 +717,7 @@ class books_materialController extends Controller
         $input['description']=Input::get('description');
         $input['thumbnail']=$video_obj->tokenize($url);
         Videos::create($input);
-        return redirect('videos');
+
 
     }
     public function deleteVideo($id){
@@ -690,14 +726,27 @@ class books_materialController extends Controller
         return redirect('videos');
 
     }
+
     public function editVideo($id){
 
         $video=DB::table('videos')->where('id',$id)->get();
         return view('videos/editvideo',array("data"=>$video));
 
     }
-    public function saveEdition($id){
+    public function saveVideoEdition(Request $request,$id){
+
+
         $video_obj=new Videos();
+        $validator=$video_obj->validateEditVideo($request->all());
+
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+       //update in db
         DB::table('videos')
             ->where('id', $id)
             ->update([
@@ -710,11 +759,13 @@ class books_materialController extends Controller
 
     }
 
-    public function showDetail($id){
+    public function showVideoDetail($id){
 
-        return view('videos/detail');
-
+        $datail=DB::table('videos')->where('id',$id)->first();
+        return view('videos/detail',array('data'=>$datail));
     }
+
+
 
 
 }
