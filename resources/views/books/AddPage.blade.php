@@ -7,13 +7,13 @@
                 <div class="x_title">
 
 
-                  <h3 style="margin-left: 34%;"><b>Add Page Of </b></h3>
+                  <h3><b><p style="text-align: center">Add Page <?php echo $data->title?></p></b></h3>
 
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                   <br>
-                  <form id="demo-form2"  class="form-horizontal form-label-left" method="post" action="<?php echo url();?>/SavePage/<?php echo $data[0]->id?>" enctype="multipart/form-data">
+                  <form id="demo-form2"  class="form-horizontal form-label-left" method="post" action="<?php echo url();?>/SavePage/<?php echo $data->id?>" enctype="multipart/form-data">
 
                     <div class="form-group">
                        <label  for="first-name" style="margin-left: 84px;">Select Page Background <span class="required"></span></label>

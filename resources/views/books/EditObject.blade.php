@@ -7,13 +7,13 @@
                 <div class="x_title">
 
 
-                  <h3 style="margin-left: 34%;"><b>Edit Object  </b></h3>
+                  <h3 style="text-align: center"><b>Edit Object  </b></h3>
 
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
                   <br>
-                  <form id="demo-form2"  class="form-horizontal form-label-left" method="post" action="<?php echo url();?>/UpdateObjectRecord/<?php echo $data[0]->id?>" enctype="multipart/form-data">
+                  <form id="demo-form2"  class="form-horizontal form-label-left" method="post" action="<?php echo url();?>/editobject/<?php echo $data[0]->id?>" enctype="multipart/form-data">
 
                     <div class="form-group">
                        <label  for="first-name" style="margin-left: 84px;">Select Page Object<span class="required"></span></label>

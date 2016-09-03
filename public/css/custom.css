@@ -6539,6 +6539,26 @@ ul.notifications {
     font-size: 1.5em;
     border-radius: 2px;
 }
+.button7 {
+    width: 13%;
+    height: 35px;
+    margin-left: 70%;
+    background-color: #204d74;
+    color: white;
+    border-radius: 0px;
+    font-size: 1.5em;
+    border-radius: 2px;
+}
+.button8 {
+    width: 13%;
+    height: 35px;
+
+    background-color: #204d74;
+    color: white;
+    border-radius: 0px;
+    font-size: 1.5em;
+    border-radius: 2px;
+}
 
 .imgdiv
 {
@@ -6553,7 +6573,7 @@ ul.notifications {
 {
     margin-left: 4%;
     border-bottom: solid ;
-    width: 30%
+    width: 20%
 }
 
 .img
@@ -6660,4 +6680,23 @@ ul.notifications {
     border: solid 4px;
     border-color: whitesmoke;
     border-radius: 9px;
+}
+.p_link_mc1{
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: #fff;
+    padding: 10px 20px 20px;
+    text-align: center;
+    margin-top: 18%;
+}
+
+.p_link_mc2{
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 12px;
+    position: relative;
+    color: #ffffff;
+    padding: 10px 20px 20px;
+    text-align: center;
+    margin-top: 12%;
 }

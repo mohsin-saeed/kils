@@ -30,7 +30,7 @@
             <div class="row">
               <div class="">
                 <div class="x_panel_mc1" style="background: white">
-                  <h2 style="margin-left: 3%"><b>Books</b></h2>
+                  <h2 style="text-align: center"><b>Books</b></h2>
                   <div class="x_title">
 
                     <ul class="nav navbar-right panel_toolbox">
@@ -69,11 +69,12 @@
 
                                 <img style="width: 100%;height: 100%; display: block;" src="<?php echo $front_page;?>" alt="No Image">
                                 <div class="mask">
-                                  <p class="p_link"><a href="bookdetail/<?php echo $book->id;?>" target="_blank" >Click Me to See Detail</a></p>
+                                  <p class="p_link_mc2"><a href="bookdetail/<?php echo $book->id;?>" target="_blank" style="color: white">Click Me to See Detail</a></p>
                                   <div class="tools tools-bottom">
-
-                                    <a href="editbook/<?php echo$book->id;?>"><i class="fa fa-pencil"></i></a>
-                                    <a href="deletebook/<?php echo$book->id;?>"><i class="fa fa-times"></i></a>
+                                    <a title="View Book pages" href="book/<?php echo$book->id;?>"><i class="fa fa-files-o"></i></a>
+                                    <a title="Edit Book" href="editbook/<?php echo$book->id;?>"><i class="fa fa-edit"></i></a>
+                                    <a  title="Delete Book" href="deletebook/<?php echo$book->id;?>"><i class="fa fa-trash-o"></i></a>
+                                    <a title="Package and publish book" href="<?=url()?>/package/<?php echo $book->id;?>"><i class="fa fa-check-square-o"></i></a>
                                   </div>
                                 </div>
                               </div>

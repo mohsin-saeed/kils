@@ -82,6 +82,11 @@ class ApiController extends Controller
     public function videos(){
         $video_obj=new Videos();
         $videos=$video_obj->all();
+
+        foreach($videos as &$video){
+            $video->thumbnail_url = "https://i.ytimg.com/vi/".$video->thumbnail."/hqdefault.jpg";
+        }
+
         $videos=$videos->toArray();
         return $this->_sendResponse($videos,0,'');
     }

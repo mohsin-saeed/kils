@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 class testit{
     public $page_id = -1;
@@ -119,11 +120,52 @@ class books_materialController extends Controller
         return redirect('Books');
     }
 
-    public function deleteBook($id)
-    {
-        
+    public function deleteBook($id){
+
+        $pages_path="D:/xampp/htdocs/kils/public/storage/public/pages/";
+        $objects_path="D:/xampp/htdocs/kils/public/storage/public/objects/";
+
+        $pages=DB::table('pages')->where('book_id',$id)->get();
+
+        foreach($pages as $page){
+            $objects=DB::table('objects')->where('page_id',$page->id)->get();
+
+            foreach($objects as $object){
+                $states=DB::table('states')->where('object_id',$object->id)->get();
+
+                foreach($states as $state){
+                    books_materialController::deletFile($objects_path.$state->bg);
+                    DB::table('states')->where('Id',$state->Id)->delete();
+
+                }
+                books_materialController::deletFile($objects_path.$object->object_path);
+                //DB::table('objects')->where('page_id',$object->page_id)->delete();
+                DB::table('objects')->where('id',$object->id)->delete();
+            }
+            books_materialController::deletFile($pages_path.$page->bg);
+           // DB::table('pages')->where('book_id',$page->book_id)->delete();
+            DB::table('pages')->where('Id',$page->id)->delete();
+        }
         DB::table('books')->where('id',$id)->delete();
         return redirect('Books');
+    }
+
+      public function deletFile($path){
+          if(file_exists($path)){
+              unlink($path);
+
+          }
+
+          else{
+              echo  $path."No such File found...............";
+
+          }
+
+      }
+
+    public function showBookDetail($id){
+        $detail=DB::table('books')->where('id',$id)->first();
+        Return view('books/detail',array("data"=>$detail));
     }
 
 //pagess//////////////////
@@ -131,7 +173,7 @@ class books_materialController extends Controller
 
     public function addPage($id)
     {
-        $books = DB::table('books')->where('id',$id)->get();
+        $books= DB::table('books')->where('id',$id)->first();
         return view('books/AddPage',array("data"=>$books));
     }
 
@@ -143,10 +185,13 @@ class books_materialController extends Controller
     }
     public function showBookPages($id)
     {
+        //not remvoe commented line
+         $data['pages'] = DB::table('pages')->where('book_id',$id)->get();
         //$data['pages'] = DB::table('pages')->where('book_id',$id)->get();
-        $data['pages'] = DB::table('pages')->where('book_id',$id)->first();
-        $data["book_id"] = $id;
-        return view('books/Pages',array("data"=>$data));
+        $data['book_id'] = $id;
+        $data['title'] = DB::table('books')->where('id',$id)->first();
+        return view('books/book',array("data"=>$data));
+        //return view('books/Pages',array("data"=>$data));
 
     }
 
@@ -154,6 +199,30 @@ class books_materialController extends Controller
     {
         if (Input::hasFile('filename'))
         {
+
+
+
+
+            if(Input::hasFile('audio')){
+                $data=DB::table('pages')->where('id',$id)->get();
+                $folderpath=public_path()."/storage/public/pages/";
+                if(!empty($data[0])){
+                    $path=$folderpath.$data[0]->audio;
+                    if(file_exists($path)){
+                        //unlink($path);
+                    }
+                }
+
+                //replace file onserver
+                $fileTokens = explode(".",Input::file('audio')->getClientOriginalName());
+                $extension = $fileTokens[count($fileTokens) - 1];
+                $destinationPath = public_path().'/storage/public/pages';
+                $name = uniqid ("audio-".$id."-", true);
+                Input::file('audio')->move($destinationPath,$name.".".$extension);
+                $input['audio']=  $name.".".$extension;
+            }
+
+
             $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
             $extension = $fileTokens[count($fileTokens) - 1];
             $destinationPath = public_path().'/storage/public/pages';
@@ -162,7 +231,8 @@ class books_materialController extends Controller
             $input['bg']= $name.".".$extension;
             $input['book_id']=$id;
             pages::create($input);
-            return redirect('Pages/'.$id);
+            //return redirect('Pages/'.$id);
+            return redirect('book/'.$id);
         }
         else
         {
@@ -175,7 +245,7 @@ class books_materialController extends Controller
     public function editPage($id)
     {
 
-        $page=DB::table('pages')->where('id',$id)->get();
+        $page=DB::table('pages')->where('id',$id)->first();
         return view('books/EditPage' , array("data"=>$page));
     }
 
@@ -214,8 +284,8 @@ class books_materialController extends Controller
     }
     public function deletePageObject($id)
     {
-        $objectdir="D:/xampp/htdocs/project/public/storage/public/objects/";
-        $statedir="D:/xampp/htdocs/project/public/storage/public/objects/";
+        $objectdir="D:/xampp/htdocs/kils/public/storage/public/objects/";
+        $statedir="D:/xampp/htdocs/kils/public/storage/public/objects/";
         $data=DB::table('objects')->where('id',$id)->get();
         $path=$data[0]->object_path;
         $page_id=$data[0]->page_id;
@@ -236,7 +306,7 @@ class books_materialController extends Controller
     }
     public function deleteObjectStateDetail($id)
     {
-        $statedir="D:/xampp/htdocs/project/public/storage/public/objects/";
+        $statedir="D:/xampp/htdocs/kils/public/storage/public/objects/";
         $data=DB::table('states')->where('Id',$id)->get();
 
         unlink($statedir.$data[0]->bg);
@@ -261,7 +331,7 @@ class books_materialController extends Controller
             $duration=$_POST["duration"];
             $action=$_POST["action"];
             $data=DB::table('states')->where('id',$id)->get();
-            $statesdir="D:/xampp/htdocs/project/public/storage/public/objects/";
+            $statesdir="D:/xampp/htdocs/kils/public/storage/public/objects/";
             $path=$statesdir.$data[0]->bg;
             unlink($path);
             //replace file onserver
@@ -346,7 +416,8 @@ class books_materialController extends Controller
         }
 
         if(Input::hasFile('filename') || Input::hasFile('audio')){
-            return redirect('Pages/'.$bookid[0]->book_id);
+            return redirect('book/'.$bookid[0]->book_id);
+            //return redirect('Pages/'.$bookid[0]->book_id);
         }
         else
         {
@@ -356,14 +427,35 @@ class books_materialController extends Controller
 
     public function deletePage($id)
     {
-        //delete file from folder
+        $pages_path="D:/xampp/htdocs/kils/public/storage/public/pages/";
+        $objects_path="D:/xampp/htdocs/kils/public/storage/public/objects/";
+        //this qury to get book id
+        $page=DB::table('pages')->where('id',$id)->first();
+
+        $objects=DB::table('objects')->where('page_id',$page->id)->get();
+        foreach($objects as $object){
+            $states=DB::table('states')->where('object_id',$object->id)->get();
+
+            foreach($states as $state){
+                books_materialController::deletFile($objects_path.$state->bg);
+                DB::table('states')->where('Id',$state->Id)->delete();
+
+            }
+            books_materialController::deletFile($objects_path.$object->object_path);
+            DB::table('objects')->where('id',$object->id)->delete();
+        }
+        books_materialController::deletFile($pages_path.$page->bg);
+        DB::table('pages')->where('id',$page->id)->delete();
+    return redirect('book/' .$page->book_id);
+
+        /*delete file from folder
         $data=DB::table('pages')->where('id',$id)->get();
         $folderpath="D:/xampp/htdocs/project/public/storage/public/pages/";
         $path=$folderpath.$data[0]->bg;
         unlink($path);
         //removing from db
         DB::table('pages')->where('id',$id)->delete();
-        return redirect('Pages/'.$data[0]->book_id);
+        //return redirect('Pages/'.$data[0]->book_id);*/
 
     }
 
@@ -372,8 +464,10 @@ class books_materialController extends Controller
 
     public function showPageObject($id)
     {
-        $objects = DB::table('objects')->where('page_id',$id)->get();
-        return view('books/Object', array("data" => $objects));
+        $objects['list']= DB::table('objects')->where('page_id',$id)->get();
+        $objects['id']= $id;
+        //return view('books/Object', array("data" => $objects));
+        return view('books/objects1', array("data" => $objects));
     }
     public function addPageObject($id)
     {
@@ -429,8 +523,8 @@ class books_materialController extends Controller
         {
 
             //delete file from folder
-            $data=DB::table('objects')->where('id',$id)->get();
-            $folderpath="D:/xampp/htdocs/project/public/storage/public/objects/";
+          /*  $data=DB::table('objects')->where('id',$id)->get();
+            $folderpath="D:/xampp/htdocs/kils/public/storage/public/objects/";
             $path=$folderpath.$data[0]->object_path;
             unlink($path);
 
@@ -444,7 +538,36 @@ class books_materialController extends Controller
                 ->where('id', $id)
                 ->update(['object_path'=> $name.".".$extension]);
             $objectid =DB::table('objects')->where('id',$id)->get();
-            return redirect('Objects/'.$objectid[0]->page_id);
+            return redirect('Objects/'.$objectid[0]->page_id);*/
+
+            //dont delete from folder file may under use on next state
+            $folderpath="D:/xampp/htdocs/kils/public/storage/public/objects/";
+            $objecs=DB::table('objects')->where('id',$id)->first();
+            $states=DB::table('states')->where('object_id',$id)->first();
+            $path=$folderpath.$objecs->object_path;
+
+
+            //replace in db
+            $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
+            $destinationPath = public_path().'\storage\public\objects';
+            $name = uniqid ("object", true);
+            Input::file('filename')->move($destinationPath,$name.".".$extension);
+
+            //change in objects table
+            DB::table('objects')
+                ->where('id', $id)
+                ->update(['object_path'=> $name.".".$extension]);
+
+            //change in statest folder
+
+            DB::table('states')
+                ->where('Id', $states->Id)
+                ->update(['bg'=> $name.".".$extension]);
+            $objectid =DB::table('objects')->where('id',$id)->get();
+
+            //$objectid =DB::table('objects')->where('id',$id)->get();
+            return redirect('pageobjects/'.$objecs->page_id);
 
         }
 
@@ -457,13 +580,24 @@ class books_materialController extends Controller
     public function deleteObject($id)
     {
         //delete file from folder
-        $data=DB::table('objects')->where('id',$id)->get();
-        $folderpath="D:/xampp/htdocs/project/public/storage/public/objects/";
+        /*$data=DB::table('objects')->where('id',$id)->get();
+        $folderpath="D:/xampp/htdocs/kils/public/storage/public/objects/";
         $path=$folderpath.$data[0]->object_path;
         unlink($path);
         //removing from db
         DB::table('objects')->where('id',$id)->delete();
-        return redirect('Objects/'.$data[0]->page_id);
+        return redirect('Objects/'.$data[0]->page_id);*/
+
+
+        $folderpath="D:/xampp/htdocs/kils/public/storage/public/objects/";
+        $object=DB::table('objects')->where('id',$id)->first();
+        $states=DB::table('states')->where('object_id',$id)->get();
+        foreach($states as $state){
+            books_materialController::deletFile($folderpath.$state->bg);
+            DB::table('states')->where('Id',$state->Id)->delete();
+        }
+        DB::table('objects')->where('id',$id)->delete();
+        return redirect('pageobjects/'.$object->page_id);
 
     }
 
@@ -589,6 +723,12 @@ class books_materialController extends Controller
         $data=DB::table('states')->where('object_id',Input::get('id'))->get();
         return($data);
     }
+    public function showObjectStates($id)
+    {
+        $data['states']=DB::table('states')->where('object_id',$id)->get();
+        $data['id']=$id;
+        return view('books/objectstates' ,array("data"=> $data));
+    }
     public function getState()
     {
          return $state=DB::table('states')->where('id',Input::get('id'))->get();
@@ -596,6 +736,15 @@ class books_materialController extends Controller
     public function deleteState()
     {
          return $status=DB::table('states')->where('id',Input::get('id'))->delete();
+    }
+    public function deleteObjectState($id)
+    {
+        $folderpath="D:/xampp/htdocs/kils/public/storage/public/objects/";
+         $state=DB::table('states')->where('id',$id)->first();
+         $path=$folderpath.$state->bg;
+         books_materialController::deletFile($path);
+         DB::table('states')->where('id',$id)->delete();
+        return redirect('objectstates/'.$state->object_id);
     }
 
 
@@ -679,6 +828,36 @@ class books_materialController extends Controller
 
 
     }
+
+    public function editObjectState($id){
+         $state=DB::table('states')->where('Id',$id)->first();
+        return view('books/editobjectstate',array('data'=>$state));
+
+    }
+
+    public function saveStateEdition($id){
+
+        $state=DB::table('states')->where('Id',$id)->first();
+
+        if (Input::hasFile('filename'))
+        {
+            $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
+            $extension = $fileTokens[count($fileTokens) - 1];
+            $destinationPath = public_path().'/storage/public/objects';
+            $name = uniqid ("page", true);
+            Input::file('filename')->move($destinationPath,$name.".".$extension);
+            DB::table('states')
+                ->where('Id',$id)
+                ->update(['bg'=>$name.".".$extension]);
+        }
+        else
+        {
+            return "file not slected";
+        }
+        return redirect('objectstates/'.$state->object_id);
+    }
+
+
     public function showVideoList(){
 
         $videos = DB::table('videos')->get();

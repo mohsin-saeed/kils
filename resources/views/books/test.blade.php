@@ -50,8 +50,8 @@ use Illuminate\Support\Facades\View;
 
 </div>
 <div>
-    <a href="<?php echo url();?>/preview/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button3" >Preview </button> </a>
-    <a href="<?php echo url();?>/AddObject/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button4">Add Object</button> </a>
+    <a href="<?php echo url();?>/preview/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button7" >Preview </button> </a>
+    <a href="<?php echo url();?>/AddObject/<?php echo ($data[0]->page_id);?>" target="_blank"><button type="button" class="button8">Add Object</button> </a>
 </div>
 
 
@@ -330,6 +330,7 @@ $(document).ready(function()
 
         $.get('<?php echo url();?>/getObjectStates',{id:object_id},function(data)
         {
+        $(".stats-list").html("");
         for(i=0;i<data.length;i++)
          {
 

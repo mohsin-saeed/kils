@@ -58,11 +58,11 @@
 
                                 <img style="width: 100%;height: 100%; display: block;" src="<?php echo "https://i.ytimg.com/vi/".$video->thumbnail."/hqdefault.jpg";?>">
                                 <div class="mask">
-                                  <p class="p_link"><a href="videodetail/<?php echo $video->id;?>" target="_blank">Click Me to See Detail</a></p>
+                                  <p class="p_link_mc2"><a href="videodetail/<?php echo $video->id;?>" target="_blank">Click Me to See Detail</a></p>
                                   <div class="tools tools-bottom">
 
-                                    <a href="editvideo/<?php echo$video->id;?>"><i class="fa fa-pencil"></i></a>
-                                    <a href="deletevideo/<?php echo$video->id;?>"><i class="fa fa-times"></i></a>
+                                    <a href="editvideo/<?php echo$video->id;?>"><i class="fa fa-edit"></i></a>
+                                    <a href="deletevideo/<?php echo$video->id;?>"><i class="fa fa-trash-o"></i></a>
                                   </div>
                                 </div>
                               </div>

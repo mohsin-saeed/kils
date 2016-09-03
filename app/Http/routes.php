@@ -50,39 +50,57 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('deletebook/{id}', 'books_materialController@deleteBook');
     Route::get('editbook/{id}', 'books_materialController@getBookRecord');
     Route::post('editbook/{id}', 'books_materialController@saveBookEdition');
+    Route::get('bookdetail/{id}', 'books_materialController@showBookDetail');
+    Route::get('book/{id}', 'books_materialController@showBookPages');
 
 //pages
-    Route::get('Pages/{id}', 'books_materialController@showBookPages');
+    Route::get('pages/{id}', 'books_materialController@showBookPages');
     Route::get('AddPage/{id}', 'books_materialController@addPage');
     Route::post('SavePage/{id}', 'books_materialController@savePage');
-    Route::get('EditPageRecord/{id}', 'books_materialController@editPage');
+    //Route::get('EditPageRecord/{id}', 'books_materialController@editPage');
+    Route::get('editpage/{id}', 'books_materialController@editPage');
     Route::get('CustomisePageRecord/{id}', 'books_materialController@customisePage');
-    Route::get('EditPageObject/{id}', 'books_materialController@showPageState');
+   // Route::get('EditPageObject/{id}', 'books_materialController@showPageState');
+   // Route::get('editpageobject/{id}', 'books_materialController@showPageState');
     Route::get('ObjectStateDetail/{id}', 'books_materialController@showObjectStateDetail');
     Route::get('DeletePageObject/{id}', 'books_materialController@deletePageObject');
     Route::get('DeleteObjectStateDetail/{id}', 'books_materialController@deleteObjectStateDetail');
     Route::post('SaveObjectStateDetailChange', 'books_materialController@saveObjectStateDetailChange');
     Route::post('UpdatePageRecord/{id}', 'books_materialController@savePageEdition');
-    Route::get('DeletePageRecord/{id}', 'books_materialController@deletePage');
+  //  Route::get('DeletePageRecord/{id}', 'books_materialController@deletePage');
+    Route::get('deletepage/{id}', 'books_materialController@deletePage');
 
 //objects
-    Route::get('Objects/{id}', 'books_materialController@showPageObject');
-    Route::get('AddObject/{id}', 'books_materialController@addPageObject');
+    //Route::get('Objects/{id}', 'books_materialController@showPageObject');
+    Route::get('pageobjects/{id}', 'books_materialController@showPageObject');
+   Route::get('AddObject/{id}', 'books_materialController@addPageObject');
+    Route::get('addobject/{id}', 'books_materialController@addPageObject');
     Route::post('SavePageObject/{id}', 'books_materialController@savePageObject');
-    Route::get('EditObjectRecord/{id}', 'books_materialController@editObject');
-    Route::post('UpdateObjectRecord/{id}', 'books_materialController@saveObjectEdition');
-    Route::get('DeleteObjectRecord/{id}', 'books_materialController@deleteObject');
+   // Route::get('EditObjectRecord/{id}', 'books_materialController@editObject');
+    Route::get('editobject/{id}', 'books_materialController@editObject');
+    Route::post('editobject/{id}', 'books_materialController@saveObjectEdition');
+    //Route::get('DeleteObjectRecord/{id}', 'books_materialController@deleteObject');
+    Route::get('deleteobject/{id}', 'books_materialController@deleteObject');
 
 //test
 
     Route::get('test/{id}', 'books_materialController@showPageObjecttest');
-    Route::get('test2', 'books_materialController@test');
+   // Route::get('test2', 'books_materialController@test');
     Route::post('saveState', 'books_materialController@saveState');
-    Route::get('getObjectStates', 'books_materialController@getObjectStates');
+   Route::get('getObjectStates', 'books_materialController@getObjectStates');
+    Route::get('objectstates/{id}', 'books_materialController@showobjectStates');
+    Route::get('editobjectstate/{id}', 'books_materialController@editObjectState');
+    Route::post('editobjectstate/{id}', 'books_materialController@saveStateEdition');
+    Route::get('deleteobjectstate/{id}', 'books_materialController@deleteObjectState');
+
+
     Route::get('getState', 'books_materialController@getState');
     Route::get('deleteState', 'books_materialController@deleteState');
     Route::get('preview/{page_id}', 'books_materialController@previewPage');
     Route::post('editState', 'books_materialController@editState');
+    // edit state image only
+   // Route::get('editObjectState', 'books_materialController@editState');
+   // Route::get('editObjectState', 'books_materialController@editState');
     Route::get('test1', function () {
         return view("test1");
     });
