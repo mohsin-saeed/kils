@@ -95,10 +95,7 @@
                 </span>
 
                  <span style="float: right">
-                      <p>
-                        <u>
-                           <a  href="#">Forgot your password?</a>
-                         </u>
+                      <a href="<?php echo url('page') ?>">Some Text</a>
                       </p>
                  </span>
 

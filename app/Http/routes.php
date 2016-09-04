@@ -193,6 +193,34 @@ Route::controllers([
 Route::group(['prefix' => 'api'], function () {
     Route::post('login', 'ApiController@login');
     Route::post('register', 'ApiController@register');
-})
+});
+
+/*amjad*/
+
+Route::get ('question', 'questionController@index');
+Route::get ('question/create', 'questionController@add');
+Route::post ('question/create', 'questionController@create');
+Route::get ('question/edit/{id}', 'questionController@edit');
+Route::post ('question/edit/{id}', 'questionController@update');
+Route::get ('question/delete/{id}', 'questionController@delete');
+Route::get ('question/view/{id}', 'questionController@view');
+
+
+Route::get ('quiz', 'quizController@index');
+Route::get ('quiz/create', 'quizController@add');
+Route::post ('quiz/create', 'quizController@create');
+Route::get ('quiz/edit/{id}', 'quizController@edit');
+Route::post ('quiz/edit/{id}', 'quizController@update');
+Route::get ('quiz/delete/{id}', 'quizController@delete');
+Route::get ('quiz/view/{id}', 'quizController@view');
+
+Route::get ('quiz/quiz_start/{id}/{student}', 'quizController@quiz_start');
+Route::get ('quiz_submit', 'quizController@quiz_submit');
+Route::get ('user/forgetpssword', 'usersController@forgetpassword');
+Route::post ('users/forgot_password', 'usersController@send_mail');
+
+
+
+
 
 ?>
