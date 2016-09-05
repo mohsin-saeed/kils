@@ -75,10 +75,10 @@
 
             <div id="gender" class="btn-group" data-toggle="buttons" >
             <label class="btn btn-default role " >
-              <input type="radio" name="rolechoice" value="admin"  /> Admin
+              <input type="radio" name="rolechoice" value="admin"  > Admin
             </label>
             <label class="btn btn-default role " >
-              <input type="radio" name="rolechoice" value="author" required/> &nbsp; Author &nbsp;
+              <input type="radio" name="rolechoice" value="author" /> &nbsp; Author &nbsp;
             </label>
 
             </div>
@@ -95,7 +95,7 @@
                 </span>
 
                  <span style="float: right">
-                      <a href="<?php echo url('page') ?>">Some Text</a>
+                      <a href="<?php echo url('page') ?>">forget password</a>
                       </p>
                  </span>
 

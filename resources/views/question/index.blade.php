@@ -4,7 +4,7 @@
 
         <!--Middle Content-->
 
-         <a href="question/create"><button type="button" class="button2">Add Question</button> </a>
+         <a href="question/create"><button type="button" class="button9">Add Question</button> </a>
 
   <div class="row">
               <div class="col-md-12">

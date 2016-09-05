@@ -24,7 +24,15 @@ class questionController extends Controller
 
         $question = Questions::all()->sortByDesc("id");
 
-        return view('question/index', array("question"=>$question));
+        return view('question/adminindex', array("question"=>$question));
+
+    }
+    public function adminIndex()
+    {
+
+        $question = Questions::all()->sortByDesc("id");
+
+        return view('question/adminindex', array("question"=>$question));
 
     }
 

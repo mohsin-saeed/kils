@@ -330,7 +330,7 @@ $(document).ready(function()
 
         $.get('<?php echo url();?>/getObjectStates',{id:object_id},function(data)
         {
-        $(".stats-list").html("");
+       // $(".stats-list").html("");
         for(i=0;i<data.length;i++)
          {
 

@@ -78,6 +78,10 @@ $(document).ready(function(){
              }
              objStrArr[count++] = getActionStr(state, 1, 32);
             //str +=  "move('"+obj_elem+"'). "
+            console.log("aaaaaaaa");
+            console.log(state);
+            console.log("bbbbbbbbb");
+
          })
          bindObjectAnimation(value.id, objStrArr)
     });

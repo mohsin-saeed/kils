@@ -10,6 +10,8 @@ use App\student;
 use App\categories;
 use App\books;
 use App\Videos;
+use App\Quiz;
+use App\Questions;
 
 //use Hash;
 
@@ -89,6 +91,19 @@ class ApiController extends Controller
 
         $videos=$videos->toArray();
         return $this->_sendResponse($videos,0,'');
+    }
+
+    public function quizes(){
+        $quize_obj=new Quiz();
+        $quizes=$quize_obj->all();
+        $quizes=$quizes->toArray();
+        return($this->_sendResponse($quizes,0,''));
+    }
+    public function questions(){
+        $questions_obj=new Questions();
+        $questions=$questions_obj->all();
+        $questions=$questions->toArray();
+        return($this->_sendResponse($questions,0,''));
     }
 
 }

@@ -47,7 +47,7 @@
                                <tr>
                                 <td><?php echo($conter++."  "); ?></td>
                                 <td> <?php echo($data->name." ");?></td>
-                                <td> <?php echo($data->user_id." ");?></td>
+                                <td> <?php echo($data->email." ");?></td>
                                 <td> <?php echo($data->password." ");?></td>
                                 <td>
                                     <a href="EditAuthorRecord/<?php echo($data->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>

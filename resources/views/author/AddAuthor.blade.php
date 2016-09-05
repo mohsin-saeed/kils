@@ -16,24 +16,24 @@
                     <div class="form-group">
                       <label  for="first-name" style="margin-left: 83px;">Author Name <span class="required"></span>
                       </label>
-                        <input type="text" id="name" name="name" required="required" >
+                        <input type="text" id="name" name="name" required="required"  value="{{old('name')}}">
                     </div>
 
                     <div class="form-group">
                       <label  for="last-name" style="margin-left: 130px;">Email <span class="required"></span>
                       </label>
-                      <input type="email" id="email" name="user_id" required="@">
+                      <input type="email" id="email" name="user_id" required="@" value="{{old('user_id')}}">
                     </div>
 
                     <div class="form-group">
                         <label  style="margin-left: 101px;">Password</label>
-                        <input id="Password"  type="password" name="password" >
+                        <input id="Password"  type="password" name="password" value="{{old('password')}}">
                       </div>
 
 
                     <div class="form-group">
                         <label for="confirmPassword" style="margin-left: 49px;">Confirm Password</label>
-                        <input id="confirmPassword"  type="password" name="confirmPassword" >
+                        <input id="confirmPassword"  type="password" name="confirmPassword" value="{{old('confirmPassword')}}">
                       </div>
                       <div class="form-group">
                            <input type="hidden" name="_token" value="{{csrf_token()}}">

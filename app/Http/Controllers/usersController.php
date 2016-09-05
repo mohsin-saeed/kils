@@ -86,11 +86,12 @@ class usersController extends Controller
 
     public function authorSignUp()
     {
+
         $input['name']= Input::get('name');
-        $input['user_id']= Input::get('user_id');
-        $input['password']= Input::get('password');
+        $input['email']= Input::get('user_id');
+        $input['password']= bcrypt(Input::get('password'));
         $input['user_typ']= "author";
-        users::create($input);
+        User::create($input);
         return redirect('AuthorsList');
     }
 

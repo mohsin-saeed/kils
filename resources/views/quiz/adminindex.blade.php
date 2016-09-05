@@ -1,11 +1,8 @@
-@extends('layouts.author')
+@extends('layouts.admin')
 
 @section('content')
 
         <!--Middle Content-->
-
-
-         <a href="quiz/create"><button type="button" class="button9">Add Quiz</button> </a>
 
   <div class="row">
               <div class="col-md-12">

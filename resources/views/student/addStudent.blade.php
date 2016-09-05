@@ -27,13 +27,13 @@
                     <div class="form-group">
                       <label  for="first-name" style="margin-left: 85px;">Student Name <span class="required"></span>
                       </label>
-                        <input type="text" id="studentName" required="required" name="name">
+                        <input type="text" id="studentName" required="required" name="name" value="{{old('name')}}">
                     </div>
 
                     <div class="form-group">
                       <label  for="last-name" style="margin-left: 129px;">Roll No <span class="required" ></span>
                       </label>
-                      <input type="text" id="rollNumber" name="roll_no" required="@">
+                      <input type="text" id="rollNumber" name="roll_no" required="@" value="{{old('roll_no')}}">
                     </div>
 
                      <div class="form-group">

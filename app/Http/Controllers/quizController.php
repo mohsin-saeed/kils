@@ -29,6 +29,15 @@ class quizController extends Controller
 
     }
 
+    public function adminIndex()
+    {
+
+        $quizzes = Quiz::all()->sortByDesc("id");
+
+        return view('quiz/adminindex', array("quizzes"=>$quizzes));
+
+    }
+
     public function add()
     {
 
@@ -205,6 +214,9 @@ class quizController extends Controller
             }
 
         }
+
+
+
 
 
 

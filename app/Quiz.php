@@ -41,11 +41,13 @@ class Quiz extends Model implements AuthenticatableContract, CanResetPasswordCon
         if($categ){
             return $categ->category_name;
         }else{
-            return "";
+            return "no cate";
 
         }
 
 
     }
+
+
 
 }

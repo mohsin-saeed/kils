@@ -65,6 +65,14 @@ class books_materialController extends Controller
         return view('books/Books1', array("data" => $books));
     }
 
+    public function showAdminBooksList()
+    {
+
+        $books = DB::table('books')->get();
+        //return view('books/Books', array("data" => $books));
+        return view('books/adminbooks', array("data" => $books));
+    }
+
     public function addBook()
     {
         $category = DB::table('categories')->get();
@@ -500,7 +508,7 @@ class books_materialController extends Controller
             $input['y']=0;
             $input['action']="Rotate";
             states::create($input);
-            return redirect('Objects/'.$id);
+            return redirect('test/'.$id);
         }
         else
         {
@@ -860,7 +868,7 @@ class books_materialController extends Controller
 
     public function showVideoList(){
 
-        $videos = DB::table('videos')->get();
+        $videos = DB::table('videos')->simplePaginate(3);
 
         return view('videos/videos', array("data" => $videos));
 

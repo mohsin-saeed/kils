@@ -1,11 +1,10 @@
-@extends('layouts.author')
+@extends('layouts.admin')
 
 @section('content')
 
         <!--Middle Content-->
 
 
-         <a href="quiz/create"><button type="button" class="button9">Add Quiz</button> </a>
 
   <div class="row">
               <div class="col-md-12">
@@ -35,30 +34,28 @@
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 20%">Quiz Title</th>
-                          <th style="width: 20%">Quiz Categories</th>
+                          <th style="width: 20%">Question Title</th>
+                          <th style="width: 20%">Quiz</th>
 
                            <th style="width: 20% ; ">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php $conter=1; ?>
-                      <?php foreach ($quizzes as $quiz)
+                      <?php foreach ($question as $ques)
                           {
                            ?>
                                <tr>
                                 <td><?php echo($conter++."  "); ?></td>
-                                <td> <?php echo($quiz->title." ");?></td>
+                                <td> <?php echo($ques->title." ");?></td>
+                                <?php $quiz_title=App\Questions::get_quiz_title($ques->quiz_id);?>
 
-
-
-                                <td> {{App\Quiz::get_cate($quiz->categories_id)}}</td>
+                                <td> <?=substr($quiz_title, 0, 40) ?></td>
 
                                 <td>
-
-                                    <a href="quiz/edit/<?php echo($quiz->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                    <a href="quiz/delete/<?php echo($quiz->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                                     <a href="quiz/quiz_start/<?php echo($quiz->id);?>/2" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Strat </a>
+                                    <a href="question/view/<?php echo($ques->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>View</a>
+                                    <a href="question/edit/<?php echo($ques->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                                    <a href="question/delete/<?php echo($ques->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                                 </td>
 
                                 </tr>
