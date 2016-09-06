@@ -68,4 +68,5 @@
                 </div>
               </div>
             </div>
+            <?php echo $users->render(); ?>
 @endsection

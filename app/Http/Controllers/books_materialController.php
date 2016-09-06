@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class testit{
     public $page_id = -1;
 }
@@ -194,7 +196,9 @@ class books_materialController extends Controller
     public function showBookPages($id)
     {
         //not remvoe commented line
-         $data['pages'] = DB::table('pages')->where('book_id',$id)->get();
+         $data['pages'] = DB::table('pages')->where('book_id',$id)->paginate(10);
+
+
         //$data['pages'] = DB::table('pages')->where('book_id',$id)->get();
         $data['book_id'] = $id;
         $data['title'] = DB::table('books')->where('id',$id)->first();

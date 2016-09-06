@@ -59,11 +59,18 @@
                      <?php
                      }?>
 
+
                     </div>
 
+
                   </div>
+                   <div style="margin-left: 35%">
+
+                        <?php echo str_replace('/?','?', $data['pages']->render())?>
+                   </div>
                 </div>
               </div>
+
             </div>
 
         </div>

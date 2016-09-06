@@ -47,23 +47,22 @@
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Kids Interactive Learning System</span></a>
+            <a href="#" class="site_title"><i class="fa fa-paw"></i> <span>Kids Interactive Learning System</span></a>
           </div>
+
+
+          <div class="profile">
+                      <div class="profile_pic">
+                        <img class="img-circle profile_img" src="http://localhost/kils/public/storage/public/images/login_img.png" alt="">
+
+                      </div>
+                      <div class="profile_info">
+                        <span>Welcome To Admin,</span>
+                        <h2>{{ Auth::user()->name }}</h2>
+                      </div>
+                    </div>
           <div class="clearfix"></div>
 
-          <!-- menu prile quick info -->
-          {{--<div class="profile">--}}
-            {{--<div class="profile_pic">--}}
-              {{--<img src="images/img.jpg" alt="..." class="img-circle profile_img">--}}
-            {{--</div>--}}
-            {{--<div class="profile_info">--}}
-              {{--<span>Welcome,</span>--}}
-              {{--<h2>John Doe</h2>--}}
-            {{--</div>--}}
-          {{--</div>--}}
-          <!-- /menu prile quick info -->
-
-          <br />
 
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">

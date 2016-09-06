@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+<?php use Illuminate\Contracts\Encryption\DecryptException;
+?>
 @section('content')
 
         <!--Middle Content-->
@@ -12,25 +14,25 @@
                 </div>
                 <div class="x_content">
                   <br>
-                  <form id="demo-form2"  class="form-horizontal form-label-left" method="post" action="<?php echo url();?>/updateAuthorRecord/<?php echo $data[0]->id?>">
+                  <form id="demo-form2"  class="form-horizontal form-label-left" method="post" action="<?php echo url();?>/updateAuthorRecord/<?php echo $data->id?>">
 
                     <div class="form-group">
                       <label  for="first-name" style="margin-left: 83px;">Author Name <span class="required"></span></label>
 
-                        <input type="text" name="name" value="<?php echo $data[0]->name ?>" >
+                        <input type="text" name="name" value="<?php echo $data->name ?>" >
 
                     </div>
 
                     <div class="form-group">
                       <label  for="last-name" style="margin-left: 130px;">Email <span class="required"></span> </label>
 
-                      <input type="text" name="userid" value="<?php echo $data[0]->user_id ?>" >
+                      <input type="text" name="userid" value="<?php echo  $data->email?>">
 
                     </div>
 
                     <div class="form-group">
                         <label  style="margin-left: 101px;">Password</label>
-                        <input type="text" name="password" value="<?php echo $data[0]->password?>" >
+                        <input type="text" name="password" value="<?php echo $data->password;?>" >
 
                       </div>
 

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Validator;
-
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class usersController extends Controller
 {
@@ -126,7 +126,7 @@ class usersController extends Controller
 
     public function getAuthorRecord($id)
     {
-        $user=DB::table('users')->where('id',$id)->get();
+        $user=DB::table('users')->where('id',$id)->first();
         return view('author/EditAuthor', array("data"=>$user));
     }
 

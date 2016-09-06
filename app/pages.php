@@ -22,7 +22,7 @@ class pages extends Model implements AuthenticatableContract, CanResetPasswordCo
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['book_id', 'page_no','bg'];
+	protected $fillable = ['book_id', 'page_no','bg','audio'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
