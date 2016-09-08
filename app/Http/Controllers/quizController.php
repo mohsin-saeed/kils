@@ -202,8 +202,9 @@ class quizController extends Controller
 
                     echo json_encode($question); exit;
                 }else{
-                    $question="";
-                    echo json_encode($question); exit;
+                    $res = DB::table('result')->where('id', $result_id)->first();
+                    $res->quiz_completed = 1;
+                    echo json_encode($res); exit;
                 }
 
 
