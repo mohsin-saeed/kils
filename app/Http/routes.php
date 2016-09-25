@@ -4,12 +4,38 @@ Route::get('layout', 'usersController@demoLayout');
 
 Route::group(['middleware' => 'auth'], function () {
 
+/* Admin ristricted routes */
+Route::group(['middleware' => 'admin'], function () {
 
+   //categories
+    Route::get('Categories', 'books_materialController@showCategoryList');
+    Route::get('AddCategory', 'books_materialController@addCategory');
+    Route::get('createCategory', 'books_materialController@createCategory');
+    Route::get('EditCategory/{id}', 'books_materialController@getCategoryRecord');
+    Route::get('UpdateCategoryRecord/{id}', 'books_materialController@saveCategoryEdition');
+    Route::get('deleteCategoryRecord/{id}', 'books_materialController@deleteCategory');
+
+
+});
+
+
+
+/* Author ristricted routes */
+Route::group(['middleware' => 'author'], function () {
+
+   Route::get ('quiz/create', 'quizController@add');
+    Route::post ('quiz/create', 'quizController@create');
+    Route::get ('quiz/edit/{id}', 'quizController@edit');
+    Route::post ('quiz/edit/{id}', 'quizController@update');
+    Route::get ('quiz/delete/{id}', 'quizController@delete');
+
+});
 //admin
     Route::get('/', 'usersController@index');
     Route::get('logout', 'usersController@index');
     Route::get('admin_creation_confirmation', 'usersController@admin_creation');
-    Route::get('home', 'books_materialController@showCategoryList');
+    //Route::get('home', 'books_materialController@showCategoryList');
+    Route::get('home', 'books_materialController@dashboard');
 
     Route::post('authentication', 'usersController@authentication');
     Route::get('admin_page', 'usersController@index');
@@ -34,13 +60,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('DeleteStudent/{id}', 'usersController@deleteStudent');
     Route::post('updateStudentRecord/{id}', 'usersController@saveStudentEdition');
 
-//categories
-    Route::get('Categories', 'books_materialController@showCategoryList');
-    Route::get('AddCategory', 'books_materialController@addCategory');
-    Route::get('createCategory', 'books_materialController@createCategory');
-    Route::get('EditCategory/{id}', 'books_materialController@getCategoryRecord');
-    Route::get('UpdateCategoryRecord/{id}', 'books_materialController@saveCategoryEdition');
-    Route::get('deleteCategoryRecord/{id}', 'books_materialController@deleteCategory');
 
 //books
     Route::get('Books', 'books_materialController@showBooksList');
@@ -139,11 +158,13 @@ Route::group(['middleware' => 'auth'], function () {
 //Quiz
     Route::get ('quiz', 'quizController@index');
     Route::get ('admin/quiz', 'quizController@adminIndex');
+
     Route::get ('quiz/create', 'quizController@add');
     Route::post ('quiz/create', 'quizController@create');
     Route::get ('quiz/edit/{id}', 'quizController@edit');
     Route::post ('quiz/edit/{id}', 'quizController@update');
     Route::get ('quiz/delete/{id}', 'quizController@delete');
+
     Route::get ('quiz/view/{id}', 'quizController@view');
 
 

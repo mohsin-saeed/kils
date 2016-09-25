@@ -16,14 +16,18 @@ use App\Result;
 
 use Illuminate\Support\Facades\View;
 
-class quizController extends Controller
+class quizController extends commonController
 {
+    public function __construct(){
+
+        parent::__construct();
+    }
 
 
     public function index()
     {
 
-        $quizzes = Quiz::all()->sortByDesc("id");
+        $quizzes = Quiz::all()->where('user_id',$this->data->cUserId)->sortByDesc("id");
 
         return view('quiz/index', array("quizzes"=>$quizzes));
 
@@ -52,6 +56,7 @@ class quizController extends Controller
 
     public function create()
     {
+        //echo @$this->data->cUserId;die();
         $rules = array(
             'title' => 'required',
             'categories_id' => 'required',
@@ -65,12 +70,19 @@ class quizController extends Controller
                 ->withErrors($validator);
         }else{
 
-        $abc =Quiz::create([
-            'title' => Input::get('title'),
-            'categories_id' => Input::get('categories_id'),
+      $query = new Quiz;
+      $query->title = Input::get('title');
+       $query->categories_id = Input::get('categories_id');
+        $query->user_id = @$this->data->cUserId;
+        $query->save();
+
+        // $abc =Quiz::create([
+        //     'title' => Input::get('title'),
+        //     'categories_id' => Input::get('categories_id'),
+            
 
 
-        ]);
+        // ]);
             return redirect('quiz');
         }
 
