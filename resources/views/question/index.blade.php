@@ -35,9 +35,9 @@
                         <tr>
                           <th style="width: 1%">#</th>
                           <th style="width: 20%">Question Title</th>
-                          <th style="width: 20%">Quiz</th>
+                          <th style="width: 15%">Quiz</th>
 
-                           <th style="width: 20% ; ">Action</th>
+                           <th style="width: 5% ; ">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -53,9 +53,9 @@
                                 <td> <?=substr($quiz_title, 0, 40) ?></td>
 
                                 <td>
-                                    <a href="question/view/<?php echo($ques->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>View</a>
+
                                     <a href="question/edit/<?php echo($ques->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                    <a href="question/delete/<?php echo($ques->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                    <a href="question/delete/<?php echo($ques->id);?>" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                                 </td>
 
                                 </tr>

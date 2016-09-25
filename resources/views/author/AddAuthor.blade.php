@@ -14,26 +14,34 @@
                   <form id="demo-form2"  class="form-horizontal form-label-left" method="post" action="authorSignUp">
 
                     <div class="form-group">
-                      <label  for="first-name" style="margin-left: 83px;">Author Name <span class="required"></span>
-                      </label>
-                        <input type="text" id="name" name="name" required="required"  value="{{old('name')}}">
-                    </div>
-
-                    <div class="form-group">
-                      <label  for="last-name" style="margin-left: 130px;">Email <span class="required"></span>
-                      </label>
-                      <input type="email" id="email" name="user_id" required="@" value="{{old('user_id')}}">
-                    </div>
-
-                    <div class="form-group">
-                        <label  style="margin-left: 101px;">Password</label>
-                        <input id="Password"  type="password" name="password" value="{{old('password')}}">
+                      <label class="col-md-4 control-label">Author Name: </label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control " id="name" name="name" required="required"  value="{{old('name')}}">
                       </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-4 control-label">Email: </label>
+                      <div class="col-md-6">
+                        <input type="email" id="email" name="user_id" required="@" value="{{old('user_id')}}" class="form-control">
+                       </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Password:</label>
+                        <div class="col-md-6">
+                            <input id="Password"  type="password" name="password" value="{{old('password')}}" class="form-control">
+                        </div>
+                    </div>
+
+
 
 
                     <div class="form-group">
-                        <label for="confirmPassword" style="margin-left: 49px;">Confirm Password</label>
-                        <input id="confirmPassword"  type="password" name="confirmPassword" value="{{old('confirmPassword')}}">
+                        <label class="col-md-4 control-label">Confirm Password:</label>
+                        <div class="col-md-6">
+                            <input id="confirmPassword" class="form-control"  type="password" name="confirmPassword" value="{{old('confirmPassword')}}">
+                        </div>
                       </div>
                       <div class="form-group">
                            <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -41,7 +49,7 @@
 
                      <div class="form-group">
                       <button type="submit" class="btn btn-primary" style="margin-left: 36%;">Save</button>
-                      <button type="submit" class="btn btn-success">Cancel</button>
+                      <a href="{{url('AuthorsList')}}" class="btn btn-success">Cancel</a>
                         </div>
 
                   </form>

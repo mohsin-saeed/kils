@@ -6,7 +6,7 @@
               <div class="x_panel">
                 <div class="x_title">
                 <?php $conter=1;?>
-                  <h3 style="margin-left: 20%;"><b>Edit Book<?php echo " ".strtoupper($data->title);?></b></h3>
+                  <h3 style="text-align: center"><b>Edit Book<?php echo " ".ucwords($data->title);?></b></h3>
 
                   <div class="clearfix">
                   @if (count($errors) > 0)
@@ -29,13 +29,17 @@
 
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <div class="form-group">
-                      <label  for="first-name" style="margin-left: 2%;"><span class="required">Book Title </span></label>
-                      <input type="text" id="name" value="<?php echo $data->title?>" name="title" required="required"  style="width: 70%;padding: 3px;margin-left: 3%;">
+                       <label class="col-md-4 control-label">Book Title</label>
+                       <div class="col-md-6">
+                        <input type="text" id="name" value="<?php echo $data->title?>" name="title" required="required" class="form-control" >
+                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label  for="last-name" > <span class="required">Description </span></label>
-                      <textarea name="description"  style="padding: 20px;vertical-align: middle;width: 70%;margin-left: 3%;border-radius: 3%;" required="required"><?php echo $data->description?> </textarea>
+                       <label class="col-md-4 control-label">Description</label>
+                         <div class="col-md-6">
+                         <textarea name="description" class="form-control" required="required"><?php echo $data->description?> </textarea>
+                         </div>
                     </div>
 
 
@@ -46,8 +50,9 @@
                     ?>
 
                      <div class="form-group">
-                         <label  for="first-name" > <span class="required" >Category Name</span></label>
-                         <select name="category_id" class="btn3 btn-success dropdown-toggle stats-list"  style="width: 40%;padding: 1%" required="required" >
+
+                         <label class="col-md-4 control-label">Category Name</label>
+                         <select name="category_id" class="btn3 btn-success dropdown-toggle stats-list"  style="width: 47%;padding: 1%" required="required" >
 
 
                              <option value="">Options</option>
@@ -69,7 +74,7 @@
 
                      <div class="form-group">
                       <button type="submit" class="btn btn-primary" style="margin-left: 36%;">Save</button>
-                      <button type="submit" class="btn btn-success">Cancel</button>
+                      <a href="{{url('books')}}" class="btn btn-success">Cancel</a>
                         </div>
 
                   </form>

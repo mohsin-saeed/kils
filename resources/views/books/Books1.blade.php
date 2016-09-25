@@ -73,7 +73,7 @@
                                   <div class="tools tools-bottom">
                                     <a title="View Book pages" href="book/<?php echo$book->id;?>"><i class="fa fa-files-o"></i></a>
                                     <a title="Edit Book" href="editbook/<?php echo$book->id;?>"><i class="fa fa-edit"></i></a>
-                                    <a  title="Delete Book" href="deletebook/<?php echo$book->id;?>"><i class="fa fa-trash-o"></i></a></div>
+                                    <a  title="Delete Book" href="deletebook/<?php echo$book->id;?>" onclick="return confirm('Are you sure you want to delete this item?')"> <i class="fa fa-trash-o"></i></a></div>
                                 </div>
                               </div>
                               <div >
@@ -96,5 +96,16 @@
 
     </div>
 
-
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script language="JavaScript" type="text/javascript">
+$(document).ready(function(){
+    $("a.delete").click(function(e){
+        if(!confirm('Are you sure?')){
+            e.preventDefault();
+            return false;
+        }
+        return true;
+    });
+});
+</script>
 @endsection

@@ -14,15 +14,17 @@
                   <form id="demo-form2"  class="form-horizontal form-label-left" method="get" action="<?php echo url()?>/UpdateCategoryRecord/<?php echo $data[0]->id?>">
 
                     <div class="form-group">
-                      <label  for="first-name" style="margin-left: 85px;">Category Name <span class="required"></span>
-                      </label>
-                        <input type="text" id="studentName"  name="name" value="<?php echo $data[0]->category_name?>">
+                      <label class="col-md-4 control-label">Category Name</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" id="studentName"  name="name" value="<?php echo $data[0]->category_name?>">
+                      </div>
                     </div>
 
                      <div class="form-group">
-                      <button type="submit" class="btn btn-primary" style="margin-left: 40%;">Save</button>
-                      <button type="submit" class="btn btn-success">Cancel</button>
-                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-left: 40%;">Save</button>
+                        <a class="btn btn-success" href="{{url('admin/books')}}">Cancel</a>
+
+                     </div>
 
                   </form>
                 </div>

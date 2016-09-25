@@ -28,19 +28,23 @@
 
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <div class="form-group">
-                      <label  for="first-name" style="margin-left: 2%;"><span class="required">Book Title </span></label>
-                      <input type="text" id="name" name="title" required="required"  style="width: 70%;padding: 3px;margin-left: 3%;">
+                      <label class="col-md-4 control-label">Book Title</label>
+                      <div class="col-md-6">
+
+                      <input type="text" id="name" name="title" required="required" class="form-control">
+                      </div>
                     </div>
 
                     <div class="form-group">
-                      <label  for="last-name" > <span class="required">Description </span></label>
-                      <textarea name="description"  style="padding: 20px;vertical-align: middle;width: 70%;margin-left: 3%;
-                                                    border-radius: 3%;" required="required"></textarea>
+                      <label  class="col-md-4 control-label">Description </label>
+                      <div class="col-md-6">
+                      <textarea name="description" class="form-control" required="required"></textarea>
+                      </div>
                     </div>
 
                      <div class="form-group">
-                         <label  for="first-name" > <span class="required" >Category Name</span></label>
-                         <select name="category_id" class="btn3 btn-success dropdown-toggle stats-list"  style="width: 40%;padding: 1%" required="required" >
+                         <label  class="col-md-4 control-label"> Category Name</label>
+                         <select name="category_id" class="btn3 btn-success dropdown-toggle stats-list"  style="width: 47%;padding: 1%; "  required="required" >
 
                              <option value="">Options</option>
                               <?php foreach ($data as $data)
@@ -61,7 +65,7 @@
 
                      <div class="form-group">
                       <button type="submit" class="btn btn-primary" style="margin-left: 36%;">Save</button>
-                      <button type="submit" class="btn btn-success">Cancel</button>
+                      <a href="{{url('books')}}" class="btn btn-success">Cancel</a>
                         </div>
 
                   </form>

@@ -8,7 +8,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h3 style="margin-left: 34%;"><b>Add Author</b></h3>
+                  <h3 style="margin-left: 34%;"><b>Edit Author</b></h3>
 
                   <div class="clearfix"></div>
                 </div>
@@ -17,29 +17,39 @@
                   <form id="demo-form2"  class="form-horizontal form-label-left" method="post" action="<?php echo url();?>/updateAuthorRecord/<?php echo $data->id?>">
 
                     <div class="form-group">
-                      <label  for="first-name" style="margin-left: 83px;">Author Name <span class="required"></span></label>
+                      <label class="col-md-4 control-label">Author Name: </label>
+                    <div class="col-md-6">
 
-                        <input type="text" name="name" value="<?php echo $data->name ?>" >
+                        <input type="text" name="name" value="<?php echo $data->name ?>" class="form-control" required="">
+                    </div>
 
                     </div>
 
                     <div class="form-group">
-                      <label  for="last-name" style="margin-left: 130px;">Email <span class="required"></span> </label>
-
-                      <input type="text" name="userid" value="<?php echo  $data->email?>">
-
-                    </div>
-
-                    <div class="form-group">
-                        <label  style="margin-left: 101px;">Password</label>
-                        <input type="text" name="password" value="<?php echo $data->password;?>" >
-
+                      <label  class="col-md-4 control-label">Email:  </label>
+                      <div class="col-md-6">
+                        <input type="text" name="userid" value="<?php echo  $data->email?>" class="form-control" required="">
                       </div>
-
+                    </div>
 
                     <div class="form-group">
-                        <label for="confirmPassword" style="margin-left: 49px;">Confirm Password</label>
-                        <input id="confirmPassword"  type="password" name="confirmPassword" >
+                        <label  class="col-md-4 control-label">Password:</label>
+                        <div class="col-md-6">
+                            <input type="text" name="password"  class="form-control" required="">
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">New Password:</label>
+                        <div class="col-md-6">
+                            <input id="Password"  type="password" name="password" value="{{old('password')}}" class="form-control" required="">
+                        </div>
+                  </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Confirm Password:</label>
+                        <div class="col-md-6">
+                        <input id="confirmPassword"  type="password" name="confirmPassword" class="form-control" required="">
+                        </div>
                       </div>
                       <div class="form-group">
                            <input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -47,7 +57,7 @@
 
                      <div class="form-group">
                       <button type="submit" class="btn btn-primary" style="margin-left: 36%;">Save</button>
-                      <button type="submit" class="btn btn-success">Cancel</button>
+                      <a href="{{url('AuthorsList')}}" type="submit" class="btn btn-success">Cancel</a>
                         </div>
 
                   </form>

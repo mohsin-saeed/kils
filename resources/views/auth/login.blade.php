@@ -62,7 +62,7 @@
                 </div>
             @endif
           <form  method="post" action='{{url('auth/login')}}'>
-            <h1><i>KILS Login </i></h1>
+            <h1><i>KIBG Login </i></h1>
             <div>
 
               <input type="text" class="form-control" placeholder="Username" name="email" required="" />
@@ -75,10 +75,10 @@
 
             <div id="gender" class="btn-group" data-toggle="buttons" >
             <label class="btn btn-default role " >
-              <input type="radio" name="rolechoice" value="admin"  > Admin
+              <input type="radio" name="user_typ" value="admin" required="enter role choche"> Admin
             </label>
             <label class="btn btn-default role " >
-              <input type="radio" name="rolechoice" value="author" /> &nbsp; Author &nbsp;
+              <input type="radio" name="user_typ" value="author" required="enter role choche" /> &nbsp; Author &nbsp;
             </label>
 
             </div>

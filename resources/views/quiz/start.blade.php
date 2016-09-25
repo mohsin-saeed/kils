@@ -47,7 +47,7 @@
                     <input type="hidden" name="result_id" id="result_id" value="<?=$result->id?>">
 
 
-                    <h1 style="    text-align: center; margin-bottom: 15px;" id="ques_title"><?=$question->title?></h1>
+                    <p style="background: gray; padding: 5px; padding-left: 10px; color: #ffffff"><?=$question->title?>?</p>
 
 
                 </div>

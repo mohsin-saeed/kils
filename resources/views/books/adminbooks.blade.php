@@ -73,7 +73,7 @@
                                   <div class="tools tools-bottom">
                                     <a title="View Book pages" href="{{url()}}/book/<?php echo$book->id;?>"><i class="fa fa-files-o"></i></a>
                                     <a title="Edit Book" href="{{url()}}/editbook/<?php echo$book->id;?>"><i class="fa fa-edit"></i></a>
-                                    <a  title="Delete Book" href="{{url()}}/deletebook/<?php echo$book->id;?>"><i class="fa fa-trash-o"></i></a>
+                                    <a  title="Delete Book" href="{{url()}}/deletebook/<?php echo$book->id;?>" onclick="return confirm('Are you sure you want to delete this item?')"> <i class="fa fa-trash-o"></i></a>
                                     <a title="Package and publish book" href="{{url()}}/package/<?php echo $book->id;?>"><i class="fa fa-check-square-o"></i></a>
                                   </div>
                                 </div>

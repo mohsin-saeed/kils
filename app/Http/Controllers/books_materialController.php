@@ -381,21 +381,14 @@ class books_materialController extends Controller
 
 
     public function savePageEdition($id)
-    {
-        if (Input::hasFile('filename'))
-        {
-
-
-            //delete file from folder
-           $data=DB::table('pages')->where('id',$id)->get();
-           $folderpath= public_path()."/storage/public/pages/";
-            $path=$folderpath.$data[0]->bg;
-            unlink($path);
-
-            //replace file onserver
-            $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
-           $extension = $fileTokens[count($fileTokens) - 1];
-           $destinationPath = public_path().'/storage/public/pages';
+    {if (Input::hasFile('filename'))
+    {$data=DB::table('pages')->where('id',$id)->get();
+     $folderpath= public_path()."/storage/public/pages/";
+     $path=$folderpath.$data[0]->bg;
+         unlink($path);
+         $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
+         $extension = $fileTokens[count($fileTokens) - 1];
+        $destinationPath = public_path().'/storage/public/pages';
            $name = uniqid ("page", true);
            Input::file('filename')->move($destinationPath,$name.".".$extension);
            DB::table('pages')
