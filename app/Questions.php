@@ -23,7 +23,7 @@ class Questions extends Model implements AuthenticatableContract, CanResetPasswo
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['title', 'quiz_id','option_a','option_b','option_c','option_d','is_correct'];
+	protected $fillable = ['title', 'quiz_id','option_a','option_b','option_c','option_d','is_correct','user_id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

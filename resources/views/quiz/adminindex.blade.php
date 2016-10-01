@@ -8,7 +8,7 @@
               <div class="col-md-12">
                 <div class="x_panel2">
                   <div class="x_title">
-                    <h2>Authors</h2>
+                    <h2>Quizzes</h2>
 
                     <div class="clearfix"></div>
                   </div>
@@ -17,11 +17,11 @@
                     <table class="table table-striped projects">
                       <thead>
                         <tr>
-                          <th style="width: 1%">#</th>
+                          <th style="width: 8%">#</th>
                           <th style="width: 20%">Quiz Title</th>
                           <th style="width: 20%">Quiz Categories</th>
 
-                           <th style="width: 20% ; ">Action</th>
+
                         </tr>
                       </thead>
                       <tbody>
@@ -37,12 +37,7 @@
 
                                 <td> {{App\Quiz::get_cate($quiz->categories_id)}}</td>
 
-                                <td>
 
-                                    <a href="quiz/edit/<?php echo($quiz->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                    <a href="quiz/delete/<?php echo($quiz->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                                     <a href="quiz/quiz_start/<?php echo($quiz->id);?>/2" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Strat </a>
-                                </td>
 
                                 </tr>
                             <?php

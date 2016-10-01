@@ -24,7 +24,7 @@ class Quiz extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['title', 'categories_id'];
+	protected $fillable = ['title', 'categories_id','user_id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

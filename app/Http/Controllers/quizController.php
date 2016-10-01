@@ -14,6 +14,7 @@ use Validator;
 use App\Quiz;
 use App\Result;
 
+
 use Illuminate\Support\Facades\View;
 
 class quizController extends commonController
@@ -45,8 +46,8 @@ class quizController extends commonController
     public function add()
     {
 
-    $categories = categories::
-    lists('category_name', 'id');
+
+    $categories = categories::lists('category_name', 'id');
 
 
         return view('quiz/add', array("categories"=>$categories));
@@ -136,7 +137,9 @@ class quizController extends commonController
     public function delete($id)
     {
         $quiz = Quiz::find($id);
+        DB::table('questions')->where('quiz_id',$quiz->id)->delete();
         $quiz->delete($id);
+        return redirect('quiz');
 
     }
 

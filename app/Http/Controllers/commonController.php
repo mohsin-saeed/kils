@@ -25,7 +25,7 @@ class commonController extends Controller
 		@$this->data->cUserId = $user->id;
 		@$this->data->cUserNmae = $user->name;
 		@$this->data->cUserEmail = $user->email;
-		@$this->data->cUserType = $user->user_typ;
+        @$this->data->cUserType = $user->user_typ;
     
   }
 }

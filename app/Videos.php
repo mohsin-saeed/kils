@@ -24,7 +24,7 @@ class Videos extends Model implements AuthenticatableContract, CanResetPasswordC
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id','title', 'description','url','thumbnail'];
+	protected $fillable = ['id','title', 'description','url','thumbnail','user_id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

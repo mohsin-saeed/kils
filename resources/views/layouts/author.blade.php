@@ -66,6 +66,7 @@
 
             <div class="menu_section">
               <ul class="nav side-menu">
+                <li><a href="{{url('home')}}"><i class="fa fa-home"></i> Home </a></li>
                 <li><a href="<?php echo url();?>/Books"><i class="fa fa-book"></i> books </a></li>
                 <li><a href="<?php echo url();?>/videos"><i class="fa fa-caret-square-o-right"></i> Videos </a></li>
                 <li><a href="<?php echo url();?>/quiz"><i class="fa fa-newspaper-o"></i> Quiz </a></li>
@@ -98,8 +99,7 @@
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                  <li><a href="javascript:;">  Profile</a>
-                  </li>
+
                   <li>
 
                   </li>

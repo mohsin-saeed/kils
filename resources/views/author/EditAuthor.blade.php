@@ -11,6 +11,16 @@
                   <h3 style="margin-left: 34%;"><b>Edit Author</b></h3>
 
                   <div class="clearfix"></div>
+                   @if (count($errors) > 0)
+                                        <div class="alert alert-danger">
+                                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                     @endif
                 </div>
                 <div class="x_content">
                   <br>
@@ -25,30 +35,18 @@
 
                     </div>
 
-                    <div class="form-group">
-                      <label  class="col-md-4 control-label">Email:  </label>
-                      <div class="col-md-6">
-                        <input type="text" name="userid" value="<?php echo  $data->email?>" class="form-control" required="">
-                      </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label  class="col-md-4 control-label">Password:</label>
-                        <div class="col-md-6">
-                            <input type="text" name="password"  class="form-control" required="">
-                        </div>
-                      </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label">New Password:</label>
                         <div class="col-md-6">
-                            <input id="Password"  type="password" name="password" value="{{old('password')}}" class="form-control" required="">
+                            <input id="newPassword"  type="password" name="newpassword" value="{{old('password')}}" class="form-control" required="">
                         </div>
                   </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label">Confirm Password:</label>
                         <div class="col-md-6">
-                        <input id="confirmPassword"  type="password" name="confirmPassword" class="form-control" required="">
+                        <input id="confirmPassword"  type="password" name="confirmpassword" class="form-control" required="">
                         </div>
                       </div>
                       <div class="form-group">

@@ -18,7 +18,7 @@ class Author {
 		
 		$user = Auth::user();
 		//print_r($user->user_typ);die;
-		if($user->user_typ=='Author'){
+		if($user->user_typ=='author'){
 			return $next($request);
 		}else{
 

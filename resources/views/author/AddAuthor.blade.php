@@ -1,29 +1,38 @@
 @extends('layouts.admin')
-
 @section('content')
         <!--Middle Content-->
 <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
                   <h3 style="margin-left: 34%;"><b>Add Author</b></h3>
-
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
+                    @if (count($errors) > 0)
+                      <div class="alert alert-danger">
+                          <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                   @endif
+
                   <br>
                   <form id="demo-form2"  class="form-horizontal form-label-left" method="post" action="authorSignUp">
-
                     <div class="form-group">
                       <label class="col-md-4 control-label">Author Name: </label>
                       <div class="col-md-6">
+
                         <input type="text" class="form-control " id="name" name="name" required="required"  value="{{old('name')}}">
+
                       </div>
                     </div>
-
                     <div class="form-group">
                       <label class="col-md-4 control-label">Email: </label>
                       <div class="col-md-6">
-                        <input type="email" id="email" name="user_id" required="@" value="{{old('user_id')}}" class="form-control">
+                        <input type="email" id="email" name="email" required="@" value="{{old('email')}}" class="form-control">
                        </div>
                     </div>
 
@@ -35,12 +44,10 @@
                     </div>
 
 
-
-
                     <div class="form-group">
                         <label class="col-md-4 control-label">Confirm Password:</label>
                         <div class="col-md-6">
-                            <input id="confirmPassword" class="form-control"  type="password" name="confirmPassword" value="{{old('confirmPassword')}}">
+                            <input id="confirmPassword" class="form-control"  type="password" name="confirmpassword" value="{{old('confirmpassword')}}">
                         </div>
                       </div>
                       <div class="form-group">
@@ -56,31 +63,5 @@
                 </div>
               </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @endsection

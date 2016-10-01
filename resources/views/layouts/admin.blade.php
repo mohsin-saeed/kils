@@ -45,10 +45,10 @@
 
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
-
+{{--
           <div class="navbar nav_title" style="border: 0;">
             <a href="#" class="site_title"><i class="fa fa-paw"></i> <span>Kids Interactive Learning System</span></a>
-          </div>
+          </div>--}}
 
 
           <div class="profile">
@@ -69,6 +69,7 @@
 
             <div class="menu_section">
               <ul class="nav side-menu">
+                <li><a href="{{url('home')}}"><i class="fa fa-home"></i> Home </a></li>
                 <li><a><i class="fa fa-users"></i> Users Management <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
 
@@ -80,6 +81,7 @@
                 </li>
                 <li><a href="<?php echo url();?>/admin/books"><i class="fa fa-book"></i> Books </a></li>
                 <li><a href="<?php echo url();?>/Categories"><i class="fa fa-folder"></i> Categories </a></li>
+                <li><a href="<?php echo url();?>/admin/videos"><i class="fa fa-caret-square-o-right"></i> Videos </a></li>
                 <li><a href="<?php echo url();?>/admin/quiz"><i class="fa fa-newspaper-o"></i> Quiz </a></li>
                 <li><a href="<?php echo url();?>/admin/question"><i class="fa fa-question-circle"></i> Question </a></li>
               </ul>
@@ -110,8 +112,6 @@
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                  <li><a href="javascript:;">  Profile</a>
-                  </li>
 
                   <li><a href="{{url()}}/auth/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>

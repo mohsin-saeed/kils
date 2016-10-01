@@ -5,7 +5,7 @@
 <div class="">
             <div class="x_panel_mc1"style="background: #f5f5f5">
               <div class="x_title" >
-                <h2 style="margin-left: 13%;color: #000000"><strong>Detail of <?php echo $data->title." " ?> video</strong></h2>
+                <h2 style="margin-left: 13%;color: #000000"><strong>Detail of <?php echo $data->title." " ?> Book</strong></h2>
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">

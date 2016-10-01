@@ -2028,7 +2028,7 @@ span.right {
 
 .tile_count .tile_stats_count {
     border-left: 0px solid #333;
-    padding: 0;
+    padding:18px 0px !important;
 }
 
 .tile_stats_count .left {
@@ -6711,4 +6711,9 @@ ul.notifications {
     padding: 10px 20px 20px;
     text-align: center;
     margin-top: 12%;
+}
+.btn-log{
+    background-color: rgba(242, 255, 251, 0);
+
+    border-radius: 100px;
 }

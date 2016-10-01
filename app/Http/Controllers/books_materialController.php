@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
-
 use Illuminate\Pagination\LengthAwarePaginator;
 use Auth;
 
@@ -60,6 +59,12 @@ class books_materialController extends commonController
 
     public function deleteCategory($id)
     {
+
+
+        $quizdata=DB::table('quiz')->where('categories_id', $id)->first();
+        DB::table('questions')->where('quiz_id', $quizdata->id)->delete();
+        DB::table('quiz')->where('categories_id', $id)->delete();
+        DB::table('books')->where('category_id', $id)->delete();
         DB::table('categories')->where('id', $id)->delete();
         return redirect('Categories');
     }
@@ -69,15 +74,17 @@ class books_materialController extends commonController
 
     public function showBooksList()
     {
-        $books = DB::table('books')->where('user_id',@$this->data->cUserId)->get();
+        $books = DB::table('books')->where('user_id',@$this->data->cUserId)->paginate(10);
         //return view('books/Books', array("data" => $books));
+
+
         return view('books/Books1', array("data" => $books));
     }
 
     public function showAdminBooksList()
     {
 
-        $books = DB::table('books')->get();
+        $books = DB::table('books')->paginate(10);
         //return view('books/Books', array("data" => $books));
         return view('books/adminbooks', array("data" => $books));
     }
@@ -100,6 +107,8 @@ class books_materialController extends commonController
                 $request, $validator
             );
         }
+
+        echo @$this->data->cUserId;
 
         $input['title'] = Input::get('title');
         $input['description'] = Input::get('description');
@@ -874,13 +883,20 @@ class books_materialController extends commonController
 
     public function showVideoList(){
 
-        $videos = DB::table('videos')->where('user_id',$this->data->cUserId)->simplePaginate(5);
+        $videos = DB::table('videos')->where('user_id',$this->data->cUserId)->paginate(10);
 
         return view('videos/videos', array("data" => $videos));
 
+    }
 
+    public function showAdminVideoList(){
+
+        $videos = DB::table('videos')->paginate(10);;
+
+        return view('videos/adminvideos', array("data" => $videos));
 
     }
+
     public function addVideo(){
         return view('videos/addvideo');
     }
@@ -958,6 +974,11 @@ class books_materialController extends commonController
         $datail=DB::table('videos')->where('id',$id)->first();
         return view('videos/detail',array('data'=>$datail));
     }
+    public function showAdminVideoDetail($id){
+
+        $datail=DB::table('videos')->where('id',$id)->first();
+        return view('videos/admindetail',array('data'=>$datail));
+    }
 
  public function dashboard(){
 
@@ -975,8 +996,8 @@ class books_materialController extends commonController
    elseif (@$this->data->cUserType == 'author') {
    
              @$this->data->books = books::all()->where('user_id',$this->data->cUserId)->count();
-            @$this->data->videos = Videos::all()->count();
-             @$this->data->questions = Questions::all()->count();
+            @$this->data->videos = Videos::all()->where('user_id',$this->data->cUserId)->count();
+             @$this->data->questions = Questions::all()->where('user_id',$this->data->cUserId)->count();
              @$this->data->quiz = Quiz::all()->where('user_id',$this->data->cUserId)->count();
             
            $data = (array)$this->data;

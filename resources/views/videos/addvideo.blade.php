@@ -28,18 +28,23 @@
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     <div class="form-group">
                       <label class="col-md-4 control-label">Video Title </label>
-                      <input class="form-group" type="text" id="name" name="title" required="required" style="width: 70%;padding: 3px;margin-left: 3%;">
+                      <div class="col-md-6">
+                      <input class="form-control" type="text" id="name" name="title" required="required">
+                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label  for="first-name" style="margin-left: 2%;"><span class="required">Video URL </span></label>
-                      <input type="text" id="name" name="url" required="required" style="width: 70%;padding: 3px;margin-left: 3%;">
+                      <label class="col-md-4 control-label">Video URL </label>
+                      <div class="col-md-6">
+                      <input type="text" id="name" name="url" required="required" class="form-control">
+                      </div>
                     </div>
 
                     <div class="form-group">
-                      <label  for="last-name" > <span class="required">Description </span></label>
-                      <textarea name="description" required="" style="padding: 20px;vertical-align: middle;width: 70%;margin-left: 3%;
-                                                                                                                        border-radius: 3%;"></textarea>
+                      <label class="col-md-4 control-label">Description </label>
+                      <div class="col-md-6">
+                       <textarea name="description" required="" class="form-control"></textarea>
+                      </div>
                     </div>
 
 

@@ -10,17 +10,14 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Validator;
 use Illuminate\Contracts\Encryption\DecryptException;
-
+use Auth;
+use Hash;
+use Redirect;
 class usersController extends Controller
 {
 
     public function index()
     {
-
-        //{{ $php_errormsg->first('username'); }};
-
-
-
         return view('auth/login');
     }
 
@@ -31,7 +28,7 @@ class usersController extends Controller
         users::create($input);
     }
 
-    public function authentication()
+/*    public function authentication()
     {
         $username1=Input::get('username');
         $password1=Input::get('password');
@@ -53,7 +50,7 @@ class usersController extends Controller
                // return redirect("/");
 
                 /*Session::flash('key', 'Invalid User Id Or Password');
-                return view('admin/login')->with('message', 'Login Failed');*/
+                return view('admin/login')->with('message', 'Login Failed');
             }
         }
         else
@@ -74,33 +71,58 @@ class usersController extends Controller
         }
 
 
-    }
-
-
+    }*/
     //Author
-
     public function addAuthor()
     {
         return view('author/AddAuthor');
     }
 
-    public function authorSignUp()
+    public function authorSignUp(Request $request)
     {
 
-        $input['name']= Input::get('name');
-        $input['email']= Input::get('user_id');
-        $input['password']= bcrypt(Input::get('password'));
-        $input['user_typ']= "author";
-        User::create($input);
+        $validator=usersController::validateAuthor($request->all());
+
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        usersController::createAuthor($request->all());
+
         return redirect('AuthorsList');
+
     }
 
-    public function returnAuthorLoginPage()
+    public function validateAuthor(array $data){
+        return Validator::make($data, [
+            'name' => 'required',
+            'email'=>'required|unique:users',
+            'password' => 'required|min:6',
+            'confirmpassword' => 'required|same:password'
+
+
+        ]);
+
+    }
+
+    public function createAuthor(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'user_typ'=>'author',
+            'password'=> bcrypt($data['password'])
+        ]);
+    }
+
+   /* public function returnAuthorLoginPage()
     {
         return view('author/AuthorLogin');
-    }
+    }*/
 
-    public function isAuthor()
+    /*public function isAuthor()
     {
         $username = Input::get('username');
         $password = Input::get('password');
@@ -113,9 +135,7 @@ class usersController extends Controller
         {
             return "fail";
         }
-    }
-
-
+    }*/
 
 
     public function showAuthorsList()
@@ -130,18 +150,54 @@ class usersController extends Controller
         return view('author/EditAuthor', array("data"=>$user));
     }
 
-    public function saveAuthorEdition($id)
+    public function saveAuthorEdition(Request $request, $id)
     {
-        DB::table('users')
+
+        $validator=usersController::validateEditAuthor($request->all());
+
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        usersController::saveAuthorEdition2($request->all(),$id);
+
+        return redirect('AuthorsList');
+
+        /*DB::table('users')
             ->where('id', $id)
             ->update(
                 ['name'=> Input::get('name'),
                     'user_id'=> Input::get('userid'),
                     'password'=> Input::get('password')]
+            );*/
 
-            );
         return redirect('AuthorsList');
     }
+
+    public function validateEditAuthor(array $data){
+
+        return Validator::make($data, [
+            'name' => 'required',
+            'email'=>'required',
+            'newpassword' => 'required|min:6',
+            'confirmpassword' => 'required|same:newpassword'
+        ]);
+    }
+
+    public function saveAuthorEdition2(array $data,$id)
+    {
+        DB::table('users')
+            ->where('id', $id)
+            ->update(
+                ['name'=> Input::get('name'),
+                    'email'=> Input::get('email'),
+                    'password'=> Input::get('newpassword')]
+
+            );
+    }
+
 
     public function deleteAuthorRecord($id)
     {

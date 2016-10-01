@@ -4,32 +4,33 @@ Route::get('layout', 'usersController@demoLayout');
 
 Route::group(['middleware' => 'auth'], function () {
 
-/* Admin ristricted routes */
-Route::group(['middleware' => 'admin'], function () {
+    /* Admin ristricted routes */
+    Route::group(['middleware' => 'admin'], function () {
 
-   //categories
-    Route::get('Categories', 'books_materialController@showCategoryList');
-    Route::get('AddCategory', 'books_materialController@addCategory');
-    Route::get('createCategory', 'books_materialController@createCategory');
-    Route::get('EditCategory/{id}', 'books_materialController@getCategoryRecord');
-    Route::get('UpdateCategoryRecord/{id}', 'books_materialController@saveCategoryEdition');
-    Route::get('deleteCategoryRecord/{id}', 'books_materialController@deleteCategory');
-
-
-});
+        //categories
+        Route::get('Categories', 'books_materialController@showCategoryList');
+        Route::get('AddCategory', 'books_materialController@addCategory');
+        Route::get('createCategory', 'books_materialController@createCategory');
+        Route::get('EditCategory/{id}', 'books_materialController@getCategoryRecord');
+        Route::get('UpdateCategoryRecord/{id}', 'books_materialController@saveCategoryEdition');
+        Route::get('deleteCategoryRecord/{id}', 'books_materialController@deleteCategory');
+        Route::get('admin/books', 'books_materialController@showAdminBooksList');
 
 
+    });
 
-/* Author ristricted routes */
-Route::group(['middleware' => 'author'], function () {
 
-   Route::get ('quiz/create', 'quizController@add');
-    Route::post ('quiz/create', 'quizController@create');
-    Route::get ('quiz/edit/{id}', 'quizController@edit');
-    Route::post ('quiz/edit/{id}', 'quizController@update');
-    Route::get ('quiz/delete/{id}', 'quizController@delete');
 
-});
+    /* Author ristricted routes */
+    Route::group(['middleware' => 'author'], function () {
+
+        Route::get ('quiz/create', 'quizController@add');
+        Route::post ('quiz/create', 'quizController@create');
+        Route::get ('quiz/edit/{id}', 'quizController@edit');
+        Route::post ('quiz/edit/{id}', 'quizController@update');
+        Route::get ('quiz/delete/{id}', 'quizController@delete');
+
+    });
 //admin
     Route::get('/', 'usersController@index');
     Route::get('logout', 'usersController@index');
@@ -65,7 +66,7 @@ Route::group(['middleware' => 'author'], function () {
     Route::get('Books', 'books_materialController@showBooksList');
 
     Route::get('books', 'books_materialController@showBooksList');
-    Route::get('admin/books', 'books_materialController@showAdminBooksList');
+
     Route::get('addbook', 'books_materialController@addBook');
     Route::get('GetBookName/{id}', 'books_materialController@getBookName');
     Route::post('addbook', 'books_materialController@saveBook');
@@ -84,23 +85,23 @@ Route::group(['middleware' => 'author'], function () {
     Route::get('CustomisePageRecord/{id}', 'books_materialController@customisePage');
 
 
-   // Route::get('EditPageObject/{id}', 'books_materialController@showPageState');
-   // Route::get('editpageobject/{id}', 'books_materialController@showPageState');
+    // Route::get('EditPageObject/{id}', 'books_materialController@showPageState');
+    // Route::get('editpageobject/{id}', 'books_materialController@showPageState');
     Route::get('ObjectStateDetail/{id}', 'books_materialController@showObjectStateDetail');
     Route::get('DeletePageObject/{id}', 'books_materialController@deletePageObject');
     Route::get('DeleteObjectStateDetail/{id}', 'books_materialController@deleteObjectStateDetail');
     Route::post('SaveObjectStateDetailChange', 'books_materialController@saveObjectStateDetailChange');
     Route::post('UpdatePageRecord/{id}', 'books_materialController@savePageEdition');
-  //  Route::get('DeletePageRecord/{id}', 'books_materialController@deletePage');
+    //  Route::get('DeletePageRecord/{id}', 'books_materialController@deletePage');
     Route::get('deletepage/{id}', 'books_materialController@deletePage');
 
 //objects
     //Route::get('Objects/{id}', 'books_materialController@showPageObject');
     Route::get('pageobjects/{id}', 'books_materialController@showPageObject');
-   Route::get('AddObject/{id}', 'books_materialController@addPageObject');
+    Route::get('AddObject/{id}', 'books_materialController@addPageObject');
     Route::get('addobject/{id}', 'books_materialController@addPageObject');
     Route::post('SavePageObject/{id}', 'books_materialController@savePageObject');
-   // Route::get('EditObjectRecord/{id}', 'books_materialController@editObject');
+    // Route::get('EditObjectRecord/{id}', 'books_materialController@editObject');
     Route::get('editobject/{id}', 'books_materialController@editObject');
     Route::post('editobject/{id}', 'books_materialController@saveObjectEdition');
     //Route::get('DeleteObjectRecord/{id}', 'books_materialController@deleteObject');
@@ -109,9 +110,9 @@ Route::group(['middleware' => 'author'], function () {
 //test
 
     Route::get('test/{id}', 'books_materialController@showPageObjecttest');
-   // Route::get('test2', 'books_materialController@test');
+    // Route::get('test2', 'books_materialController@test');
     Route::post('saveState', 'books_materialController@saveState');
-   Route::get('getObjectStates', 'books_materialController@getObjectStates');
+    Route::get('getObjectStates', 'books_materialController@getObjectStates');
     Route::get('objectstates/{id}', 'books_materialController@showobjectStates');
     Route::get('editobjectstate/{id}', 'books_materialController@editObjectState');
     Route::post('editobjectstate/{id}', 'books_materialController@saveStateEdition');
@@ -123,8 +124,8 @@ Route::group(['middleware' => 'author'], function () {
     Route::get('preview/{page_id}', 'books_materialController@previewPage');
     Route::post('editState', 'books_materialController@editState');
     // edit state image only
-   // Route::get('editObjectState', 'books_materialController@editState');
-   // Route::get('editObjectState', 'books_materialController@editState');
+    // Route::get('editObjectState', 'books_materialController@editState');
+    // Route::get('editObjectState', 'books_materialController@editState');
     Route::get('test1', function () {
         return view("test1");
     });
@@ -135,12 +136,14 @@ Route::group(['middleware' => 'author'], function () {
 
 //videos
     Route::get('videos','books_materialController@showVideoList');
+    Route::get('admin/videos','books_materialController@showAdminVideoList');
     Route::get('addvideo','books_materialController@addVideo');
     Route::post('addvideo','books_materialController@saveVideo');
     Route::get('deletevideo/{id}','books_materialController@deleteVideo');
     Route::get('editvideo/{id}','books_materialController@editVideo');
     Route::post('editvideo/{id}','books_materialController@saveVideoEdition');
     Route::get('videodetail/{id}','books_materialController@showVideoDetail');
+    Route::get('adminvideodetail/{id}','books_materialController@showAdminVideoDetail');
 
 
     /*amjad*/
@@ -158,12 +161,6 @@ Route::group(['middleware' => 'author'], function () {
 //Quiz
     Route::get ('quiz', 'quizController@index');
     Route::get ('admin/quiz', 'quizController@adminIndex');
-
-    Route::get ('quiz/create', 'quizController@add');
-    Route::post ('quiz/create', 'quizController@create');
-    Route::get ('quiz/edit/{id}', 'quizController@edit');
-    Route::post ('quiz/edit/{id}', 'quizController@update');
-    Route::get ('quiz/delete/{id}', 'quizController@delete');
 
     Route::get ('quiz/view/{id}', 'quizController@view');
 

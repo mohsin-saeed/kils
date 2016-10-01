@@ -9,7 +9,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Gentallela Alela! | </title>
+  <title>kids interactive learning system </title>
 
   <!-- Bootstrap core CSS -->
 
@@ -40,7 +40,7 @@
 
 <body style="background:#F7F7F7;">
 
-<?php $login_img="http://localhost/project/public/storage/public/images/login_img.png"?>
+<?php $login_img="http://localhost/kils/public/storage/public/images/login_img.png"?>
 
 
 
@@ -168,7 +168,7 @@
 
   <div style="float: left">
        <div >
-         <img src="<?php echo$login_img?>"style="width: 200px;height: 250px;margin-top: 20%;margin-left: 122%;border-radius: 20px;border: solid 3px">
+         <img src="<?php echo $login_img?>"style="width: 200px;height: 250px;margin-top: 20%;margin-left: 122%;border-radius: 20px;border: solid 3px">
       </div>
 
    </div>
@@ -190,13 +190,12 @@
    $(document).ready(function()
    {
        $('.role').click(function(){
-            $('.active1').removeClass("active1")
+            $('.btn-dark').removeClass("btn-dark")
                var role=$(this).text();
                $(this).removeClass("role");
-                //jQuery(this).addClass("btn-success");
-                //$(this).removeClass("active");
-                $(this).addClass("active1");
-           //alert("hi")
+
+                $(this).addClass("btn-dark");
+
        });
    });
 

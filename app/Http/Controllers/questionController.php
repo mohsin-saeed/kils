@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\student;
@@ -22,7 +23,7 @@ class questionController extends Controller
     public function index()
     {
 
-        $question = Questions::all()->sortByDesc("id");
+        $question = Questions::all()->where('user_id',Auth::User()->id)->sortByDesc("id");
 
         return view('question/index', array("question"=>$question));
 
@@ -67,9 +68,11 @@ class questionController extends Controller
                 ->withErrors($validator);
         }else{
 
+
         $abc =Questions::create([
             'title' => Input::get('title'),
             'quiz_id' => Input::get('quiz_id'),
+            'user_id' => Auth::User()->id,
             'option_a' => Input::get('option_a'),
             'option_b' => Input::get('option_b'),
             'option_c' => Input::get('option_c'),
@@ -139,6 +142,7 @@ class questionController extends Controller
     {
         $questions = Questions::find($id);
         $questions->delete($id);
+        return redirect('question');
 
     }
 

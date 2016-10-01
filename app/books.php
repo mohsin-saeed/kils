@@ -22,7 +22,7 @@ class Books extends Model implements AuthenticatableContract, CanResetPasswordCo
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['title', 'description','category_id'];
+	protected $fillable = ['title', 'description','category_id','user_id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

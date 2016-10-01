@@ -55,15 +55,19 @@
                          <select name="category_id" class="btn3 btn-success dropdown-toggle stats-list"  style="width: 47%;padding: 1%" required="required" >
 
 
-                             <option value="">Options</option>
-                              <?php foreach ($cat as $data)
+                             <option value="">options</option>
+                              <?php foreach ($cat as $categry)
                                 {
+                                    $selected = "";
+                                    if($categry->id == $data->category_id){
+                                        $selected = "selected='selected'";
+                                    }
                                   ?>
-                                  <option value="<?php echo $data->id?>" >
-                                  <tr>
-                                  <td><?php echo $data->category_name?></td>
-                                  <td> </td>
-                                  </tr>
+                                  <option <?php echo $selected?> value="<?php echo $categry->id?>" >
+
+                                  <td><?php echo $categry->category_name?></td>
+
+
                                   </option>>
                                   <?php
                                   }

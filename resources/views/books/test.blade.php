@@ -69,13 +69,13 @@ use Illuminate\Support\Facades\View;
                 $bg=DB::table('pages')->where('id',$data[0]->page_id)->get() ;
                 $pagedir="/storage/public/pages/";
                 $objectdir="/storage/public/objects/";
-         $DECIDED_WIDTH = 998;
+         $DECIDED_WIDTH = 998;// ??
          $DECIDED_HEIGHT = 561;
 
          $PAGE_WIDTH = 751;
          $PAGE_HEIGHT = 422;
 
-         $WF =     $PAGE_WIDTH/  $DECIDED_WIDTH;
+         $WF =     $PAGE_WIDTH/  $DECIDED_WIDTH;//??
          $HF =     $PAGE_HEIGHT/  $DECIDED_HEIGHT;
 
 
@@ -94,7 +94,7 @@ use Illuminate\Support\Facades\View;
                          $h = "";
                          $w = "";
                          if(!empty($states[0])){
-                             $h =    $states[0]->height*$HF;
+                             $h =    $states[0]->height*$HF;//??+
                              $w =    $states[0]->width*$WF;
                          }
 
@@ -125,18 +125,8 @@ use Illuminate\Support\Facades\View;
         </div>
     </div>
 
-          <h2 style="background: #1ABB9C;padding-top: 2%;padding-bottom: 2%;border-radius: 5px;padding-left: 29%;color: white;">Apply Animation </h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Settings 1</a></li>
-                    <li><a href="#">Settings 2</a></li>
-                    </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-                    </ul>
+          <h2 style="background: #1ABB9C;padding-top: 2%;padding-bottom: 2%;border-radius: 5px;padding-left: 29%;color: white;">Chose Animation </h2>
+
                     <div class="clearfix"></div>
 
     <div class="x_content" id="edit">
@@ -231,23 +221,23 @@ $(document).ready(function()
     $('.editstate').hide();
     $('.deletestate').hide();
 
-    $canvasContainer = $("#canvas-container");
+    $canvasContainer = $("#canvas-container");//???
 
-    var screen_width = $canvasContainer.width();
-    var screen_height = $canvasContainer.height();
+    var screen_width = $canvasContainer.width();//??
+    var screen_height = $canvasContainer.height();//??
     //alert(screen_width+" X "+ screen_height);
     var x, y, height, width, action, object_id, ajaxFiles;
 
 
-    $('input[name=logo]').on('change', prepareUpload);
+    $('input[name=logo]').on('change', prepareUpload);//??
 
 // Grab the files and set them to our variable
-    function prepareUpload(event)
+    function prepareUpload(event)//??
     {
         ajaxFiles = event.target.files;
     }
 
-    $('form#object-state').submit(function(e){
+    $('form#object-state').submit(function(e){//??
             if(!object_id || typeof object_id == 'undefined'){
                 alert("Please select an object (by double click) to add/edit state");
                 return false;
@@ -267,7 +257,7 @@ $(document).ready(function()
 
             formData.append("obj_id", object_id);
 
-            $.ajax({
+            $.ajax({//??
                 url: '<?php echo url();?>/saveState',
                 type: 'POST',
                 data: formData,
@@ -289,7 +279,7 @@ $(document).ready(function()
         }
     );
 
-    $( "img.obj-dragable" ).draggable({
+    $( "img.obj-dragable" ).draggable({//??
             containment: ".imgdiv", scroll: false ,
             stop: function(e) {
                   object_id = $(e.target).attr("id").split("_")[1]
@@ -308,20 +298,20 @@ $(document).ready(function()
         }
     );
 
-    $("#delay").bind('keyup mouseup', function (){
+    $("#delay").bind('keyup mouseup', function (){//??
             delay= $(this).val();
         }
     );
 
-    $("#duration").bind('keyup mouseup', function (){
+    $("#duration").bind('keyup mouseup', function (){//??
             duration= $(this).val();
         }
     );
 
-    $('[id="disableid"]').prop('disabled',false);
+    $('[id="disableid"]').prop('disabled',false);//??
 
 
-    $(".img").dblclick(function(e)
+    $(".img").dblclick(function(e)//??
     {
         var a;
         $('#edit').show();
@@ -341,7 +331,7 @@ $(document).ready(function()
         })
     });
 
-    $('.stats-list').change(function()
+    $('.stats-list').change(function()//??
     {
         ajaxFiles = [];
        $('.editstate').show();
@@ -370,7 +360,7 @@ $(document).ready(function()
 
     });
 
-    $(".deletestate").click(function(){
+    $(".deletestate").click(function(){//??
 
         var state_id=$('.stats-list option:selected').val();
         $.get('<?php echo url();?>/getState',{id:state_id},function(data){
@@ -381,7 +371,7 @@ $(document).ready(function()
 
         }
     )
-    $('form#object-state2').submit(function(e){
+    $('form#object-state2').submit(function(e){//??
             //var target = $("#obj_"+object_id);
 
             var state_id=$('.stats-list option:selected').val();

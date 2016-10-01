@@ -4,25 +4,6 @@
     <div style="padding: 2%">
 
 
-        <div>
-
-            <div class="title_right">
-                   <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                     <div class="input-group">
-                       <input type="text" class="form-control" placeholder="Search for...">
-                       <span class="input-group-btn">
-                                 <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                     </div>
-
-                   </div>
-
-             </div>
-
-
-        </div>
-
-
         <div >
 
 
@@ -71,8 +52,6 @@
                                 <div class="mask">
                                   <p class="p_link_mc2"><a href="{{url()}}/bookdetail/<?php echo $book->id;?>" target="_blank" style="color: white">Click Me to See Detail</a></p>
                                   <div class="tools tools-bottom">
-                                    <a title="View Book pages" href="{{url()}}/book/<?php echo$book->id;?>"><i class="fa fa-files-o"></i></a>
-                                    <a title="Edit Book" href="{{url()}}/editbook/<?php echo$book->id;?>"><i class="fa fa-edit"></i></a>
                                     <a  title="Delete Book" href="{{url()}}/deletebook/<?php echo$book->id;?>" onclick="return confirm('Are you sure you want to delete this item?')"> <i class="fa fa-trash-o"></i></a>
                                     <a title="Package and publish book" href="{{url()}}/package/<?php echo $book->id;?>"><i class="fa fa-check-square-o"></i></a>
                                   </div>
@@ -88,15 +67,14 @@
                      }?>
 
                     </div>
-
+                         <div style="margin-left: 35%">
+                              <?php echo str_replace('/?','?', $data->render())?>
+                         </div>
                   </div>
                 </div>
               </div>
             </div>
-
         </div>
-
     </div>
-
 
 @endsection

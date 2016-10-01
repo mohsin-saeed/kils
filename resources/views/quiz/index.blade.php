@@ -11,7 +11,7 @@
               <div class="col-md-12">
                 <div class="x_panel2">
                   <div class="x_title">
-                    <h2>Authors</h2>
+                    <h2>Quizzes</h2>
 
                     <div class="clearfix"></div>
                   </div>

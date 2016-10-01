@@ -10,25 +10,19 @@
             <div class="row">
               <div class="">
                 <div class="x_panel_mc1" style="background: white">
-                  <h2 ><b><p style="text-align: center">Pages of Book <?php  echo strtoupper($data['title']->title)?></p></b></h2>
+
+
+                @if(isset($data['pages'][0]->book_id))
+                <h2 ><b><p style="text-align: center">Pages of Book <?php  echo ucwords($data['title']->title)?></p></b></h2>
+
                   <div class="x_title">
-
-                    <ul class="nav navbar-right panel_toolbox">
-
-
-                    </ul>
-                    <div class="clearfix"></div>
                   </div>
+
                   <div class="x_content">
 
                     <div class="row">
 
-                    @if(!$data['pages'])
 
-
-                        <img class="no-data" src="http://localhost/kils/public/storage/public/images/no_page_img.png">
-
-                    @endif
                     <?php foreach($data['pages'] as $page)
 
                     {;?>
@@ -68,6 +62,12 @@
 
                         <?php echo str_replace('/?','?', $data['pages']->render())?>
                    </div>
+
+                   @else
+                      <img class="no-data" src="http://localhost/kils/public/storage/public/images/no_page_img.png">
+
+                @endif
+
                 </div>
               </div>
 
