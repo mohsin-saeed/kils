@@ -261,4 +261,14 @@ Route::get ('quiz/quiz_start/{id}/{student}', 'quizController@quiz_start');
 Route::get ('quiz_submit', 'quizController@quiz_submit');
 
 
+Route::get ('user/forgetpssword', 'usersController@forgetpassword');
+Route::post ('users/forgot_password', 'usersController@send_mail');
+Route::get('users/verify/{token}', 'usersController@verify');
+Route::post('users/reset/{id}', 'usersController@change_password');
+
+
+
+
+
+
 ?>

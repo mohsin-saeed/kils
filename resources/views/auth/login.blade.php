@@ -61,6 +61,13 @@
                     </ul>
                 </div>
             @endif
+
+
+                  @if(Session::has('error'))
+                  <p class="alert alert-info">{{ Session::get('error') }}</p>
+                  @endif
+
+
           <form  method="post" action='{{url('auth/login')}}'>
             <h1><i>KIBG Login </i></h1>
             <div>
@@ -95,7 +102,7 @@
                 </span>
 
                  <span style="float: right">
-                      <a href="<?php echo url('page') ?>">forget password</a>
+                      <a href="<?php echo url('user/forgetpssword') ?>">forget password</a>
                       </p>
                  </span>
 

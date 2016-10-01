@@ -5,9 +5,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Auth;
@@ -317,6 +320,91 @@ class usersController extends Controller
         {
             return "false";
         }
+    }
+
+
+    public function forgetpassword()
+    {
+
+        //{{ $php_errormsg->first('username'); }};
+
+        return view('admin/forgetpassword');
+    }
+
+
+    public function send_mail()
+    {
+        $rules = array(
+            'email' =>  'required|email',
+         );
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator);
+        } else {
+            $user_email=Input::get('email');
+            $user_data=User::where('email',$user_email) -> first();
+           // var_dump($user_data->email);exit;
+            if($user_data) {
+                $data['verification_code'] = str_random(20);
+                DB::table('users')->where('id', $user_data->id)->update([
+                    'password_rest_token' => $data['verification_code']
+                ]);
+                Mail::send('emails.welcome', $data, function ($message) use ($data) {
+                    $message->from('kinnect2.com@gmail.com', "Site name");
+                    $message->subject("Reset password");
+                    $message->to('amjad.sarwar23@gmail.com');
+                });
+                Session::flash('success', 'Please check yor email!');
+                return redirect('auth/login');
+
+            }else{
+                Session::flash('error', 'Email not match!');
+
+                return Redirect::back();
+
+            }
+        }
+
+    }
+    public function verify($token)
+    {
+
+        $user_data=User::where('password_rest_token',$token) -> first();
+        if($user_data) {
+            return view('admin/reset', array("user_data" => $user_data));
+        }else{
+            Session::flash('error', 'Token not match!');
+            return redirect('auth/login');
+        }
+
+    }
+
+    public function change_password($id)
+    {
+
+        $rules = array(
+
+              'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator);
+        }else {
+            $pass=Input::get('password');
+            $password = Hash::make($pass);
+            $user_data = User::where('id', $id)->first();
+
+            DB::table('users')->where('id', $user_data->id)->update([
+                'password' => $password,
+                'password_rest_token' => "",
+         ]);
+
+            return redirect('auth/login');
+        }
+
     }
 
 
