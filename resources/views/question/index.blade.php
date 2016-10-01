@@ -4,13 +4,14 @@
 
         <!--Middle Content-->
 
+
          <a href="question/create"><button type="button" class="button9">Add Question</button> </a>
 
   <div class="row">
               <div class="col-md-12">
                 <div class="x_panel2">
                   <div class="x_title">
-                    <h2>Authors</h2>
+                    <h2>Question</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -56,6 +57,8 @@
                                     <a href="question/view/<?php echo($ques->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>View</a>
                                     <a href="question/edit/<?php echo($ques->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                                     <a href="question/delete/<?php echo($ques->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+
+                                    <a href="deletelink" onclick="return confirm('Are you sure?')">Delete</a>
                                 </td>
 
                                 </tr>

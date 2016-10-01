@@ -1,0 +1,1 @@
+var bookPages = [{"id":95,"book_id":"39","bg":"page57d1b03c490406.26958800.jpg","updated_at":"2016-09-08","created_at":"2016-09-08","audio":null,"pageNo":1,"pageId":95,"dirPath":"C:\\xampp\\htdocs\\kils-git\\storage\/public\/books\/ready\/book_39\/pages\/page_1","dirRelPath":"pages\/page_1","bgRelPath":"pages\/page_1\/page57d1b03c490406.26958800.jpg","objects":[]}];

@@ -10,7 +10,7 @@
               <div class="col-md-12">
                 <div class="x_panel2">
                   <div class="x_title">
-                    <h2>Authors</h2>
+                    <h2>Question</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -55,7 +55,8 @@
                                 <td>
                                     <a href="question/view/<?php echo($ques->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>View</a>
                                     <a href="question/edit/<?php echo($ques->id);?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                                    <a href="question/delete/<?php echo($ques->id);?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+
+                                <a href="question/delete/<?php echo($ques->id);?>" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-xs" >Delete</a>
                                 </td>
 
                                 </tr>
