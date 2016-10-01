@@ -6,18 +6,27 @@ use App\pages;
 use App\objects;
 use App\states;
 use App\Videos;
+use App\Questions;
+use App\Quiz;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Auth;
+
 class testit{
     public $page_id = -1;
 }
-class books_materialController extends Controller
+class books_materialController extends commonController
 {
+  public function __construct(){
 
+    parent::__construct();
+  }
 
     public function addCategory()
     {
@@ -60,7 +69,7 @@ class books_materialController extends Controller
 
     public function showBooksList()
     {
-        $books = DB::table('books')->get();
+        $books = DB::table('books')->where('user_id',@$this->data->cUserId)->get();
         //return view('books/Books', array("data" => $books));
         return view('books/Books1', array("data" => $books));
     }
@@ -95,13 +104,14 @@ class books_materialController extends Controller
         $input['title'] = Input::get('title');
         $input['description'] = Input::get('description');
         $input['category_id'] =Input::get('category_id');
+        $input['user_id'] =@$this->data->cUserId;
         books::create($input);
         return redirect('Books');
     }
 
     public function getBookRecord($id)
     {
-        $book=DB::table('books')->where('id',$id)->first();
+        $book=DB::table('books')->where('id',$id)->where('user_id',@$this->data->cUserId)->first();
         return view('books/EditBook' , array("data"=>$book));
     }
 
@@ -124,6 +134,7 @@ class books_materialController extends Controller
                     'title'=> Input::get('title'),
                     'description'=> Input::get('description'),
                     'category_id'=>Input::get('category_id'),
+
                     ]);
         return redirect('Books');
     }
@@ -194,7 +205,9 @@ class books_materialController extends Controller
     public function showBookPages($id)
     {
         //not remvoe commented line
-         $data['pages'] = DB::table('pages')->where('book_id',$id)->get();
+         $data['pages'] = DB::table('pages')->where('book_id',$id)->paginate(10);
+
+
         //$data['pages'] = DB::table('pages')->where('book_id',$id)->get();
         $data['book_id'] = $id;
         $data['title'] = DB::table('books')->where('id',$id)->first();
@@ -377,21 +390,14 @@ class books_materialController extends Controller
 
 
     public function savePageEdition($id)
-    {
-        if (Input::hasFile('filename'))
-        {
-
-
-            //delete file from folder
-           $data=DB::table('pages')->where('id',$id)->get();
-           $folderpath= public_path()."/storage/public/pages/";
-            $path=$folderpath.$data[0]->bg;
-            unlink($path);
-
-            //replace file onserver
-            $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
-           $extension = $fileTokens[count($fileTokens) - 1];
-           $destinationPath = public_path().'/storage/public/pages';
+    {if (Input::hasFile('filename'))
+    {$data=DB::table('pages')->where('id',$id)->get();
+     $folderpath= public_path()."/storage/public/pages/";
+     $path=$folderpath.$data[0]->bg;
+         unlink($path);
+         $fileTokens = explode(".",Input::file('filename')->getClientOriginalName());
+         $extension = $fileTokens[count($fileTokens) - 1];
+        $destinationPath = public_path().'/storage/public/pages';
            $name = uniqid ("page", true);
            Input::file('filename')->move($destinationPath,$name.".".$extension);
            DB::table('pages')
@@ -868,7 +874,7 @@ class books_materialController extends Controller
 
     public function showVideoList(){
 
-        $videos = DB::table('videos')->simplePaginate(3);
+        $videos = DB::table('videos')->where('user_id',$this->data->cUserId)->simplePaginate(5);
 
         return view('videos/videos', array("data" => $videos));
 
@@ -903,13 +909,14 @@ class books_materialController extends Controller
         $input['url']=$url=Input::get('url');
         $input['description']=Input::get('description');
         $input['thumbnail']=$video_obj->tokenize($url);
+         $input['user_id'] = $this->data->cUserId;
         Videos::create($input);
 
 
     }
     public function deleteVideo($id){
 
-        DB::table('videos')->where('id', $id)->delete();
+        DB::table('videos')->where('user_id',$this->data->cUserId)->where('id', $id)->delete();
         return redirect('videos');
 
     }
@@ -952,7 +959,32 @@ class books_materialController extends Controller
         return view('videos/detail',array('data'=>$datail));
     }
 
+ public function dashboard(){
 
+
+   if(@$this->data->cUserType == 'admin'){
+        @$this->data->category = categories::all()->count();
+             @$this->data->books = books::all()->count();
+             @$this->data->videos = Videos::all()->count();
+             @$this->data->questions = Questions::all()->count();
+             @$this->data->quiz = Quiz::all()->count();
+             @$this->data->users = User::all()->count();
+           $data = (array)$this->data;
+                return view('dashboards/admin', compact('data'));
+   }
+   elseif (@$this->data->cUserType == 'author') {
+   
+             @$this->data->books = books::all()->where('user_id',$this->data->cUserId)->count();
+            @$this->data->videos = Videos::all()->count();
+             @$this->data->questions = Questions::all()->count();
+             @$this->data->quiz = Quiz::all()->where('user_id',$this->data->cUserId)->count();
+            
+           $data = (array)$this->data;
+      $data = (array)$this->data;
+                return view('dashboards/author', compact('data'));
+   }
+     
+    }
 
 
 }

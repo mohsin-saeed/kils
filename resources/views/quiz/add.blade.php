@@ -33,17 +33,17 @@
                   {!! Form::open(array('url' => 'quiz/create')) !!}
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
-                                              <label class="col-md-4 control-label">Quiz Title</label>
-                                              <div class="col-md-6">
-                                                <div class="@if ($errors->has('title')) has-error @endif">
-                                                  <input type="text" name="title" value="{{Input::old('title')}}" class="form-control input-circle" placeholder="Enter question Title">
-                                                  @if ($errors->has('title'))
-                                                  <p class="help-block">{{ $errors->first('title') }}</p>
-                                                  @endif
-                                                  </div>
+                          <label class="col-md-4 control-label">Quiz Title</label>
+                          <div class="col-md-6">
+                        <div class="@if ($errors->has('title')) has-error @endif">
+                          <input type="text" name="title" value="{{Input::old('title')}}" class="form-control input-circle" placeholder="Enter question Title">
+                          @if ($errors->has('title'))
+                          <p class="help-block">{{ $errors->first('title') }}</p>
+                          @endif
+                        </div>
 
-                                              </div>
-                                 </div>
+                          </div>
+                 </div>
 
                                  <br> <br><br>
 

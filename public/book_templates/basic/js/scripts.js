@@ -135,6 +135,9 @@ function playAudio(audio, objId){
 var swirlAngle = 0;
 
 function getSwirl(id){
+    if(id == -1){
+        return false;
+    }
     var DomEl = "#obj-"+id+"-s";
     var swirlEl = $(DomEl);
     swirlEl.show();
@@ -180,12 +183,16 @@ $( document ).ready(function() {
         onSlideChangeEnd: function(swiper){
             document.getElementById("obj-sounds").innerHTML = "";
 
+            var objectId = -1;
+            if(bookPages[swiper.activeIndex]["objects"][0] && bookPages[swiper.activeIndex]["objects"][0].id){
+                objectId = bookPages[swiper.activeIndex]["objects"][0].id
+            }
 
             if(bookPages[swiper.activeIndex].audioRelPath){
                 var audio = document.querySelector("audio#playme-"+swiper.activeIndex);
-                playAudio(audio, bookPages[swiper.activeIndex]["objects"][0].id);
+                playAudio(audio, objectId);
             }else{
-                getSwirl(bookPages[swiper.activeIndex]["objects"][0].id);
+                getSwirl(objectId);
             }
             if(swiper){
                 //if($(swiper.activeSlide()).data("visited")){

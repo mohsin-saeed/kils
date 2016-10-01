@@ -14,15 +14,17 @@
                   <form id="demo-form2"  class="form-horizontal form-label-left" method="get" action="createCategory">
 
                     <div class="form-group">
-                      <label  for="first-name" style="margin-left: 85px;">Category Name <span class="required"></span>
-                      </label>
-                        <input type="text" id="studentName" required="required" name="name" >
+                      <label class="col-md-4 control-label">Category Name</label>
+                        <div class="col-md-6">
+                              <input type="text" id="studentName" required="required" name="name" class="form-control input-circle" placeholder="Enter Category Name">
+                       </div>
                     </div>
 
                      <div class="form-group">
                       <button type="submit" class="btn btn-primary" style="margin-left: 40%;">Save</button>
-                      <button type="submit" class="btn btn-success">Cancel</button>
-                        </div>
+
+                      <a href="{{url('Categories')}}" class="btn btn-success">Cancel</a>
+                      </div>
 
                   </form>
                 </div>

@@ -46,7 +46,7 @@
                                     <a title=" List Page Objects " href="<?=url()?>/pageobjects/<?php echo$page->id;?>"><i class="fa fa-list"></i></a>
                                     <a title="Customize Page " href="<?=url()?>/test/<?php echo$page->id;?>"><i class="fa fa-cogs"></i></a>
                                     <a title="Edit Page" href="<?=url()?>/editpage/<?php echo$page->id;?>"><i class="fa fa-edit"></i></a>
-                                    <a title="Delete pages" href="<?=url()?>/deletepage/<?php echo$page->id;?>"><i class="fa fa-trash-o"></i></a>
+                                    <a title="Delete pages" href="<?=url()?>/deletepage/<?php echo$page->id;?>" onclick="return confirm('Are you sure you want to delete this item?')"><i class="fa fa-trash-o"></i></a>
                                   </div>
                                 </div>
                               </div>
@@ -59,11 +59,18 @@
                      <?php
                      }?>
 
+
                     </div>
 
+
                   </div>
+                   <div style="margin-left: 35%">
+
+                        <?php echo str_replace('/?','?', $data['pages']->render())?>
+                   </div>
                 </div>
               </div>
+
             </div>
 
         </div>

@@ -49,7 +49,7 @@
 
                              <div class="form-group">
                               <button type="submit" class="btn btn-primary" style="margin-left: 36%;">Save</button>
-                              <button type="submit" class="btn btn-success">Cancel</button>
+                              <a href="{{url('videos')}}" class="btn btn-success">Cancel</a>
                              </div>
 
                           </form>
