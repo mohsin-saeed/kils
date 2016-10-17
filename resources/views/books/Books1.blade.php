@@ -9,6 +9,7 @@
         </div>
 
             <div class="row">
+
               <div class="">
                 <div class="x_panel_mc1" style="background: white">
                  @if(isset ($data[0]->title))

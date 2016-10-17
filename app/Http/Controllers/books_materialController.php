@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\View;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Auth;
-
+use Session;
 class testit{
     public $page_id = -1;
 }
@@ -36,6 +36,7 @@ class books_materialController extends commonController
     {
         $input['category_name'] = Input::get('name');
         categories::create($input);
+        Session::flash('message','Category has Saved Successfully');
         return redirect('Categories');
     }
 
@@ -54,6 +55,7 @@ class books_materialController extends commonController
     public function saveCategoryEdition($id)
     {
         DB::table('categories')->where('id', $id)->update(['category_name' => Input::get('name'),]);
+        Session::flash('message','Category Updated Successfully');
         return redirect('Categories');
     }
 
@@ -66,6 +68,7 @@ class books_materialController extends commonController
         DB::table('quiz')->where('categories_id', $id)->delete();
         DB::table('books')->where('category_id', $id)->delete();
         DB::table('categories')->where('id', $id)->delete();
+        Session::flash('message','Category deleted Successfully');
         return redirect('Categories');
     }
 
@@ -115,6 +118,7 @@ class books_materialController extends commonController
         $input['category_id'] =Input::get('category_id');
         $input['user_id'] =@$this->data->cUserId;
         books::create($input);
+        Session::flash('message','Book has Saved Successfully');
         return redirect('Books');
     }
 
@@ -145,6 +149,7 @@ class books_materialController extends commonController
                     'category_id'=>Input::get('category_id'),
 
                     ]);
+        Session::flash('message','Book Updated Successfully');
         return redirect('Books');
     }
 
@@ -175,6 +180,7 @@ class books_materialController extends commonController
             DB::table('pages')->where('Id',$page->id)->delete();
         }
         DB::table('books')->where('id',$id)->delete();
+        Session::flash('message','Book deleted Successfully');
         return redirect('Books');
     }
 
@@ -230,9 +236,6 @@ class books_materialController extends commonController
         if (Input::hasFile('filename'))
         {
 
-
-
-
             if(Input::hasFile('audio')){
                 $data=DB::table('pages')->where('id',$id)->get();
                 $folderpath=public_path()."/storage/public/pages/";
@@ -262,6 +265,7 @@ class books_materialController extends commonController
             $input['book_id']=$id;
             pages::create($input);
             //return redirect('Pages/'.$id);
+            Session::flash('message','Page has Saved Successfully');
             return redirect('book/'.$id);
         }
         else
@@ -332,6 +336,8 @@ class books_materialController extends commonController
         DB::table('objects')->where('id',$id)->delete();
         unlink($objectdir.$path);
         $objects=DB::table('objects')->where('page_id',$page_id)->get();
+        Session::flash('message','Object deleted Successfully');
+
         return view('books/BookPageListing',array("data"=>$objects));
     }
     public function deleteObjectStateDetail($id)
@@ -342,6 +348,8 @@ class books_materialController extends commonController
         unlink($statedir.$data[0]->bg);
         DB::table('states')->where('Id',$id)->delete();
         $data=DB::table('states')->where('object_id',$data[0]->object_id)->get();
+
+        Session::flash('message','State deleted Successfully');
 
         return view('books/EditPageObject',array("data"=>$data));
     }
@@ -386,6 +394,8 @@ class books_materialController extends commonController
 
             $data =DB::table('states')->where('id',$id)->get();
             return view('books/ObjectStateDetail',array("data"=>$data));
+
+            Session::flash('message','Data Saved Successfully');
 
         }
 
@@ -469,7 +479,10 @@ class books_materialController extends commonController
         }
         books_materialController::deletFile($pages_path.$page->bg);
         DB::table('pages')->where('id',$page->id)->delete();
-    return redirect('book/' .$page->book_id);
+
+        Session::flash('message','Delete page Successfully');
+
+        return redirect('book/' .$page->book_id);
 
         /*delete file from folder
         $data=DB::table('pages')->where('id',$id)->get();
@@ -913,6 +926,7 @@ class books_materialController extends commonController
             );
         }
         books_materialController::createVideo();
+        Session::flash('message','Video Added Successfully');
 
         return redirect('videos');
 
@@ -933,6 +947,7 @@ class books_materialController extends commonController
     public function deleteVideo($id){
 
         DB::table('videos')->where('user_id',$this->data->cUserId)->where('id', $id)->delete();
+        Session::flash('message','Video deleted Successfully');
         return redirect('videos');
 
     }
@@ -965,6 +980,7 @@ class books_materialController extends commonController
                 'url'=>Input::get('url'),
                 'thumbnail'=>$video_obj->tokenize(Input::get('url'))
             ]);
+        Session::flash('message','video updated Successfully');
         return redirect('videos');
 
     }

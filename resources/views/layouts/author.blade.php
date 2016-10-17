@@ -121,6 +121,10 @@
       <!-- page content -->
       <div class="right_col" role="main">
 
+      @if(Session::has('message'))
+      <div class="alert alert-success">{{Session::get('message')}}</div>
+      @endif
+
         @yield('content')
 
       </div>

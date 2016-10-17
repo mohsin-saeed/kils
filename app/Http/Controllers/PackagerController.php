@@ -7,6 +7,7 @@ use App\categories;
 use App\books;
 use ZipArchive;
 use RecursiveIteratorIterator;
+use Session;
 //use Hash;
 
 use Illuminate\Support\Facades\View;
@@ -34,8 +35,9 @@ class PackagerController extends Controller
         }
 
         $this->zipBookDir($bookDir, 'book');
-
-        print_r($pages);
+        Session::flash('message','Book Package generated successfully');
+        return redirect('admin/books');
+        //print_r($pages);
     }
 
 

@@ -12,6 +12,7 @@ use App\books;
 use App\Videos;
 use App\Quiz;
 use App\Questions;
+use App\User;
 
 //use Hash;
 
@@ -31,7 +32,12 @@ class ApiController extends Controller
 
     public function books() {
         $booksObj = new books();
-        $books    = $booksObj->all();;
+        $author = new User();
+        $books    = $booksObj->all();
+        foreach($books as &$book){
+            $book->user_name = $author->find($book->user_id)->name;
+
+        }
         $books = $books->toArray();
         //$categories = json_encode($categories);
 
@@ -84,9 +90,11 @@ class ApiController extends Controller
     public function videos(){
         $video_obj=new Videos();
         $videos=$video_obj->all();
+        $author = new User();
 
         foreach($videos as &$video){
             $video->thumbnail_url = "https://i.ytimg.com/vi/".$video->thumbnail."/hqdefault.jpg";
+            $video->user_name = $author->find($video->user_id)->name;
         }
 
         $videos=$videos->toArray();

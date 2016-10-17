@@ -9,7 +9,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Gentallela Alela! | </title>
+  <title>KIBG  </title>
 
   <!-- Bootstrap core CSS -->
 
@@ -56,18 +56,18 @@
 
 
                    @include('messages.flash')
-                                      @if (count($errors) > 0)
-                                         <!--  <div class="alert alert-danger">
-                                              <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                              <ul>
-                                                  @foreach ($errors->all() as $error)
-                                                      <li>{{ $error }}</li>
-                                                  @endforeach
-                                              </ul>
-                                          </div> -->
+                      @if (count($errors) > 0)
+                         <!--  <div class="alert alert-danger">
+                              <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div> -->
 
-                                      @endif
-                                     @if(session('message'))
+                      @endif
+                     @if(session('message'))
                     {{session('message')}}
                   @endif
 
@@ -87,16 +87,16 @@
 
                  <div class="form-group">
 
-                            <div class="col-md-12">
-                                                            <div class="@if ($errors->has('email')) has-error @endif">
-                                                              <input type="text" name="email" value="{{Input::old('email')}}" class="form-control input-circle" placeholder="Enter email">
-                                                              @if ($errors->has('email'))
-                                                              <p class="help-block">{{ $errors->first('email') }}</p>
-                                                              @endif
-                                                              </div>
+                <div class="col-md-12">
+                        <div class="@if ($errors->has('email')) has-error @endif">
+                          <input type="text" name="email" value="{{Input::old('email')}}" class="form-control input-circle" placeholder="Enter email">
+                          @if ($errors->has('email'))
+                          <p class="help-block">{{ $errors->first('email') }}</p>
+                          @endif
+                          </div>
 
-                                                          </div>
-                                             </div>
+                      </div>
+         </div>
             <div>
 
 

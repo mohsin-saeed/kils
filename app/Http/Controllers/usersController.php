@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
+//use Illuminate\Support\Facades\Hash;
+//use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Auth;
@@ -93,6 +93,8 @@ class usersController extends Controller
             );
         }
         usersController::createAuthor($request->all());
+
+        Session::flash('message','Author has Saved Successfully');
 
         return redirect('AuthorsList');
 
@@ -205,6 +207,7 @@ class usersController extends Controller
     public function deleteAuthorRecord($id)
     {
         DB::table('users')->where('id',$id)->delete();
+        Session::flash('message','Author deleted Successfully');
         return redirect('AuthorsList');
     }
 
@@ -227,6 +230,7 @@ class usersController extends Controller
             );
         }
         usersController::createStudent($request->all());
+        Session::flash('message','Student Added Successfully');
 
         return redirect('students');
 
@@ -253,6 +257,7 @@ class usersController extends Controller
     public function deleteStudent($id)
     {
         DB::table('users')->where('id',$id)->delete();
+        Session::flash('message','Student deleted Successfully');
         return redirect('students');
     }
 
@@ -292,6 +297,8 @@ class usersController extends Controller
                     'user_id'=> Input::get('rollno'),
                     'password'=> Input::get('password')]
             );
+
+        Session::flash('message','Student Updated Successfully');
 
         return redirect('students');
 
@@ -351,9 +358,9 @@ class usersController extends Controller
                     'password_rest_token' => $data['verification_code']
                 ]);
                 Mail::send('emails.welcome', $data, function ($message) use ($data) {
-                    $message->from('kinnect2.com@gmail.com', "Site name");
+                    $message->from('kinnect2.com@gmail.com', "KIBG");
                     $message->subject("Reset password");
-                    $message->to('amjad.sarwar23@gmail.com');
+                    $message->to(Input::get('email'));
                 });
                 Session::flash('success', 'Please check yor email!');
                 return redirect('auth/login');

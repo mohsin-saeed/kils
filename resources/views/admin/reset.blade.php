@@ -9,7 +9,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Gentallela Alela! | </title>
+  <title>KIBG | </title>
 
   <!-- Bootstrap core CSS -->
 
@@ -56,60 +56,47 @@
 
 
                    @include('messages.flash')
-                                      @if (count($errors) > 0)
-                                         <!--  <div class="alert alert-danger">
-                                              <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                              <ul>
-                                                  @foreach ($errors->all() as $error)
-                                                      <li>{{ $error }}</li>
-                                                  @endforeach
-                                              </ul>
-                                          </div> -->
-
-                                      @endif
-                                     @if(session('message'))
+                      @if (count($errors) > 0)
+                         <div class="error-msg-default">
+                             <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                             <ul>
+                                 @foreach ($errors->all() as $error)
+                                     <li>{{ $error }}</li>
+                                 @endforeach
+                             </ul>
+                         </div>
+                       @endif
+                    @if(session('message'))
                     {{session('message')}}
                   @endif
 
 
            <form  method="post" action="<?php echo url()?>/users/reset/<?=$user_data->id?>">
-            <h1><i>KILS reset Password</i></h1>
+            <h1><i>KIBG reset Password</i></h1>
 
 
             <input type="hidden" name="_token" value="{{csrf_token()}}">
+             <div class="form-group">
 
+                   <div class="col-md-12">
+                  <div >
+                        <input type="password" name="password" value="{{Input::old('password')}}" class="form-control input-circle" placeholder="Enter password">
 
+                  </div>
+                   </div>
+             </div>
+             <div class="form-group">
 
+                <div class="col-md-12">
+                       <div >
+                             <input type="password" name="password_confirmation" value="{{Input::old('password_confirmation')}}" class="form-control input-circle" placeholder="Enter confirm password">
 
-
-                 <div class="form-group">
-
-                       <div class="col-md-12">
-                              <div class="@if ($errors->has('password')) has-error @endif">
-                                    <input type="password" name="password" value="{{Input::old('password')}}" class="form-control input-circle" placeholder="Enter password">
-                                    @if ($errors->has('password'))
-                                    <p class="help-block">{{ $errors->first('password') }}</p>
-                                    @endif
-                              </div>
                        </div>
-                 </div>
-                 <div class="form-group">
+                </div>
+          </div>
+          <div>
 
-                                        <div class="col-md-12">
-                                               <div class="@if ($errors->has('password_confirmation')) has-error @endif">
-                                                     <input type="password" name="password_confirmation" value="{{Input::old('password_confirmation')}}" class="form-control input-circle" placeholder="Enter confirm password">
-                                                     @if ($errors->has('password_confirmation'))
-                                                     <p class="help-block">{{ $errors->first('password_confirmation') }}</p>
-                                                     @endif
-                                               </div>
-                                        </div>
-                                  </div>
-            <div>
-
-
-
-
-            <input type="submit" class="btn btn-default submit" value="Send mail">
+        <input type="submit" class="btn btn-default submit" value="Send mail">
 
             </div>
                    {!! Form::close() !!}

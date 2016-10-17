@@ -69,7 +69,7 @@ use Illuminate\Support\Facades\View;
                 $bg=DB::table('pages')->where('id',$data[0]->page_id)->get() ;
                 $pagedir="/storage/public/pages/";
                 $objectdir="/storage/public/objects/";
-         $DECIDED_WIDTH = 998;// ??
+         $DECIDED_WIDTH = 998;// ?? //Width of screen on which this book will be played - in this case for animation creation we decided on any screen resoluton we will have exct 998px
          $DECIDED_HEIGHT = 561;
 
          $PAGE_WIDTH = 751;
@@ -125,7 +125,7 @@ use Illuminate\Support\Facades\View;
         </div>
     </div>
 
-          <h2 style="background: #1ABB9C;padding-top: 2%;padding-bottom: 2%;border-radius: 5px;padding-left: 29%;color: white;">Chose Animation </h2>
+          <h2 style="background: #1ABB9C;padding-top: 2%;padding-bottom: 2%;border-radius: 5px;padding-left: 29%;color: white;"> Animation </h2>
 
                     <div class="clearfix"></div>
 

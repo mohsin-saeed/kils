@@ -124,6 +124,9 @@ function bindObjectAnimation(object, strArr){
 //}
 
 function playAudio(audio, objId){
+    $.each($('audio'), function () {
+        this.pause(0);
+    });
     audio.play();
     audio.onended = function() {
         setTimeout(function(){

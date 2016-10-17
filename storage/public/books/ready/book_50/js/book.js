@@ -1,0 +1,1 @@
+var bookPages = [{"id":125,"book_id":"50","bg":"page57f01204b400c3.91255975.PNG","updated_at":"2016-10-01","created_at":"2016-10-01","audio":null,"pageNo":1,"pageId":125,"dirPath":"D:\\xampp\\htdocs\\kils\\storage\/public\/books\/ready\/book_50\/pages\/page_1","dirRelPath":"pages\/page_1","bgRelPath":"pages\/page_1\/page57f01204b400c3.91255975.PNG","objects":[]}];

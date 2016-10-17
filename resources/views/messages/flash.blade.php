@@ -8,19 +8,20 @@
 
 
     @if(Session::has('success'))
-        {{--<p style="color: red; font-size: large; font-weight: 500;">--}}
+
         <div class="alert alert-success alert-success fade in" role="alert">
          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">×</span></button>
                       <strong>Congrats!</strong>
-         {{Session::get('success')}}</div>
+
+         </div>
     @endif
 
 
    @if(Session::has('error'))
         <div class="alert alert-warning alert-danger fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">×</span></button>
+          <span aria-hidden="true"></span></button>
           <strong>Sorry!</strong> &nbsp;
            {{Session::get('error')}}
            </div>

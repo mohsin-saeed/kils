@@ -67,6 +67,17 @@
                   <p class="alert alert-info">{{ Session::get('error') }}</p>
                   @endif
 
+                  @if(Session::has('success'))
+
+                  <div class="alert alert-success">
+                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"></span></button>
+                        <strong>Congrats!</strong>
+                        {{ Session::get('success') }}
+
+                   </div>
+              @endif
+
 
           <form  method="post" action='{{url('auth/login')}}'>
             <h1><i>KIBG Login </i></h1>
@@ -131,7 +142,7 @@
 
        <section class="login_content">
 
-           <h1>Create Account</h1>
+           <h1>Create Admin Account</h1>
            <form method="POST" action="{{url('auth/register')}}">
            <input type="hidden" name="_token" value="{{csrf_token()}}">
            <div>
@@ -156,7 +167,7 @@
            <div class="clearfix"></div>
            <div class="separator">
 
-             <p class="change_link">Already a member ?
+             <p class="change_link"><b> Already Register ? </b>
               <a href="<?php echo url()?>" class="to_register"> Log in </a>
              </p>
              <div class="clearfix"></div>
@@ -183,8 +194,8 @@
   <div style="float: left;margin-top: 20%;margin-left: 4%">
       <div class="separator">
 
-        <p class="change_link">New to site?
-          <a href="#toregister" class="to_register"> Create Account </a>
+        <p class="change_link"><b> New to site ?</b>
+          <a href="#toregister" class="to_register"> Register yourself </a>
         </p>
         <div class="clearfix"></div>
         <br>
